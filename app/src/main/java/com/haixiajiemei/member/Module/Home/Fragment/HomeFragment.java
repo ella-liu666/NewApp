@@ -17,6 +17,7 @@ import butterknife.OnClick;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,8 @@ import com.haixiajiemei.member.Module.Home.Contract.HomeStoreImgContract;
 import com.haixiajiemei.member.Module.Home.Model.ImgAndTxt;
 import com.haixiajiemei.member.Module.Home.Present.HomeAdImgPresenter;
 import com.haixiajiemei.member.Module.Home.Present.HomeStoreImgPresenter;
+import com.haixiajiemei.member.Module.Setting.Adapter.SettingItemAdapter;
+import com.haixiajiemei.member.Module.Setting.Fragment.SettingFragment;
 import com.haixiajiemei.member.R;
 import com.haixiajiemei.member.ToolBarActivity;
 import com.jude.rollviewpager.RollPagerView;
@@ -42,13 +45,14 @@ import com.jude.rollviewpager.hintview.ColorPointHintView;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.haixiajiemei.member.Util.FunTools.CreateAlertDialogTool;
 import static com.haixiajiemei.member.Util.Proclaim.INTRODUCTION;
 
-public class HomeFragment extends Fragment implements HomeStoreImgContract.ViewAction, HomeAdImgContract.ViewAction, BrandIntroCallback , VisitorsContract.ViewAction {
+public class HomeFragment extends Fragment implements HomeStoreImgContract.ViewAction, HomeAdImgContract.ViewAction, BrandIntroCallback {
 
     @BindView(R.id.rollpagerview)
     RollPagerView rollPagerView;
@@ -64,20 +68,21 @@ public class HomeFragment extends Fragment implements HomeStoreImgContract.ViewA
     private ArrayList<ImgAndTxt> BrandIntroductionItem = new ArrayList<>();
     private ArrayList<ImgAndTxt> AdIntroductionItem = new ArrayList<>();
     private BrandIntroAdapter adapter;
-    private VisitorsPresenter visitorsPresenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
-        visitorsPresenter=new VisitorsPresenter(this, requireContext(),"kunchiguest");
-        visitorsPresenter.doVisitors();
+
+        Adpresenter = new HomeAdImgPresenter(this, requireContext());
+        Adpresenter.doHomeAdImg();
+        presenter = new HomeStoreImgPresenter(this, requireContext());
+        presenter.doHomeStoreImg();
 
         if (requireContext().getSharedPreferences("Alert", MODE_PRIVATE).getBoolean("Terms", true)) {
             AlertDialogTool();
         }
-
 
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -126,14 +131,6 @@ public class HomeFragment extends Fragment implements HomeStoreImgContract.ViewA
     }
 
     @Override
-    public void VisitorsSuccess() {
-        Adpresenter = new HomeAdImgPresenter(this, requireContext());
-        Adpresenter.doHomeAdImg();
-        presenter = new HomeStoreImgPresenter(this, requireContext());
-        presenter.doHomeStoreImg();
-    }
-
-    @Override
     public void showProgress() {
         getActivity().runOnUiThread(() -> progressBar.setVisibility(View.VISIBLE));
     }
@@ -145,14 +142,10 @@ public class HomeFragment extends Fragment implements HomeStoreImgContract.ViewA
 
     @Override
     public void errorOccurred(String reason) {
-
     }
 
     @Override
     public void onBrandIntroClicked(int position, int id, String title) {
-//                IntroductionFragment introductionFragment=new IntroductionFragment();
-//                switchFragmentToBack(introductionFragment,getActivity());
-
         Intent intent = new Intent(getActivity(), ToolBarActivity.class);
         intent.putExtra("id", id);
         intent.putExtra("title", title);
@@ -167,7 +160,9 @@ public class HomeFragment extends Fragment implements HomeStoreImgContract.ViewA
         WebView webView = (WebView) view.findViewById(R.id.web);
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
+        webView.getSettings().setBlockNetworkImage(false);
         settings.setDefaultTextEncodingName("utf-8");
+        settings.setDatabaseEnabled(true);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl("https://member.haixiajiemei.com/MainSite/LegalAgreement.html");
         builder.setView(view);
@@ -176,7 +171,6 @@ public class HomeFragment extends Fragment implements HomeStoreImgContract.ViewA
             pref.edit()
                     .putBoolean("Terms", false)
                     .commit();
-
 
             dialog.dismiss();
             Field field = null;
@@ -194,7 +188,6 @@ public class HomeFragment extends Fragment implements HomeStoreImgContract.ViewA
         builder.setNegativeButton(R.string.disagree, (dialog, which) -> {
             getActivity().finish();
         });
-
 
         builder.setNeutralButton(R.string.back, (dialog, which) -> {
             webView.goBack();

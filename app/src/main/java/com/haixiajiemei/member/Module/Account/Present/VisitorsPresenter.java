@@ -6,6 +6,7 @@ import com.haixiajiemei.member.Api.Basic.ApiException;
 import com.haixiajiemei.member.Api.DataLoader;
 import com.haixiajiemei.member.Api.Task.Auth.VisitorsTask;
 import com.haixiajiemei.member.Module.Account.Contract.VisitorsContract;
+import com.haixiajiemei.member.Module.Account.Model.SignIn;
 
 public class VisitorsPresenter implements VisitorsContract.PresenterAction {
 
@@ -24,7 +25,7 @@ public class VisitorsPresenter implements VisitorsContract.PresenterAction {
         DataLoader.run(new VisitorsTask(mcontext,Key){
 
             @Override
-            protected void onResult(String s) throws Exception {
+            protected void onResult(SignIn signIn) throws Exception {
                 viewAction.VisitorsSuccess();
             }
 

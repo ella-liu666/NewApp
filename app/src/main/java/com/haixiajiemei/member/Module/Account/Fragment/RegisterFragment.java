@@ -65,20 +65,6 @@ public class RegisterFragment extends Fragment implements RegisterContract.ViewA
         confirm.setTextColor(getResources().getColor(R.color.PureWhite));
         confirm.setTextSize(16);
 
-//        Terms.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (Check) {
-//                    if (Terms.isChecked()) {
-//                        Terms.setChecked(false);
-//                        Check = false;
-//                    }
-//                } else {
-//                    Check = true;
-//                }
-//            }
-//        });
-
         return view;
     }
 
@@ -158,6 +144,8 @@ public class RegisterFragment extends Fragment implements RegisterContract.ViewA
 
     @Override
     public void errorOccurred(String reason) {
-        CreateAlertDialogTool(requireContext(), R.string.note, reason);
+        mHandler.postDelayed(() -> {
+            CreateAlertDialogTool(requireContext(), R.string.note, reason);
+        }, 1);
     }
 }

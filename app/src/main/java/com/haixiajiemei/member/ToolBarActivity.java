@@ -18,7 +18,14 @@ import com.haixiajiemei.member.Module.Setting.Fragment.RechargePlanFragment;
 
 import static com.haixiajiemei.member.Util.FunTools.switchFragmentToActivity;
 import static com.haixiajiemei.member.Util.Proclaim.ACCOUNT;
+import static com.haixiajiemei.member.Util.Proclaim.DISTRIBUTION;
+import static com.haixiajiemei.member.Util.Proclaim.EXPENSESRECORD;
 import static com.haixiajiemei.member.Util.Proclaim.INTRODUCTION;
+import static com.haixiajiemei.member.Util.Proclaim.MEMBERSHIPCARDUPGRADE;
+import static com.haixiajiemei.member.Util.Proclaim.MESSAGECENTER;
+import static com.haixiajiemei.member.Util.Proclaim.MYAPPOINTMENT;
+import static com.haixiajiemei.member.Util.Proclaim.MYORDER;
+import static com.haixiajiemei.member.Util.Proclaim.MYPOST;
 import static com.haixiajiemei.member.Util.Proclaim.RECHARGEPLAN;
 
 public class ToolBarActivity extends AppCompatActivity {
@@ -68,6 +75,34 @@ public class ToolBarActivity extends AppCompatActivity {
                 bundle.putString("title", intent.getExtras().getString("title"));
                 rechargePlanFragment.setArguments(bundle);
                 switchFragmentToActivity(R.id.fragment_Introduction, rechargePlanFragment, this);
+                break;
+            case MESSAGECENTER:
+                toolbar_title.setText(intent.getExtras().getString("title"));
+                toolbar_title.setTextSize(18);
+                break;
+            case MYAPPOINTMENT:
+                toolbar_title.setText(intent.getExtras().getString("title"));
+                toolbar_title.setTextSize(18);
+                break;
+            case MYPOST:
+                toolbar_title.setText(intent.getExtras().getString("title"));
+                toolbar_title.setTextSize(18);
+                break;
+            case MYORDER:
+                toolbar_title.setText(intent.getExtras().getString("title"));
+                toolbar_title.setTextSize(18);
+                break;
+            case EXPENSESRECORD:
+                toolbar_title.setText(intent.getExtras().getString("title"));
+                toolbar_title.setTextSize(18);
+                break;
+            case DISTRIBUTION:
+                toolbar_title.setText(intent.getExtras().getString("title"));
+                toolbar_title.setTextSize(18);
+                break;
+            case MEMBERSHIPCARDUPGRADE:
+                toolbar_title.setText(intent.getExtras().getString("title"));
+                toolbar_title.setTextSize(18);
                 break;
         }
     }

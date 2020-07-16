@@ -25,7 +25,7 @@ public class BrandIntroductionImgPresenter implements BrandIntroductionImgContra
 
     @Override
     public void doBrandIntroductionImg() {
-        DataLoader.run(new BrandIntroductionImgTask(mcontext,Id){
+        DataLoader.run(new BrandIntroductionImgTask(mcontext, Id) {
 
             @Override
             protected void onResult(List<ImgAndTxt> imgAndTxt) throws Exception {
@@ -50,7 +50,6 @@ public class BrandIntroductionImgPresenter implements BrandIntroductionImgContra
             @Override
             protected void onException(Exception e) {
                 viewAction.errorOccurred(e.getMessage());
-                Log.e("bbbb====","gg ="+e.getMessage());
             }
         });
     }

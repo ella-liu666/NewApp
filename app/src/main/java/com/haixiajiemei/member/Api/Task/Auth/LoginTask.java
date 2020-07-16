@@ -36,7 +36,7 @@ public class LoginTask extends DataTask<SignIn> {
         SharedPreferences pref = context.getSharedPreferences("UserToken", MODE_PRIVATE);
         pref.edit()
                 .putString("access_token", response.getAccess_token())
-                .putString("refresh_token", response.getRefresh_token())
+                .putBoolean("loginStatus", response.getLoginStatus())
                 .commit();
 
         return response;

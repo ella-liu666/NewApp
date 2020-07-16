@@ -39,8 +39,6 @@ public class IntroductionFragment extends Fragment implements BrandIntroductionI
         View view = inflater.inflate(R.layout.fragment_introduction, container, false);
         ButterKnife.bind(this, view);
 
-        Log.e("000=====","zz ="+getArguments().getInt("id"));
-
         presenter=new BrandIntroductionImgPresenter(this,requireContext(),getArguments().getInt("id"));
         presenter.doBrandIntroductionImg();
         return view;

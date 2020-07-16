@@ -2,7 +2,7 @@ package com.haixiajiemei.member.Api.Task.Home;
 
 import android.content.Context;
 
-import com.haixiajiemei.member.Api.Rtf.HomeRft;
+import com.haixiajiemei.member.Api.Rtf.HomeRtf;
 import com.haixiajiemei.member.Api.Task.DataTask;
 import com.haixiajiemei.member.Module.Home.Model.ImgAndTxt;
 
@@ -13,13 +13,13 @@ import androidx.annotation.NonNull;
 import static com.haixiajiemei.member.Util.FunTools.JSONArrayToTags;
 
 public class BrandIntroductionImgTask extends DataTask<List<ImgAndTxt>> {
-    private HomeRft api;
+    private HomeRtf api;
 
     private final Context context;
     private final int Id;
 
     public BrandIntroductionImgTask(@NonNull Context context,@NonNull int Id) {
-        api=new HomeRft(context);
+        api=new HomeRtf(context);
 
         this.context = context;
         this.Id = Id;

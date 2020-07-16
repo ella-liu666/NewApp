@@ -4,13 +4,13 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 public class ErrorBody implements Serializable {
-    @SerializedName("statusCode")
+    @SerializedName("ErrorCode")
     private String statusCode;
 
-    @SerializedName("error")
+    @SerializedName("Status")
     private String error;
 
-    @SerializedName("message")
+    @SerializedName("Message")
     private String message;
 
     public String getStatusCode() {

@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottom_navigation_view;
 
     private HomeFragment homeFragment = new HomeFragment();
+//    private SettingFragment settingFragment = new SettingFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +51,13 @@ public class MainActivity extends AppCompatActivity {
                     CreateAlertDialogTool(this);
                     return true;
                 case R.id.navigation_setting:
-                    if(!"".equals(getSharedPreferences("UserToken", MODE_PRIVATE).getString("refresh_token",""))){
+//                    if("".equals(getSharedPreferences("UserToken", MODE_PRIVATE).getString("refresh_token",""))){
+//                        LoginFragment loginFragment = new LoginFragment();
+//                        switchFragmentToActivity(R.id.fragment_container,loginFragment, this);
+//                    }else {
                         SettingFragment settingFragment = new SettingFragment();
                         switchFragmentToActivity(R.id.fragment_container,settingFragment, this);
-                    }else {
-                        LoginFragment loginFragment = new LoginFragment();
-                        switchFragmentToActivity(R.id.fragment_container,loginFragment, this);
-                    }
+//                    }
                     return true;
             }
             return false;

@@ -42,13 +42,6 @@ public class AuthRtf extends BaseRtf<AuthRtf.Service> {
         return this.execute(this.api.login(params.getMap()));
     }
 
-    public String RefreshToken(@NonNull String refreshToken) throws Exception {
-        Params params = new Params();
-        params.putRequired("refreshToken", refreshToken);
-
-        return this.execute(this.api.RefreshToken(params.getMap()));
-    }
-
     public String Forget(@NonNull String userName, @NonNull String telephone, @NonNull String password) throws Exception {
         Params params = new Params();
         params.putRequired("userName", userName);
@@ -58,13 +51,16 @@ public class AuthRtf extends BaseRtf<AuthRtf.Service> {
         return this.execute(this.api.Forget(params.getMap()));
     }
 
-    public String getVisitors(@NonNull String Key) throws Exception {
-        return this.execute(this.api.Visitors(Key));
+    public String getVisitors(@NonNull String SecretKey) throws Exception {
+        Params params = new Params();
+        params.putRequired("SecretKey", SecretKey);
+
+        return this.execute(this.api.Visitors(params.getMap()));
     }
 
     public interface Service {
         @POST("Wallet/Member/Visitors")
-        Call<String> Visitors(@Query("SecretKey") String Key );
+        Call<String> Visitors(@Body Map<String, Object> params);
 
         @POST("Wallet/Member/SignUp")
         Call<String> signUp(@Body Map<String, Object> params);
@@ -72,10 +68,7 @@ public class AuthRtf extends BaseRtf<AuthRtf.Service> {
         @POST("Wallet/Member")
         Call<String> login(@Body Map<String, Object> params);
 
-        @PUT("Wallet/Member")
-        Call<String> RefreshToken(@Body Map<String, Object> params);
-
-        @PUT("Wallet/Member/PassWord")
+        @POST("Wallet/Member/PassWord")
         Call<String> Forget(@Body Map<String, Object> params);
     }
 }

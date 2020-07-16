@@ -14,19 +14,29 @@ import butterknife.OnClick;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.haixiajiemei.member.Helper.GlideApp;
 import com.haixiajiemei.member.Module.Setting.Adapter.SettingItemAdapter;
 import com.haixiajiemei.member.Module.Setting.Contract.SettingItemCallback;
 import com.haixiajiemei.member.R;
 import com.haixiajiemei.member.ToolBarActivity;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import static com.haixiajiemei.member.Util.FunTools.CreateAlertDialogTool;
 import static com.haixiajiemei.member.Util.Proclaim.ACCOUNT;
+import static com.haixiajiemei.member.Util.Proclaim.DISTRIBUTION;
+import static com.haixiajiemei.member.Util.Proclaim.EXPENSESRECORD;
+import static com.haixiajiemei.member.Util.Proclaim.MEMBERSHIPCARDUPGRADE;
+import static com.haixiajiemei.member.Util.Proclaim.MESSAGECENTER;
+import static com.haixiajiemei.member.Util.Proclaim.MYAPPOINTMENT;
+import static com.haixiajiemei.member.Util.Proclaim.MYORDER;
+import static com.haixiajiemei.member.Util.Proclaim.MYPOST;
 import static com.haixiajiemei.member.Util.Proclaim.RECHARGEPLAN;
+import static com.haixiajiemei.member.WelcomeActivity.img;
+import static com.haixiajiemei.member.WelcomeActivity.name;
+import static com.haixiajiemei.member.WelcomeActivity.img2;
+import static com.haixiajiemei.member.WelcomeActivity.name2;
 
 public class SettingFragment extends Fragment implements SettingItemCallback {
     @BindView(R.id.txt_dollar)
@@ -43,6 +53,8 @@ public class SettingFragment extends Fragment implements SettingItemCallback {
     RecyclerView setting_item;
     @BindView(R.id.membership_item)
     RecyclerView membership_item;
+    @BindView(R.id.user_Avatar)
+    ImageView user_Avatar;
 
     private SettingItemAdapter settingItemAdapter;
 
@@ -58,35 +70,22 @@ public class SettingFragment extends Fragment implements SettingItemCallback {
         txt_coupon.setText(getString(R.string.leaf, "0"));
         txt_MembershipCard.setText(getString(R.string.leaf, "0"));
 
+        GlideApp.with(requireContext())
+                .load(R.drawable.avatar)
+                .fitCenter()
+                .into(user_Avatar);
+
         setting_item_init();
-        membership_item_init();
         return view;
     }
 
     private void setting_item_init() {
-        ArrayList<String> name = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.txt_setting_item)));
-        ArrayList<Integer> img = new ArrayList<>();
-        img.add(R.drawable.my_news);
-        img.add(R.drawable.my_reservation);
-        img.add(R.drawable.my_release);
-        img.add(R.drawable.my_order);
-        img.add(R.drawable.expenses_record);
-        img.add(R.drawable.distribution);
-        img.add(R.drawable.membership_card);
-
 
         settingItemAdapter = new SettingItemAdapter(requireContext(), name, img, SettingFragment.this);
         setting_item.setLayoutManager(new LinearLayoutManager(requireContext()));
         setting_item.setAdapter(settingItemAdapter);
-    }
 
-    private void membership_item_init() {
-        ArrayList<String> name = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.txt_membership_item)));
-        ArrayList<Integer> img = new ArrayList<>();
-        img.add(R.drawable.terms);
-        img.add(R.drawable.privacy);
-
-        settingItemAdapter = new SettingItemAdapter(requireContext(), name, img, SettingFragment.this);
+        settingItemAdapter = new SettingItemAdapter(requireContext(), name2, img2, SettingFragment.this);
         membership_item.setLayoutManager(new LinearLayoutManager(requireContext()));
         membership_item.setAdapter(settingItemAdapter);
     }
@@ -112,55 +111,60 @@ public class SettingFragment extends Fragment implements SettingItemCallback {
                 if (title.equals(getString(R.string.Terms))) {
                     Intent intent = new Intent(getActivity(), ToolBarActivity.class);
                     intent.putExtra("Type", RECHARGEPLAN);
-                    intent.putExtra("title", title);
                     startActivity(intent);
                 } else {
-//                    Intent intent = new Intent(getActivity(), ToolBarActivity.class);
-//                    intent.putExtra("Type", MESSAGECENTER);
-//                    startActivity(intent);
+                    Intent intent = new Intent(getActivity(), ToolBarActivity.class);
+                    intent.putExtra("Type", MESSAGECENTER);
+                    intent.putExtra("title", title);
+                    startActivity(intent);
 
-                    CreateAlertDialogTool(requireContext());
+//                    CreateAlertDialogTool(requireContext());
                 }
                 break;
             case 1:
                 if (title.equals(getString(R.string.Privacy))) {
                     Intent intent = new Intent(getActivity(), ToolBarActivity.class);
                     intent.putExtra("Type", RECHARGEPLAN);
-                    intent.putExtra("title", title);
                     startActivity(intent);
                 } else {
-//                    Intent intent = new Intent(getActivity(), ToolBarActivity.class);
-//                    intent.putExtra("Type", MYAPPOINTMENT);
-//                    startActivity(intent);
+                    Intent intent = new Intent(getActivity(), ToolBarActivity.class);
+                    intent.putExtra("Type", MYAPPOINTMENT);
+                    intent.putExtra("title", title);
+                    startActivity(intent);
 
-                    CreateAlertDialogTool(requireContext());
+//                    CreateAlertDialogTool(requireContext());
                 }
                 break;
-//            case 2:
-//                Intent intent = new Intent(getActivity(), ToolBarActivity.class);
-//                intent.putExtra("Type", MYAPPOINTMENT);
-//                startActivity(intent);
-//                break;
-//            case 3:
-//                intent = new Intent(getActivity(), ToolBarActivity.class);
-//                intent.putExtra("Type", MYAPPOINTMENT);
-//                startActivity(intent);
-//                break;
-//            case 4:
-//                intent = new Intent(getActivity(), ToolBarActivity.class);
-//                intent.putExtra("Type", MYAPPOINTMENT);
-//                startActivity(intent);
-//                break;
-//            case 5:
-//                intent = new Intent(getActivity(), ToolBarActivity.class);
-//                intent.putExtra("Type", MYAPPOINTMENT);
-//                startActivity(intent);
-//                break;
-//            case 6:
-//                intent = new Intent(getActivity(), ToolBarActivity.class);
-//                intent.putExtra("Type", MYAPPOINTMENT);
-//                startActivity(intent);
-//                break;
+            case 2:
+                Intent intent = new Intent(getActivity(), ToolBarActivity.class);
+                intent.putExtra("Type", MYPOST);
+                intent.putExtra("title", title);
+                startActivity(intent);
+                break;
+            case 3:
+                intent = new Intent(getActivity(), ToolBarActivity.class);
+                intent.putExtra("Type", MYORDER);
+                intent.putExtra("title", title);
+                startActivity(intent);
+                break;
+            case 4:
+                intent = new Intent(getActivity(), ToolBarActivity.class);
+                intent.putExtra("Type", EXPENSESRECORD);
+                intent.putExtra("title", title);
+                startActivity(intent);
+                break;
+            case 5:
+                intent = new Intent(getActivity(), ToolBarActivity.class);
+                intent.putExtra("Type", DISTRIBUTION);
+                intent.putExtra("title", title);
+                startActivity(intent);
+                break;
+            case 6:
+                intent = new Intent(getActivity(), ToolBarActivity.class);
+                intent.putExtra("Type", MEMBERSHIPCARDUPGRADE);
+                intent.putExtra("title", title);
+                startActivity(intent);
+                break;
                 default:
                     CreateAlertDialogTool(requireContext());
                     break;

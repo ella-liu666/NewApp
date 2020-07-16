@@ -56,19 +56,19 @@ public class LoginFragment extends Fragment implements LoginContract.ViewAction 
         return view;
     }
 
-    @OnClick({R.id.confirm,R.id.txtRegister,R.id.txtForgetPassword})
+    @OnClick({R.id.confirm, R.id.txtRegister, R.id.txtForgetPassword})
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.confirm:
                 presenter.doLogin(getContext(), edit_account.getText().toString(), edit_password.getText().toString());
                 break;
             case R.id.txtRegister:
-                RegisterFragment registerFragment=new RegisterFragment();
-                switchFragmentToBack(registerFragment,requireActivity());
+                RegisterFragment registerFragment = new RegisterFragment();
+                switchFragmentToBack(registerFragment, requireActivity());
                 break;
             case R.id.txtForgetPassword:
-                ForgetFragment forgetFragment=new ForgetFragment();
-                switchFragmentToBack(forgetFragment,requireActivity());
+                ForgetFragment forgetFragment = new ForgetFragment();
+                switchFragmentToBack(forgetFragment, requireActivity());
                 break;
         }
     }
@@ -93,6 +93,8 @@ public class LoginFragment extends Fragment implements LoginContract.ViewAction 
 
     @Override
     public void errorOccurred(String reason) {
-        CreateAlertDialogTool(requireContext(),R.string.note,reason);
+        mHandler.postDelayed(() -> {
+            CreateAlertDialogTool(requireContext(), R.string.note, reason);
+        }, 1);
     }
 }

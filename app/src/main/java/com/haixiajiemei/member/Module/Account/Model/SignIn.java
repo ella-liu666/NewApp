@@ -9,8 +9,8 @@ public class SignIn implements Serializable {
     @SerializedName("access_token")
     private String access_token;
 
-    @SerializedName("refresh_token")
-    private String refresh_token;
+    @SerializedName("loginStatus")
+    private boolean loginStatus;
 
 
 
@@ -18,7 +18,7 @@ public class SignIn implements Serializable {
         return access_token;
     }
 
-    public String getRefresh_token() {
-        return refresh_token;
+    public boolean getLoginStatus() {
+        return loginStatus;
     }
 }

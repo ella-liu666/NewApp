@@ -94,6 +94,8 @@ public class ForgetFragment extends Fragment implements ForgetContract.ViewActio
 
     @Override
     public void errorOccurred(String reason) {
-        CreateAlertDialogTool(requireContext(), R.string.note, reason);
+        mHandler.postDelayed(() -> {
+            CreateAlertDialogTool(requireContext(), R.string.note, reason);
+        }, 1);
     }
 }

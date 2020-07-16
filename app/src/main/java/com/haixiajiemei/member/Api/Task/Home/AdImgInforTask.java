@@ -2,7 +2,7 @@ package com.haixiajiemei.member.Api.Task.Home;
 
 import android.content.Context;
 
-import com.haixiajiemei.member.Api.Rtf.HomeRft;
+import com.haixiajiemei.member.Api.Rtf.HomeRtf;
 import com.haixiajiemei.member.Api.Task.DataTask;
 import com.haixiajiemei.member.Module.Home.Model.ImgAndTxt;
 
@@ -13,10 +13,10 @@ import androidx.annotation.NonNull;
 import static com.haixiajiemei.member.Util.FunTools.JSONArrayToTags;
 
 public class AdImgInforTask  extends DataTask<List<ImgAndTxt>> {
-    private HomeRft api;
+    private HomeRtf api;
 
     public AdImgInforTask(@NonNull Context context) {
-        api=new HomeRft(context);
+        api=new HomeRtf(context);
     }
     @Override
     protected String load() throws Exception {

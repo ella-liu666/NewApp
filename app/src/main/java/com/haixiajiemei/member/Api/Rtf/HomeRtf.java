@@ -6,18 +6,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
 import retrofit2.http.Query;
 
-public class HomeRft extends BaseRtf<HomeRft.Service> {
+public class HomeRtf extends BaseRtf<HomeRtf.Service> {
 
-    public HomeRft(@Nullable Context context) {
+    public HomeRtf(@Nullable Context context) {
         super(context);
     }
 
     @Override
     protected Class<Service> getType() {
-        return HomeRft.Service.class;
+        return HomeRtf.Service.class;
     }
 
     public String getBrandImgInfor() throws Exception {

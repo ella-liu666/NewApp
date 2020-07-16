@@ -5,10 +5,12 @@ import android.content.SharedPreferences;
 
 import com.haixiajiemei.member.Api.Rtf.AuthRtf;
 import com.haixiajiemei.member.Api.Task.DataTask;
+import com.haixiajiemei.member.Module.Account.Model.SignIn;
+import com.haixiajiemei.member.Parser.ClassParser;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class VisitorsTask extends DataTask<String> {
+public class VisitorsTask extends DataTask<SignIn> {
     private AuthRtf api;
 
     private final Context context;
@@ -27,11 +29,14 @@ public class VisitorsTask extends DataTask<String> {
     }
 
     @Override
-    protected String parseData(String s) throws Exception {
+    protected SignIn parseData(String s) throws Exception {
+        SignIn response = ClassParser.toData(s, SignIn.class);
         SharedPreferences pref = context.getSharedPreferences("UserToken", MODE_PRIVATE);
         pref.edit()
-                .putString("access_token", s.replace("\"", ""))
+                .putString("access_token", response.getAccess_token())
+                .putBoolean("loginStatus", response.getLoginStatus())
                 .commit();
-        return s;
+
+        return response;
     }
 }
