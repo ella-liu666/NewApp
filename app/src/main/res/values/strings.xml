@@ -1,0 +1,87 @@
+<resources>
+    <string name="app_name">一心回乡II</string>
+
+    <string name="Healthy_food">保健食品</string>
+    <string name="EcologicalAndVegetables">生态果蔬</string>
+    <string name="BeautyAndBeauty">美颜美妆</string>
+    <string name="Real_food">真食物</string>
+    <string name="FarmStay">农旅民宿</string>
+    <string name="BrandIntroduction">品牌介绍</string>
+    <string name="Ordinary_member">普通会员</string>
+    <string name="Nickname">用户昵称</string>
+    <string name="Currently_accumulated">当前已累积 %s 积分</string>
+    <string name="fraction">%s 分</string>
+    <string name="dollar">%s 元</string>
+    <string name="leaf">%s 張</string>
+    <string name="AccountBalance">账户余额</string>
+    <string name="MyScores">我的积分</string>
+    <string name="coupon">优惠券</string>
+    <string name="MembershipCard">会员卡</string>
+    <string name="brand_introduction">%s品牌介紹</string>
+    <string name="Pickup">自取 \t 外送</string>
+    <string name="txt_Balance">总余额(元)明细</string>
+    <string name="RechargePlan"><u>充值方案</u></string>
+    <string name="RechargeDetails">&#043;点击查看充值明细</string>
+    <string name="BalanceNum">0.00</string>
+    <string name="recharge_centre">充值中心</string>
+    <string name="three_hundred">300元</string>
+    <string name="five_hundred">500元</string>
+    <string name="one_thousand">1000元</string>
+    <string name="two_thousand">2000元</string>
+    <string name="Five_thousand">5000元</string>
+    <string name="txt_Bonus">请输入充值金额，最低1元</string>
+    <string name="mmediate_recharge">立即充值</string>
+    <string name="agree">同意</string>
+    <string name="disagree">不同意</string>
+    <string name="back">返回</string>
+    <string name="Alipay">支付宝</string>
+    <string name="WeChat">微信</string>
+    <string name="MyAccount">我的帐户</string>
+    <string name="Privacy">隐私政策</string>
+    <string name="Terms">服务协议</string>
+    <string name="logo_account">请输入手机号/邮箱</string>
+    <string name="logo_password">请输入密码</string>
+    <string name="Sign_in">登入</string>
+    <string name="registered">注册</string>
+    <string name="confirm">确认</string>
+    <string name="failing">帐号或密码错误</string>
+    <string name="login_register">还没注册吗？ <u><b>注册</b></u></string>
+    <string name="login_forget_password">忘记密码</string>
+    <string name="note">注意</string>
+    <string name="Email">请输入Email</string>
+    <string name="name">请输入姓名</string>
+    <string name="phone">请输入电话</string>
+    <string name="cancel">取消</string>
+    <string name="Exit">确定离开?</string>
+    <string name="Send">送出</string>
+    <string name="not_complete">资料尚未填写完整</string>
+    <string name="enter_password">请输入新密码</string>
+    <string name="enter_second_password">请再次输入新密码</string>
+    <string name="Passwords_are_inconsistent">密码不一致</string>
+    <string name="wrong_format">格式错误</string>
+    <string name="TermsAgree">注册表示同意</string>
+    <string name="registered_Terms">&#032;&#171;服务协议&#187;&#032;</string>
+    <string name="and">及</string>
+    <string name="registered_Privacy">&#032;&#171;隐私政策&#187;&#032;</string>
+    <string name="Unchecked">未勾选同意条款</string>
+
+
+    <string name="UnderConstruction">建置中</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string-array name="txt_setting_item">
+        <item>我的消息</item>
+        <item>我的预约</item>
+        <item>我的发布</item>
+        <item>我的订单</item>
+        <item>消费记录</item>
+        <item>分销</item>
+        <item>会员卡升级</item>
+    </string-array>
+
+    <string-array name="txt_membership_item">
+        <item>服务协议</item>
+        <item>隐私政策</item>
+    </string-array>
+</resources>
