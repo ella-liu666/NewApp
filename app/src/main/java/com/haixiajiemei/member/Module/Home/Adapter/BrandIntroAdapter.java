@@ -52,7 +52,7 @@ public class BrandIntroAdapter extends RecyclerView.Adapter<BrandIntroAdapter.Vi
                     .into(holder.imgleft);
 
             holder.nameleft.setText(BrandIntroductionItem.get(position).getTxt());
-            holder.layoutleft.setOnClickListener(view -> callback.onBrandIntroClicked(position, BrandIntroductionItem.get(position).getId(),BrandIntroductionItem.get(position).getTxt()));
+            holder.layoutleft.setOnClickListener(view -> callback.onBrandIntroClicked(position, BrandIntroductionItem.get(position).getId(), BrandIntroductionItem.get(position).getTxt()));
 
             GlideApp.with(context)
                     .load(BrandIntroductionItem.get(position + 1).getImg().toString())
@@ -61,9 +61,8 @@ public class BrandIntroAdapter extends RecyclerView.Adapter<BrandIntroAdapter.Vi
                     .into(holder.imgright);
 
             holder.nameright.setText(BrandIntroductionItem.get(position + 1).getTxt());
-            holder.layoutright.setOnClickListener(view -> callback.onBrandIntroClicked(position + 1, BrandIntroductionItem.get(position + 1).getId(),BrandIntroductionItem.get(position + 1).getTxt()));
+            holder.layoutright.setOnClickListener(view -> callback.onBrandIntroClicked(position + 1, BrandIntroductionItem.get(position + 1).getId(), BrandIntroductionItem.get(position + 1).getTxt()));
         }
-
     }
 
     @Override
@@ -105,7 +104,6 @@ public class BrandIntroAdapter extends RecyclerView.Adapter<BrandIntroAdapter.Vi
 
         }
     }
-
 
     public void setVisibility(boolean isVisible, View itemView) {
         RecyclerView.LayoutParams param = (RecyclerView.LayoutParams) itemView.getLayoutParams();

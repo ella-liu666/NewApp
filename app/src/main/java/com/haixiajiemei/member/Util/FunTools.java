@@ -8,6 +8,8 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import com.haixiajiemei.member.Module.Home.Model.ImgAndTxt;
+import com.haixiajiemei.member.Module.Setting.Model.MemberInfo;
+import com.haixiajiemei.member.Module.Setting.Model.Recharge;
 import com.haixiajiemei.member.Parser.ClassParser;
 import com.haixiajiemei.member.R;
 
@@ -34,10 +36,10 @@ public class FunTools {
         transaction.commit();
     }
 
-    public static void switchFragmentToBack(Fragment var2, FragmentActivity activity){
+    public static void switchFragmentToBack(int id,Fragment var2, FragmentActivity activity){
         FragmentManager fragmentManager= activity.getSupportFragmentManager();
         FragmentTransaction transaction=fragmentManager.beginTransaction();
-        transaction.replace(R.id.fragment_container, var2);
+        transaction.replace(id, var2);
         //回退
         transaction.addToBackStack(null);
         transaction.commit();
@@ -52,6 +54,22 @@ public class FunTools {
                 JSONObject jsonObject = array.getJSONObject(i);
                 JO = jsonObject.toString();
                 test.add(ClassParser.toData(JO, ImgAndTxt.class));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return test;
+    }
+
+    public static List<Recharge> JSONArrayToRecharge(String JSONArray) {
+        String JO = null;
+        List<Recharge> test=new ArrayList<>();
+        try {
+            org.json.JSONArray array = new JSONArray(JSONArray);
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject jsonObject = array.getJSONObject(i);
+                JO = jsonObject.toString();
+                test.add(ClassParser.toData(JO, Recharge.class));
             }
         } catch (JSONException e) {
             e.printStackTrace();

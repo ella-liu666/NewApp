@@ -64,11 +64,11 @@ public class LoginFragment extends Fragment implements LoginContract.ViewAction 
                 break;
             case R.id.txtRegister:
                 RegisterFragment registerFragment = new RegisterFragment();
-                switchFragmentToBack(registerFragment, requireActivity());
+                switchFragmentToBack(R.id.fragment_container,registerFragment, requireActivity());
                 break;
             case R.id.txtForgetPassword:
                 ForgetFragment forgetFragment = new ForgetFragment();
-                switchFragmentToBack(forgetFragment, requireActivity());
+                switchFragmentToBack(R.id.fragment_container,forgetFragment, requireActivity());
                 break;
         }
     }

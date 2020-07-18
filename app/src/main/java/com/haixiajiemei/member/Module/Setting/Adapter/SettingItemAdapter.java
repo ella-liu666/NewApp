@@ -46,7 +46,6 @@ public class SettingItemAdapter extends RecyclerView.Adapter<SettingItemAdapter.
                 .override(54, 52)
                 .fitCenter()
                 .into(holder.itemimg);
-//        holder.itemimg.setImageResource(img.get(position));
         holder.txt_title.setText(name.get(position));
         holder.Item.setOnClickListener(v -> callback.onSettingItemClicked(position, name.get(position)));
     }

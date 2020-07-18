@@ -19,7 +19,7 @@ import com.haixiajiemei.member.Module.Account.Present.VisitorsPresenter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class WelcomeActivity extends AppCompatActivity implements VisitorsContract.ViewAction{
+public class WelcomeActivity extends AppCompatActivity implements VisitorsContract.ViewAction {
 
     private VisitorsPresenter visitorsPresenter;
     public static ArrayList<String> name;
@@ -36,9 +36,13 @@ public class WelcomeActivity extends AppCompatActivity implements VisitorsContra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         ButterKnife.bind(this);
-
-        visitorsPresenter = new VisitorsPresenter(this, this, "kunchiguest");
-        visitorsPresenter.doVisitors();
+        if ("".equals(getSharedPreferences("UserToken", MODE_PRIVATE).getString("access_token",""))) {
+            visitorsPresenter = new VisitorsPresenter(this, this, "kunchiguest");
+            visitorsPresenter.doVisitors();
+        }else{
+            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+            finish();
+        }
 
         setting_item_init();
     }
@@ -63,21 +67,20 @@ public class WelcomeActivity extends AppCompatActivity implements VisitorsContra
     @Override
     public void VisitorsSuccess() {
         mHandler.postDelayed(() -> {
-            startActivity(new Intent(WelcomeActivity.this,MainActivity.class));
+            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
             finish();
         }, 1);
     }
 
     @Override
     public void showProgress() {
-       runOnUiThread(() -> progressBar.setVisibility(View.VISIBLE));
+        runOnUiThread(() -> progressBar.setVisibility(View.VISIBLE));
     }
 
     @Override
     public void hideProgress() {
-       runOnUiThread(() -> progressBar.setVisibility(View.GONE));
+        runOnUiThread(() -> progressBar.setVisibility(View.GONE));
     }
-
 
     @Override
     public void errorOccurred(String reason) {

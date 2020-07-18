@@ -10,10 +10,12 @@ import butterknife.OnClick;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.haixiajiemei.member.Module.Home.Fragment.IntroductionFragment;
 import com.haixiajiemei.member.Module.Setting.Fragment.AccountFragment;
+import com.haixiajiemei.member.Module.Setting.Fragment.QRCodeFragment;
 import com.haixiajiemei.member.Module.Setting.Fragment.RechargePlanFragment;
 
 import static com.haixiajiemei.member.Util.FunTools.switchFragmentToActivity;
@@ -26,6 +28,7 @@ import static com.haixiajiemei.member.Util.Proclaim.MESSAGECENTER;
 import static com.haixiajiemei.member.Util.Proclaim.MYAPPOINTMENT;
 import static com.haixiajiemei.member.Util.Proclaim.MYORDER;
 import static com.haixiajiemei.member.Util.Proclaim.MYPOST;
+import static com.haixiajiemei.member.Util.Proclaim.QRCODE;
 import static com.haixiajiemei.member.Util.Proclaim.RECHARGEPLAN;
 
 public class ToolBarActivity extends AppCompatActivity {
@@ -103,6 +106,19 @@ public class ToolBarActivity extends AppCompatActivity {
             case MEMBERSHIPCARDUPGRADE:
                 toolbar_title.setText(intent.getExtras().getString("title"));
                 toolbar_title.setTextSize(18);
+                break;
+            case QRCODE:
+                toolbar.setBackgroundColor(getResources().getColor(R.color.original_bg));
+                toolbar_title.setText(R.string.Payment_QR_code);
+                toolbar_title.setTextSize(18);
+                QRCodeFragment qrCodeFragment=new QRCodeFragment();
+                bundle = new Bundle();
+                bundle.putFloat("Balance", intent.getExtras().getFloat("Balance"));
+                if(intent.getExtras().getString("Balance")!=null){
+                    bundle.putString("Balance", intent.getExtras().getString("Balance"));
+                }
+                qrCodeFragment.setArguments(bundle);
+                switchFragmentToActivity(R.id.fragment_Introduction, qrCodeFragment, this);
                 break;
         }
     }

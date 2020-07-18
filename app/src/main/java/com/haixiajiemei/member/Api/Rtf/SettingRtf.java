@@ -8,7 +8,7 @@ import retrofit2.http.GET;
 
 public class SettingRtf extends BaseRtf<SettingRtf.Service>{
 
-    protected SettingRtf(@Nullable Context context) {
+    public SettingRtf(@Nullable Context context) {
         super(context);
     }
 
@@ -17,10 +17,34 @@ public class SettingRtf extends BaseRtf<SettingRtf.Service>{
         return SettingRtf.Service.class;
     }
 
-    public interface Service {
+    public String getRecharge() throws Exception {
+        return this.execute(this.api.Recharge());
+    }
 
-        @GET("Wallet/TradeRecord")
-        Call<String> TradeRecord();
+    public String getMemberInfo() throws Exception {
+        return this.execute(this.api.MemberInfo());
+    }
+
+    public String getQRcodePoint() throws Exception {
+        return this.execute(this.api.QRcodePoint());
+    }
+
+    public String getPoint() throws Exception {
+        return this.execute(this.api.Point());
+    }
+
+    public interface Service {
+        @GET("Wallet/Recharge")
+        Call<String> Recharge();
+
+        @GET("Wallet/MemberInfo")
+        Call<String> MemberInfo();
+
+        @GET("Wallet/QRcodePoint")
+        Call<String> QRcodePoint();
+
+        @GET("Wallet/Point")
+        Call<String> Point();
     }
 
 }

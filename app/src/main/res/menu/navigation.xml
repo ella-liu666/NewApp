@@ -5,18 +5,18 @@
         android:id="@+id/navigation_home"
         android:icon="@drawable/home"
         android:title="首页" />
-    <item
-        android:id="@+id/navigation_order"
-        android:icon="@drawable/order_icon"
-        android:title="点单" />
-    <item
-        android:id="@+id/navigation_organic"
-        android:icon="@drawable/organic_icon"
-        android:title="有机生活" />
-    <item
-        android:id="@+id/navigation_shopping"
-        android:icon="@drawable/shopping_icon"
-        android:title="购物车" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_order"-->
+<!--        android:icon="@drawable/order_icon"-->
+<!--        android:title="点单" />-->
+<!--    <item-->
+<!--        android:id="@+id/navigation_organic"-->
+<!--        android:icon="@drawable/organic_icon"-->
+<!--        android:title="有机生活" />-->
+<!--    <item-->
+<!--        android:id="@+id/navigation_shopping"-->
+<!--        android:icon="@drawable/shopping_icon"-->
+<!--        android:title="购物车" />-->
     <item
         android:id="@+id/navigation_setting"
         android:icon="@drawable/setting_icon"

@@ -211,6 +211,7 @@
                 android:id="@+id/homeIntermediate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="100dp"
                 android:background="@color/PureWhite"
                 android:orientation="vertical">
 
@@ -228,8 +229,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginStart="16dp"
-                    android:orientation="vertical" />
+                    android:layout_marginStart="16dp"/>
 
             </LinearLayout>
         </LinearLayout>

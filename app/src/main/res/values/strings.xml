@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">一心回乡II</string>
+    <string name="app_name">一心回乡会员</string>
 
     <string name="Healthy_food">保健食品</string>
     <string name="EcologicalAndVegetables">生态果蔬</string>
@@ -64,6 +64,11 @@
     <string name="and">及</string>
     <string name="registered_Privacy">&#032;&#171;隐私政策&#187;&#032;</string>
     <string name="Unchecked">未勾选同意条款</string>
+    <string name="QRBalance"><Data><![CDATA[余额<font color="#ff0000"><b>%s</b></font>元]]></Data></string>
+    <string name="txt_QRCode">出示二维码完成支付/身分认证</string>
+    <string name="Payment_QR_code">付款二维码</string>
+    <string name="Recharge">充值</string>
+    <string name="Recharge_Content">通过%s在线充值%s元</string>
 
     <string name="UnderConstruction">建置中</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -71,13 +76,20 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string-array name="txt_setting_item">
         <item>我的消息</item>
-        <item>我的预约</item>
-        <item>我的发布</item>
         <item>我的订单</item>
         <item>消费记录</item>
-        <item>分销</item>
         <item>会员卡升级</item>
     </string-array>
+
+    <!--    <string-array name="txt_setting_item">-->
+    <!--        <item>我的消息</item>-->
+    <!--        <item>我的预约</item>-->
+    <!--        <item>我的发布</item>-->
+    <!--        <item>我的订单</item>-->
+    <!--        <item>消费记录</item>-->
+    <!--        <item>分销</item>-->
+    <!--        <item>会员卡升级</item>-->
+    <!--    </string-array>-->
 
     <string-array name="txt_membership_item">
         <item>服务协议</item>

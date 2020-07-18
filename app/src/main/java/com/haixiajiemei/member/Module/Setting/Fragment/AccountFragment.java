@@ -15,16 +15,23 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.haixiajiemei.member.Module.Setting.Contract.RechargeContract;
+import com.haixiajiemei.member.Module.Setting.Model.Recharge;
+import com.haixiajiemei.member.Module.Setting.Presenter.RechargePresenter;
 import com.haixiajiemei.member.R;
 import com.haixiajiemei.member.ToolBarActivity;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.haixiajiemei.member.Util.FunTools.switchFragmentToBack;
 import static com.haixiajiemei.member.Util.Proclaim.RECHARGEPLAN;
 
 public class AccountFragment extends Fragment {
+
     @BindView(R.id.RechargePlan)
     TextView RechargePlan;
     @BindView(R.id.Statement)
@@ -65,14 +72,14 @@ public class AccountFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         ButterKnife.bind(this, view);
 
         return view;
     }
 
-    @OnClick({R.id.RechargePlan,R.id.three_hundred,R.id.five_hundred,R.id.one_thousand,R.id.two_thousand,R.id.Five_thousand})
+    @OnClick({R.id.RechargePlan,R.id.three_hundred,R.id.five_hundred,R.id.one_thousand,R.id.two_thousand,R.id.Five_thousand,R.id.Statement,R.id.btn_Bonus})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.RechargePlan:
@@ -96,9 +103,13 @@ public class AccountFragment extends Fragment {
             case R.id.Five_thousand:
                 edit_Bonus.setText(txt_Five_thousand.getText().toString());
                 break;
-        }
-    }
+            case R.id.Statement:
+                RechargeRecordFragment rechargeRecordFragment=new RechargeRecordFragment();
+                switchFragmentToBack(R.id.fragment_Introduction,rechargeRecordFragment, requireActivity());
+                break;
+            case R.id.btn_Bonus:
 
-    private void init() {
+                break;
+        }
     }
 }

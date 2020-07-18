@@ -17,7 +17,6 @@ import butterknife.OnClick;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +25,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
-import com.haixiajiemei.member.Module.Account.Contract.VisitorsContract;
-import com.haixiajiemei.member.Module.Account.Present.VisitorsPresenter;
+import com.haixiajiemei.member.Module.Account.Fragment.LoginFragment;
 import com.haixiajiemei.member.Module.Home.Adapter.AdvertisingAdapter;
 import com.haixiajiemei.member.Module.Home.Adapter.BrandIntroAdapter;
 import com.haixiajiemei.member.Module.Home.Contract.BrandIntroCallback;
@@ -36,8 +34,8 @@ import com.haixiajiemei.member.Module.Home.Contract.HomeStoreImgContract;
 import com.haixiajiemei.member.Module.Home.Model.ImgAndTxt;
 import com.haixiajiemei.member.Module.Home.Present.HomeAdImgPresenter;
 import com.haixiajiemei.member.Module.Home.Present.HomeStoreImgPresenter;
-import com.haixiajiemei.member.Module.Setting.Adapter.SettingItemAdapter;
-import com.haixiajiemei.member.Module.Setting.Fragment.SettingFragment;
+import com.haixiajiemei.member.Module.Setting.Contract.PointContract;
+import com.haixiajiemei.member.Module.Setting.Presenter.PointPresenter;
 import com.haixiajiemei.member.R;
 import com.haixiajiemei.member.ToolBarActivity;
 import com.jude.rollviewpager.RollPagerView;
@@ -45,14 +43,14 @@ import com.jude.rollviewpager.hintview.ColorPointHintView;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.haixiajiemei.member.Util.FunTools.CreateAlertDialogTool;
+import static com.haixiajiemei.member.Util.FunTools.switchFragmentToActivity;
 import static com.haixiajiemei.member.Util.Proclaim.INTRODUCTION;
+import static com.haixiajiemei.member.Util.Proclaim.QRCODE;
 
-public class HomeFragment extends Fragment implements HomeStoreImgContract.ViewAction, HomeAdImgContract.ViewAction, BrandIntroCallback {
+public class HomeFragment extends Fragment implements HomeStoreImgContract.ViewAction, HomeAdImgContract.ViewAction, BrandIntroCallback, PointContract.ViewAction {
 
     @BindView(R.id.rollpagerview)
     RollPagerView rollPagerView;
@@ -63,6 +61,7 @@ public class HomeFragment extends Fragment implements HomeStoreImgContract.ViewA
 
     private HomeStoreImgPresenter presenter;
     private HomeAdImgPresenter Adpresenter;
+    private PointPresenter PointPresenter;
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
     private ArrayList<ImgAndTxt> BrandIntroductionItem = new ArrayList<>();
@@ -103,7 +102,13 @@ public class HomeFragment extends Fragment implements HomeStoreImgContract.ViewA
 
     @OnClick(R.id.qrcode)
     public void onClick(View view) {
-        CreateAlertDialogTool(requireContext());
+        if (getActivity().getSharedPreferences("UserToken", MODE_PRIVATE).getBoolean("loginStatus", true)) {
+            PointPresenter = new PointPresenter(this, requireContext());
+            PointPresenter.doPoint();
+        } else {
+            LoginFragment loginFragment = new LoginFragment();
+            switchFragmentToActivity(R.id.fragment_container, loginFragment, requireActivity());
+        }
     }
 
     @Override
@@ -128,6 +133,17 @@ public class HomeFragment extends Fragment implements HomeStoreImgContract.ViewA
             init();
         }, 1);
 
+    }
+
+    @Override
+    public void PointSuccess(String s) {
+        mHandler.postDelayed(() -> {
+            Intent intent = new Intent(getActivity(), ToolBarActivity.class);
+            intent.putExtra("Type", QRCODE);
+            intent.putExtra("title", R.string.Payment_QR_code);
+            intent.putExtra("Balance",s);
+            startActivity(intent);
+        }, 1);
     }
 
     @Override
