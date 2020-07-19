@@ -79,9 +79,16 @@ public class SettingRtf extends BaseRtf<SettingRtf.Service>{
         return this.execute(this.api.sign_out());
     }
 
+    public String getTrade() throws Exception {
+        return this.execute(this.api.Trade());
+    }
+
     public interface Service {
         @GET("Wallet/Recharge")
         Call<String> Recharge();
+
+        @GET("Wallet/Trade")
+        Call<String> Trade();
 
         @GET("Wallet/MemberInfo")
         Call<String> MemberInfo();

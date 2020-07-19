@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.haixiajiemei.member.Module.Home.Fragment.IntroductionFragment;
 import com.haixiajiemei.member.Module.Setting.Fragment.AccountFragment;
+import com.haixiajiemei.member.Module.Setting.Fragment.ExpensesRecordFragment;
 import com.haixiajiemei.member.Module.Setting.Fragment.MembershipCardUpgradeFragment;
 import com.haixiajiemei.member.Module.Setting.Fragment.ProfileFragment;
 import com.haixiajiemei.member.Module.Setting.Fragment.QRCodeFragment;
@@ -119,6 +120,8 @@ public class ToolBarActivity extends AppCompatActivity {
             case EXPENSESRECORD:
                 toolbar_title.setText(intent.getExtras().getString("title"));
                 toolbar_title.setTextSize(18);
+                ExpensesRecordFragment expensesRecordFragment = new ExpensesRecordFragment();
+                switchFragmentToActivity(R.id.fragment_Introduction, expensesRecordFragment, this);
                 break;
             case DISTRIBUTION:
                 toolbar_title.setText(intent.getExtras().getString("title"));

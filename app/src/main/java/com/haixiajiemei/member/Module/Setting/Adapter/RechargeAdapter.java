@@ -20,10 +20,12 @@ public class RechargeAdapter extends RecyclerView.Adapter<RechargeAdapter.ViewHo
 
     private ArrayList<Recharge> Recharge;
     private Context context;
+    private String Type;
 
-    public RechargeAdapter(Context context, ArrayList<Recharge> Recharge) {
+    public RechargeAdapter(Context context, ArrayList<Recharge> Recharge, String Type) {
         this.Recharge = Recharge;
         this.context = context;
+        this.Type = Type;
     }
 
     @NonNull
@@ -34,9 +36,15 @@ public class RechargeAdapter extends RecyclerView.Adapter<RechargeAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.RechargeContent.setText(context.getResources().getString(R.string.Recharge_Content,Recharge.get(position).getPointChargeSource(),String.valueOf(Recharge.get(position).getChargeAmount())));
-        holder.RechargeNum.setText("+"+Recharge.get(position).getPoint());
-        holder.RechargeTime.setText(Recharge.get(position).getPointTradeTime());
+        if(Type.equals("Recharge")){
+            holder.RechargeContent.setText(context.getResources().getString(R.string.Recharge_Content, Recharge.get(position).getPointChargeSource(), String.valueOf(Recharge.get(position).getChargeAmount())));
+            holder.RechargeNum.setText("+" + Recharge.get(position).getPoint());
+            holder.RechargeTime.setText(Recharge.get(position).getPointTradeTime());
+        }else {
+            holder.RechargeContent.setText(context.getResources().getString(R.string.Recharge_Content, Recharge.get(position).getPointChargeSource(), String.valueOf(Recharge.get(position).getChargeAmount())));
+            holder.RechargeNum.setText("-" + Recharge.get(position).getPoint());
+            holder.RechargeTime.setText(Recharge.get(position).getPointTradeTime());
+        }
     }
 
     @Override
