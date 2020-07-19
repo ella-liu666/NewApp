@@ -3,7 +3,6 @@ package com.haixiajiemei.member.Module.Setting.Fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -14,12 +13,13 @@ import android.view.ViewGroup;
 import com.google.android.material.tabs.TabLayout;
 import com.haixiajiemei.member.Module.Setting.Adapter.MembershipCardAdapter;
 import com.haixiajiemei.member.R;
+import com.haixiajiemei.member.Util.CustomViewPager;
 
 public class MembershipCardUpgradeFragment extends Fragment {
     @BindView(R.id.tablelayout)
     TabLayout tablelayout;
     @BindView(R.id.viewpage)
-    ViewPager viewpage;
+    CustomViewPager viewpage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

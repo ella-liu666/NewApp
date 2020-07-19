@@ -43,6 +43,7 @@ import static com.haixiajiemei.member.Util.Proclaim.MYORDER;
 import static com.haixiajiemei.member.Util.Proclaim.MYPOST;
 import static com.haixiajiemei.member.Util.Proclaim.QRCODE;
 import static com.haixiajiemei.member.Util.Proclaim.RECHARGEPLAN;
+import static com.haixiajiemei.member.Util.Proclaim.PROFILE;
 import static com.haixiajiemei.member.WelcomeActivity.img;
 import static com.haixiajiemei.member.WelcomeActivity.name;
 import static com.haixiajiemei.member.WelcomeActivity.img2;
@@ -124,7 +125,8 @@ public class SettingFragment extends Fragment implements SettingItemCallback, Se
                 break;
             case R.id.user_info:
                 intent = new Intent(getActivity(), ToolBarActivity.class);
-                intent.putExtra("Type", ACCOUNT);
+                intent.putExtra("Type", PROFILE);
+                intent.putExtra("title", getString(R.string.personal));
                 startActivity(intent);
                 break;
             case R.id.qrcode:

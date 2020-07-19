@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.haixiajiemei.member.Module.Home.Fragment.IntroductionFragment;
 import com.haixiajiemei.member.Module.Setting.Fragment.AccountFragment;
 import com.haixiajiemei.member.Module.Setting.Fragment.MembershipCardUpgradeFragment;
+import com.haixiajiemei.member.Module.Setting.Fragment.ProfileFragment;
 import com.haixiajiemei.member.Module.Setting.Fragment.QRCodeFragment;
 import com.haixiajiemei.member.Module.Setting.Fragment.RechargePlanFragment;
 
@@ -32,6 +33,7 @@ import static com.haixiajiemei.member.Util.Proclaim.MESSAGECENTER;
 import static com.haixiajiemei.member.Util.Proclaim.MYAPPOINTMENT;
 import static com.haixiajiemei.member.Util.Proclaim.MYORDER;
 import static com.haixiajiemei.member.Util.Proclaim.MYPOST;
+import static com.haixiajiemei.member.Util.Proclaim.PROFILE;
 import static com.haixiajiemei.member.Util.Proclaim.QRCODE;
 import static com.haixiajiemei.member.Util.Proclaim.RECHARGEPLAN;
 import static com.haixiajiemei.member.Util.Proclaim.RECHARGERECORD;
@@ -143,6 +145,12 @@ public class ToolBarActivity extends AppCompatActivity {
                 }
                 qrCodeFragment.setArguments(bundle);
                 switchFragmentToActivity(R.id.fragment_Introduction, qrCodeFragment, this);
+                break;
+            case PROFILE:
+                toolbar_title.setText(intent.getExtras().getString("title"));
+                toolbar_title.setTextSize(18);
+                ProfileFragment profileFragment=new ProfileFragment();
+                switchFragmentToActivity(R.id.fragment_Introduction, profileFragment, this);
                 break;
         }
     }

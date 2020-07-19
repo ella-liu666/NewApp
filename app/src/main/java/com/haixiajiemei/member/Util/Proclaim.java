@@ -13,5 +13,6 @@ public class Proclaim {
     public static final String MEMBERSHIPCARDUPGRADE = "MembershipCardUpgradeFragment";
     public static final String QRCODE = "QRCodeFragment";
     public static final String RECHARGERECORD = "RechargeRecordFragment";
+    public static final String PROFILE = "ProfileFragment";
 
 }

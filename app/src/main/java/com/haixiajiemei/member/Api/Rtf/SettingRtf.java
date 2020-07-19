@@ -2,9 +2,16 @@ package com.haixiajiemei.member.Api.Rtf;
 
 import android.content.Context;
 
+import com.haixiajiemei.member.Api.Basic.Params;
+
+import java.util.Map;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 public class SettingRtf extends BaseRtf<SettingRtf.Service>{
 
@@ -49,6 +56,29 @@ public class SettingRtf extends BaseRtf<SettingRtf.Service>{
         return this.execute(this.api.MonthCardBuy());
     }
 
+    public String getProfile() throws Exception {
+        return this.execute(this.api.Profile());
+    }
+
+    public String getProfileName(@NonNull String name) throws Exception {
+        Params params = new Params();
+        params.putRequired("name", name);
+
+        return this.execute(this.api.ProfileName(params.getMap()));
+    }
+
+    public String getProfilePwd(@NonNull String nowPassword,@NonNull String newPassword) throws Exception {
+        Params params = new Params();
+        params.putRequired("nowPassword", nowPassword);
+        params.putRequired("newPassword", newPassword);
+
+        return this.execute(this.api.ProfilePwd(params.getMap()));
+    }
+
+    public String getsign_out() throws Exception {
+        return this.execute(this.api.sign_out());
+    }
+
     public interface Service {
         @GET("Wallet/Recharge")
         Call<String> Recharge();
@@ -73,6 +103,18 @@ public class SettingRtf extends BaseRtf<SettingRtf.Service>{
 
         @GET("Wallet/MonthCardBuy")
         Call<String> MonthCardBuy();
+
+        @GET("Wallet/Member/Profile")
+        Call<String> Profile();
+
+        @POST("Wallet/Member/ProfilePwd")
+        Call<String> ProfilePwd(@Body Map<String, Object> params);
+
+        @POST("Wallet/Member/ProfileName")
+        Call<String> ProfileName(@Body Map<String, Object> params);
+
+        @GET("Wallet/Member/LogOut")
+        Call<String> sign_out();
     }
 
 }

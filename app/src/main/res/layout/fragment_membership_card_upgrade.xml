@@ -16,7 +16,7 @@
         app:tabIndicatorColor="@color/black"
         android:layout_alignParentStart="true"/>
 
-    <androidx.viewpager.widget.ViewPager
+    <com.haixiajiemei.member.Util.CustomViewPager
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/viewpage"
