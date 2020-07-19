@@ -1,6 +1,5 @@
 package com.haixiajiemei.member.Util;
 
-
 public class Proclaim {
     public static final String INTRODUCTION = "IntroductionFragment";
     public static final String ACCOUNT = "AccountFragment";
@@ -13,5 +12,6 @@ public class Proclaim {
     public static final String DISTRIBUTION = "DistributionFragment";
     public static final String MEMBERSHIPCARDUPGRADE = "MembershipCardUpgradeFragment";
     public static final String QRCODE = "QRCodeFragment";
+    public static final String RECHARGERECORD = "RechargeRecordFragment";
 
 }

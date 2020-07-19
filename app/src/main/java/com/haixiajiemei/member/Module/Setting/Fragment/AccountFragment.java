@@ -1,6 +1,7 @@
 package com.haixiajiemei.member.Module.Setting.Fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -27,6 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.haixiajiemei.member.Util.FunTools.CreateAlertDialogTool;
 import static com.haixiajiemei.member.Util.FunTools.switchFragmentToBack;
 import static com.haixiajiemei.member.Util.Proclaim.RECHARGEPLAN;
 
@@ -71,7 +73,7 @@ public class AccountFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         ButterKnife.bind(this, view);
@@ -79,7 +81,7 @@ public class AccountFragment extends Fragment {
         return view;
     }
 
-    @OnClick({R.id.RechargePlan,R.id.three_hundred,R.id.five_hundred,R.id.one_thousand,R.id.two_thousand,R.id.Five_thousand,R.id.Statement,R.id.btn_Bonus})
+    @OnClick({R.id.RechargePlan, R.id.three_hundred, R.id.five_hundred, R.id.one_thousand, R.id.two_thousand, R.id.Five_thousand, R.id.Statement, R.id.btn_Bonus})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.RechargePlan:
@@ -104,11 +106,38 @@ public class AccountFragment extends Fragment {
                 edit_Bonus.setText(txt_Five_thousand.getText().toString());
                 break;
             case R.id.Statement:
-                RechargeRecordFragment rechargeRecordFragment=new RechargeRecordFragment();
-                switchFragmentToBack(R.id.fragment_Introduction,rechargeRecordFragment, requireActivity());
+                RechargeRecordFragment rechargeRecordFragment = new RechargeRecordFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("title", "Statement");
+                rechargeRecordFragment.setArguments(bundle);
+                switchFragmentToBack(R.id.fragment_Introduction, rechargeRecordFragment, requireActivity());
                 break;
             case R.id.btn_Bonus:
+                if (WeChat.isChecked()) {
+                    try {//喚醒app
+                        intent = new Intent();
+                        intent.setAction(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse("weixin://wap/pay?"));//微信
+                        startActivity(intent);
+                    } catch (android.content.ActivityNotFoundException e) {
+                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://weixin.qq.com/"));//微信
+                        startActivity(intent);
 
+                    }
+                }else if(Alipay.isChecked()){
+                    try {//喚醒app
+                        intent = new Intent();
+                        intent.setAction(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse("alipays://platformapi/startApp"));//支付寶
+                        startActivity(intent);
+                    } catch (android.content.ActivityNotFoundException e) {
+                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://cshall.alipay.com/lab/help_detail.htm?help_id=255346"));//支付寶
+                        startActivity(intent);
+
+                    }
+                }else {
+                    CreateAlertDialogTool(requireContext(),R.string.note,R.string.Please_Select_Mode_of_Payment);
+                }
                 break;
         }
     }

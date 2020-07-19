@@ -1,8 +1,11 @@
 package com.haixiajiemei.member;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -30,6 +33,7 @@ import static com.haixiajiemei.member.Util.Proclaim.MYORDER;
 import static com.haixiajiemei.member.Util.Proclaim.MYPOST;
 import static com.haixiajiemei.member.Util.Proclaim.QRCODE;
 import static com.haixiajiemei.member.Util.Proclaim.RECHARGEPLAN;
+import static com.haixiajiemei.member.Util.Proclaim.RECHARGERECORD;
 
 public class ToolBarActivity extends AppCompatActivity {
     @BindView(R.id.toolbar_title)
@@ -49,6 +53,18 @@ public class ToolBarActivity extends AppCompatActivity {
         init();
 
 
+    }
+
+    @Override
+    public void onAttachFragment(@NonNull Fragment fragment) {
+        super.onAttachFragment(fragment);
+        if(fragment.getArguments()!=null){
+            if(fragment.getArguments().getString("title").equals("Statement")){
+                toolbar_title.setTextColor(getResources().getColor(R.color.PureWhite));
+                toolbar_title.setText(R.string.title_RechargeDetails);
+                toolbar_title.setTextSize(18);
+            }
+        }
     }
 
     private void init() {
