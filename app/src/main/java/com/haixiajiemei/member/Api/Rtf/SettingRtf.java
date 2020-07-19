@@ -33,6 +33,22 @@ public class SettingRtf extends BaseRtf<SettingRtf.Service>{
         return this.execute(this.api.Point());
     }
 
+    public String getVIPCard() throws Exception {
+        return this.execute(this.api.VIPCard());
+    }
+
+    public String getMonthCard() throws Exception {
+        return this.execute(this.api.MonthCard());
+    }
+
+    public String getVIPCardBuy() throws Exception {
+        return this.execute(this.api.VIPCardBuy());
+    }
+
+    public String getMonthCardBuy() throws Exception {
+        return this.execute(this.api.MonthCardBuy());
+    }
+
     public interface Service {
         @GET("Wallet/Recharge")
         Call<String> Recharge();
@@ -45,6 +61,18 @@ public class SettingRtf extends BaseRtf<SettingRtf.Service>{
 
         @GET("Wallet/Point")
         Call<String> Point();
+
+        @GET("Wallet/VIPCard")
+        Call<String> VIPCard();
+
+        @GET("Wallet/MonthCard")
+        Call<String> MonthCard();
+
+        @GET("Wallet/VIPCardBuy")
+        Call<String> VIPCardBuy();
+
+        @GET("Wallet/MonthCardBuy")
+        Call<String> MonthCardBuy();
     }
 
 }

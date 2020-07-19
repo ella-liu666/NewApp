@@ -14,6 +14,7 @@ import butterknife.OnClick;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,6 +108,7 @@ public class SettingFragment extends Fragment implements SettingItemCallback, Se
             case R.id.Balance:
                 Intent intent = new Intent(getActivity(), ToolBarActivity.class);
                 intent.putExtra("Type", ACCOUNT);
+                intent.putExtra("Balance",Balance);
                 startActivity(intent);
                 break;
             case R.id.Coupon:
@@ -116,7 +118,8 @@ public class SettingFragment extends Fragment implements SettingItemCallback, Se
                 break;
             case R.id.MembershipCard:
                 intent = new Intent(getActivity(), ToolBarActivity.class);
-                intent.putExtra("Type", ACCOUNT);
+                intent.putExtra("Type", MEMBERSHIPCARDUPGRADE);
+                intent.putExtra("title", getString(R.string.MembershipCard));
                 startActivity(intent);
                 break;
             case R.id.user_info:

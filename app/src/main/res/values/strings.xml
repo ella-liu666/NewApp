@@ -71,6 +71,8 @@
     <string name="Recharge_Content">通过%s在线充值%s元</string>
     <string name="Please_Select_Mode_of_Payment">请选择支付方式</string>
     <string name="title_RechargeDetails">充值明细</string>
+    <string name="VIP_MembershipCard">VIP会员卡</string>
+    <string name="VIP_MonthlyCard">VIP月卡</string>
 
     <string name="UnderConstruction">建置中</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -96,5 +98,10 @@
     <string-array name="txt_membership_item">
         <item>服务协议</item>
         <item>隐私政策</item>
+    </string-array>
+
+    <string-array name="tab_membership_card">
+        <item>购买会员卡</item>
+        <item>我的会员卡</item>
     </string-array>
 </resources>

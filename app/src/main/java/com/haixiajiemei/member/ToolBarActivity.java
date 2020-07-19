@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.haixiajiemei.member.Module.Home.Fragment.IntroductionFragment;
 import com.haixiajiemei.member.Module.Setting.Fragment.AccountFragment;
+import com.haixiajiemei.member.Module.Setting.Fragment.MembershipCardUpgradeFragment;
 import com.haixiajiemei.member.Module.Setting.Fragment.QRCodeFragment;
 import com.haixiajiemei.member.Module.Setting.Fragment.RechargePlanFragment;
 
@@ -52,14 +53,13 @@ public class ToolBarActivity extends AppCompatActivity {
 
         init();
 
-
     }
 
     @Override
     public void onAttachFragment(@NonNull Fragment fragment) {
         super.onAttachFragment(fragment);
-        if(fragment.getArguments()!=null){
-            if(fragment.getArguments().getString("title").equals("Statement")){
+        if (fragment.getArguments() != null && fragment.getArguments().getString("title") != null) {
+            if (fragment.getArguments().getString("title").equals("Statement")) {
                 toolbar_title.setTextColor(getResources().getColor(R.color.PureWhite));
                 toolbar_title.setText(R.string.title_RechargeDetails);
                 toolbar_title.setTextSize(18);
@@ -86,6 +86,9 @@ public class ToolBarActivity extends AppCompatActivity {
                 drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
                 toolbar_title.setCompoundDrawables(drawable, null, null, null);
                 AccountFragment accountFragment = new AccountFragment();
+                bundle = new Bundle();
+                bundle.putFloat("Balance", intent.getExtras().getFloat("Balance"));
+                accountFragment.setArguments(bundle);
                 switchFragmentToActivity(R.id.fragment_Introduction, accountFragment, this);
                 break;
             case RECHARGEPLAN:
@@ -122,15 +125,20 @@ public class ToolBarActivity extends AppCompatActivity {
             case MEMBERSHIPCARDUPGRADE:
                 toolbar_title.setText(intent.getExtras().getString("title"));
                 toolbar_title.setTextSize(18);
+                MembershipCardUpgradeFragment membershipCardUpgradeFragment=new MembershipCardUpgradeFragment();
+                bundle = new Bundle();
+                bundle.putString("title", intent.getExtras().getString("title"));
+                membershipCardUpgradeFragment.setArguments(bundle);
+                switchFragmentToActivity(R.id.fragment_Introduction, membershipCardUpgradeFragment, this);
                 break;
             case QRCODE:
                 toolbar.setBackgroundColor(getResources().getColor(R.color.original_bg));
                 toolbar_title.setText(R.string.Payment_QR_code);
                 toolbar_title.setTextSize(18);
-                QRCodeFragment qrCodeFragment=new QRCodeFragment();
+                QRCodeFragment qrCodeFragment = new QRCodeFragment();
                 bundle = new Bundle();
                 bundle.putFloat("Balance", intent.getExtras().getFloat("Balance"));
-                if(intent.getExtras().getString("Balance")!=null){
+                if (intent.getExtras().getString("Balance") != null) {
                     bundle.putString("Balance", intent.getExtras().getString("Balance"));
                 }
                 qrCodeFragment.setArguments(bundle);

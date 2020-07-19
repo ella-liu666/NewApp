@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,8 @@ public class AccountFragment extends Fragment {
     TextView txt_two_thousand;
     @BindView(R.id.txt_Five_thousand)
     TextView txt_Five_thousand;
+    @BindView(R.id.BalanceNum)
+    TextView BalanceNum;
 
     @BindView(R.id.payment_method)
     RadioGroup payment_method;
@@ -77,7 +80,7 @@ public class AccountFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         ButterKnife.bind(this, view);
-
+        BalanceNum.setText(String.valueOf(getArguments().getFloat("Balance")));
         return view;
     }
 
