@@ -18,6 +18,7 @@ public class OrderFragment extends Fragment {
 
     @BindView(R.id.PickupMethod)
     Switch PickupMethod;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
