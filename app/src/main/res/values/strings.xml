@@ -81,6 +81,10 @@
     <string name="sign_out">退出登陆</string>
     <string name="Coupon">优惠券</string>
     <string name="Warning">* 最终解释权归%s所有</string>
+    <string name="Denomination">面额：¥</string>
+    <string name="Restricted_stores">限用店家:</string>
+    <string name="deadline">截止日期：</string>
+    <string name="checkout"><u>去结帐</u></string>
 
     <string name="UnderConstruction">建置中</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>

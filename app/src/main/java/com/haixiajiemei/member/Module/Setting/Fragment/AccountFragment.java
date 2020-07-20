@@ -80,7 +80,11 @@ public class AccountFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         ButterKnife.bind(this, view);
-        BalanceNum.setText(String.valueOf(getArguments().getFloat("Balance")));
+        if (getArguments().getString("Balance") != null) {
+            BalanceNum.setText(String.valueOf(getArguments().getString("Balance")));
+        } else {
+            BalanceNum.setText(String.valueOf(getArguments().getFloat("Balance")));
+        }
         return view;
     }
 
@@ -127,7 +131,7 @@ public class AccountFragment extends Fragment {
                         startActivity(intent);
 
                     }
-                }else if(Alipay.isChecked()){
+                } else if (Alipay.isChecked()) {
                     try {//喚醒app
                         intent = new Intent();
                         intent.setAction(Intent.ACTION_VIEW);
@@ -138,8 +142,8 @@ public class AccountFragment extends Fragment {
                         startActivity(intent);
 
                     }
-                }else {
-                    CreateAlertDialogTool(requireContext(),R.string.note,R.string.Please_Select_Mode_of_Payment);
+                } else {
+                    CreateAlertDialogTool(requireContext(), R.string.note, R.string.Please_Select_Mode_of_Payment);
                 }
                 break;
         }

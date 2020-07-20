@@ -1,5 +1,6 @@
 package com.haixiajiemei.member.Module.Setting.Fragment;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
@@ -11,6 +12,7 @@ import butterknife.OnClick;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +24,11 @@ import com.google.zxing.WriterException;
 import com.haixiajiemei.member.Module.Setting.Contract.QRcodePointContract;
 import com.haixiajiemei.member.Module.Setting.Presenter.QRcodePointPresenter;
 import com.haixiajiemei.member.R;
+import com.haixiajiemei.member.ToolBarActivity;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import static com.haixiajiemei.member.Util.FunTools.switchFragmentToActivity;
+import static com.haixiajiemei.member.Util.Proclaim.ACCOUNT;
 
 public class QRCodeFragment extends Fragment implements QRcodePointContract.ViewAction {
 
@@ -55,8 +59,15 @@ public class QRCodeFragment extends Fragment implements QRcodePointContract.View
 
     @OnClick(R.id.btn_Recharge)
     public void onClick(View view) {
-        AccountFragment accountFragment = new AccountFragment();
-        switchFragmentToActivity(R.id.fragment_Introduction, accountFragment, requireActivity());
+        Intent intent = new Intent(getActivity(), ToolBarActivity.class);
+        intent.putExtra("Type", ACCOUNT);
+        if (getArguments().getString("Balance") != null) {
+            intent.putExtra("Balance", getArguments().getString("Balance"));
+        } else {
+            intent.putExtra("Balance", getArguments().getFloat("Balance"));
+        }
+        startActivity(intent);
+        getActivity().finish();
     }
 
     @Override

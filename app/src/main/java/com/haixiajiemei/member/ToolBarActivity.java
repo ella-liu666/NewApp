@@ -94,7 +94,12 @@ public class ToolBarActivity extends AppCompatActivity {
                 toolbar_title.setCompoundDrawables(drawable, null, null, null);
                 AccountFragment accountFragment = new AccountFragment();
                 bundle = new Bundle();
-                bundle.putFloat("Balance", intent.getExtras().getFloat("Balance"));
+                if (intent.getExtras().getString("Balance")!=null) {
+                    Log.e("444====","ff ="+intent.getExtras().getString("Balance"));
+                    bundle.putString("Balance", intent.getExtras().getString("Balance"));
+                }else {
+                    bundle.putFloat("Balance", intent.getExtras().getFloat("Balance"));
+                }
                 accountFragment.setArguments(bundle);
                 switchFragmentToActivity(R.id.fragment_Introduction, accountFragment, this);
                 break;
@@ -108,7 +113,7 @@ public class ToolBarActivity extends AppCompatActivity {
             case MESSAGECENTER:
                 toolbar_title.setText(intent.getExtras().getString("title"));
                 toolbar_title.setTextSize(18);
-                MessageCenterFragment messageCenterFragment=new MessageCenterFragment();
+                MessageCenterFragment messageCenterFragment = new MessageCenterFragment();
                 switchFragmentToActivity(R.id.fragment_Introduction, messageCenterFragment, this);
                 break;
             case MYAPPOINTMENT:
@@ -122,7 +127,7 @@ public class ToolBarActivity extends AppCompatActivity {
             case MYORDER:
                 toolbar_title.setText(intent.getExtras().getString("title"));
                 toolbar_title.setTextSize(18);
-                MyOrderFragment myOrderFragment=new MyOrderFragment();
+                MyOrderFragment myOrderFragment = new MyOrderFragment();
                 switchFragmentToActivity(R.id.fragment_Introduction, myOrderFragment, this);
                 break;
             case EXPENSESRECORD:
@@ -138,7 +143,7 @@ public class ToolBarActivity extends AppCompatActivity {
             case MEMBERSHIPCARDUPGRADE:
                 toolbar_title.setText(intent.getExtras().getString("title"));
                 toolbar_title.setTextSize(18);
-                MembershipCardUpgradeFragment membershipCardUpgradeFragment=new MembershipCardUpgradeFragment();
+                MembershipCardUpgradeFragment membershipCardUpgradeFragment = new MembershipCardUpgradeFragment();
                 bundle = new Bundle();
                 bundle.putString("title", intent.getExtras().getString("title"));
                 membershipCardUpgradeFragment.setArguments(bundle);
@@ -160,14 +165,14 @@ public class ToolBarActivity extends AppCompatActivity {
             case PROFILE:
                 toolbar_title.setText(intent.getExtras().getString("title"));
                 toolbar_title.setTextSize(18);
-                ProfileFragment profileFragment=new ProfileFragment();
+                ProfileFragment profileFragment = new ProfileFragment();
                 switchFragmentToActivity(R.id.fragment_Introduction, profileFragment, this);
                 break;
 
             case COUPON:
                 toolbar_title.setText(intent.getExtras().getString("title"));
                 toolbar_title.setTextSize(18);
-                CouponFragment couponFragment=new CouponFragment();
+                CouponFragment couponFragment = new CouponFragment();
                 switchFragmentToActivity(R.id.fragment_Introduction, couponFragment, this);
                 break;
         }

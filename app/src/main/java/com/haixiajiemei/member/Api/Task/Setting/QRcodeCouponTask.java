@@ -5,17 +5,18 @@ import android.content.Context;
 import com.haixiajiemei.member.Api.Rtf.SettingRtf;
 import com.haixiajiemei.member.Api.Task.DataTask;
 
+import androidx.annotation.NonNull;
+
 public class QRcodeCouponTask extends DataTask<String> {
     private SettingRtf api;
 
-    private Context context;
     private int accountCouponMapID;
     private float denomination;
     private String name;
     private String storeName;
     private String dueTime;
 
-    public QRcodeCouponTask(int accountCouponMapID, float denomination, String name, String storeName, String dueTime) {
+    public QRcodeCouponTask(@NonNull Context context,int accountCouponMapID, float denomination, String name, String storeName, String dueTime) {
         api = new SettingRtf(context);
 
         this.accountCouponMapID = accountCouponMapID;

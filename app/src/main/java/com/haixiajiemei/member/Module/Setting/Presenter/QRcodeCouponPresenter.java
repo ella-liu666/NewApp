@@ -20,7 +20,7 @@ public class QRcodeCouponPresenter implements QRcodeCouponContract.PresenterActi
 
     @Override
     public void doQRcodeCoupon(Context context, int accountCouponMapID, float denomination, String name, String storeName, String dueTime) {
-        DataLoader.run(new QRcodeCouponTask(accountCouponMapID,denomination,name,storeName,dueTime){
+        DataLoader.run(new QRcodeCouponTask(mcontext,accountCouponMapID,denomination,name,storeName,dueTime){
 
             @Override
             protected void onResult(String s) throws Exception {
