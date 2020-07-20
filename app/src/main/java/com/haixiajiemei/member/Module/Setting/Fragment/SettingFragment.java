@@ -34,6 +34,7 @@ import java.util.List;
 
 import static com.haixiajiemei.member.Util.FunTools.CreateAlertDialogTool;
 import static com.haixiajiemei.member.Util.Proclaim.ACCOUNT;
+import static com.haixiajiemei.member.Util.Proclaim.COUPON;
 import static com.haixiajiemei.member.Util.Proclaim.DISTRIBUTION;
 import static com.haixiajiemei.member.Util.Proclaim.EXPENSESRECORD;
 import static com.haixiajiemei.member.Util.Proclaim.MEMBERSHIPCARDUPGRADE;
@@ -114,7 +115,8 @@ public class SettingFragment extends Fragment implements SettingItemCallback, Se
                 break;
             case R.id.Coupon:
                 intent = new Intent(getActivity(), ToolBarActivity.class);
-                intent.putExtra("Type", ACCOUNT);
+                intent.putExtra("Type", COUPON);
+                intent.putExtra("title", getString(R.string.Coupon));
                 startActivity(intent);
                 break;
             case R.id.MembershipCard:

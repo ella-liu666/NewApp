@@ -51,7 +51,7 @@ public class RechargeRecordFragment extends Fragment implements RechargeContract
             ArrayList<Recharge> Recharge = new ArrayList<>();
             Recharge.addAll(rechargeList);
 
-            rechargeAdapter = new RechargeAdapter(requireContext(), Recharge,"Recharge");
+            rechargeAdapter = new RechargeAdapter(requireContext(), Recharge);
             RechargeRecord.setLayoutManager(new LinearLayoutManager(requireContext()));
             RechargeRecord.setAdapter(rechargeAdapter);
         }, 1);

@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Module.Setting.Fragment.CouponFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:id="@+id/tablelayout"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        app:tabIndicatorFullWidth="false"
+        app:tabIndicatorColor="@color/black"
+        android:layout_alignParentStart="true"/>
 
-</FrameLayout>
+    <com.haixiajiemei.member.Util.CustomViewPager
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/viewpage"
+        android:layout_below="@+id/tablelayout"
+        android:layout_alignParentStart="true"/>
+
+</RelativeLayout>

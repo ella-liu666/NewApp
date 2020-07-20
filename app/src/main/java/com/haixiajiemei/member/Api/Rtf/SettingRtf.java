@@ -83,6 +83,30 @@ public class SettingRtf extends BaseRtf<SettingRtf.Service>{
         return this.execute(this.api.Trade());
     }
 
+    public String getCouponUnused() throws Exception {
+        return this.execute(this.api.CouponUnused());
+    }
+
+    public String getCouponUsed() throws Exception {
+        return this.execute(this.api.CouponUsed());
+    }
+
+    public String getCouponExpired() throws Exception {
+        return this.execute(this.api.CouponExpired());
+    }
+
+    public String QRcodeCoupon(@NonNull int accountCouponMapID, @NonNull float denomination,
+            @NonNull String name, @NonNull String storeName, @NonNull String dueTime) throws Exception {
+        Params params = new Params();
+        params.putRequired("accountCouponMapID", accountCouponMapID);
+        params.putRequired("denomination", denomination);
+        params.putRequired("name", name);
+        params.putRequired("storeName", storeName);
+        params.putRequired("dueTime", dueTime);
+
+        return this.execute(this.api.QRcodeCoupon(params.getMap()));
+    }
+
     public interface Service {
         @GET("Wallet/Recharge")
         Call<String> Recharge();
@@ -95,6 +119,9 @@ public class SettingRtf extends BaseRtf<SettingRtf.Service>{
 
         @GET("Wallet/QRcodePoint")
         Call<String> QRcodePoint();
+
+        @POST("Wallet/QRcodeCoupon")
+        Call<String> QRcodeCoupon(@Body Map<String, Object> params);
 
         @GET("Wallet/Point")
         Call<String> Point();
@@ -110,6 +137,15 @@ public class SettingRtf extends BaseRtf<SettingRtf.Service>{
 
         @GET("Wallet/MonthCardBuy")
         Call<String> MonthCardBuy();
+
+        @GET("Wallet/CouponUnused")
+        Call<String> CouponUnused();
+
+        @GET("Wallet/CouponUsed")
+        Call<String> CouponUsed();
+
+        @GET("Wallet/CouponExpired")
+        Call<String> CouponExpired();
 
         @GET("Wallet/Member/Profile")
         Call<String> Profile();

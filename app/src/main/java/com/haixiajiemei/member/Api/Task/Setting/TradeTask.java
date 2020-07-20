@@ -4,15 +4,15 @@ import android.content.Context;
 
 import com.haixiajiemei.member.Api.Rtf.SettingRtf;
 import com.haixiajiemei.member.Api.Task.DataTask;
-import com.haixiajiemei.member.Module.Setting.Model.Recharge;
+import com.haixiajiemei.member.Module.Setting.Model.Expenses;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 
-import static com.haixiajiemei.member.Util.FunTools.JSONArrayToRecharge;
+import static com.haixiajiemei.member.Util.FunTools.JSONArrayToExpenses;
 
-public class TradeTask  extends DataTask<List<Recharge>> {
+public class TradeTask  extends DataTask<List<Expenses>> {
     private SettingRtf api;
 
     public TradeTask(@NonNull Context context) {
@@ -24,8 +24,8 @@ public class TradeTask  extends DataTask<List<Recharge>> {
     }
 
     @Override
-    protected List<Recharge> parseData(String s) throws Exception {
-        List<Recharge> response = JSONArrayToRecharge(s);
+    protected List<Expenses> parseData(String s) throws Exception {
+        List<Expenses> response = JSONArrayToExpenses(s);
         return response;
     }
 }

@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.haixiajiemei.member.Module.Setting.Adapter.RechargeAdapter;
 import com.haixiajiemei.member.Module.Setting.Contract.TradeContract;
+import com.haixiajiemei.member.Module.Setting.Model.Expenses;
 import com.haixiajiemei.member.Module.Setting.Model.Recharge;
 import com.haixiajiemei.member.Module.Setting.Presenter.TradePresenter;
 import com.haixiajiemei.member.R;
@@ -45,13 +46,13 @@ public class ExpensesRecordFragment extends Fragment implements TradeContract.Vi
     }
 
     @Override
-    public void TradeSuccess(List<Recharge> rechargeList) {
+    public void TradeSuccess(List<Expenses> rechargeList) {
         mHandler.postDelayed(() -> {
 
-            ArrayList<Recharge> Recharge = new ArrayList<>();
-            Recharge.addAll(rechargeList);
+            ArrayList<Expenses> Expenses = new ArrayList<>();
+            Expenses.addAll(rechargeList);
 
-            rechargeAdapter = new RechargeAdapter(requireContext(), Recharge,"Trade");
+            rechargeAdapter = new RechargeAdapter(requireContext(), Expenses,"Trade");
             ExpensesRecord.setLayoutManager(new LinearLayoutManager(requireContext()));
             ExpensesRecord.setAdapter(rechargeAdapter);
         }, 1);

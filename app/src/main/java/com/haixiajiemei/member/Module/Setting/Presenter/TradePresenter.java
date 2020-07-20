@@ -4,10 +4,9 @@ import android.content.Context;
 
 import com.haixiajiemei.member.Api.Basic.ApiException;
 import com.haixiajiemei.member.Api.DataLoader;
-import com.haixiajiemei.member.Api.Task.Setting.RechargeTask;
 import com.haixiajiemei.member.Api.Task.Setting.TradeTask;
 import com.haixiajiemei.member.Module.Setting.Contract.TradeContract;
-import com.haixiajiemei.member.Module.Setting.Model.Recharge;
+import com.haixiajiemei.member.Module.Setting.Model.Expenses;
 
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class TradePresenter implements TradeContract.PresenterAction {
         DataLoader.run(new TradeTask(mcontext){
 
             @Override
-            protected void onResult(List<Recharge> rechargeList) throws Exception {
+            protected void onResult(List<Expenses> rechargeList) throws Exception {
                 viewAction.TradeSuccess(rechargeList);
             }
 

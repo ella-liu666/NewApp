@@ -1,13 +1,13 @@
 package com.haixiajiemei.member.Module.Setting.Contract;
 
-import com.haixiajiemei.member.Module.Setting.Model.Recharge;
+import com.haixiajiemei.member.Module.Setting.Model.Expenses;
 
 import java.util.List;
 
 public interface TradeContract {
 
     interface ViewAction {
-        void TradeSuccess(List<Recharge> rechargeList);
+        void TradeSuccess(List<Expenses> rechargeList);
 
         void showProgress();
 

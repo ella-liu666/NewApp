@@ -18,14 +18,18 @@ import android.widget.TextView;
 
 import com.haixiajiemei.member.Module.Home.Fragment.IntroductionFragment;
 import com.haixiajiemei.member.Module.Setting.Fragment.AccountFragment;
+import com.haixiajiemei.member.Module.Setting.Fragment.CouponFragment;
 import com.haixiajiemei.member.Module.Setting.Fragment.ExpensesRecordFragment;
 import com.haixiajiemei.member.Module.Setting.Fragment.MembershipCardUpgradeFragment;
+import com.haixiajiemei.member.Module.Setting.Fragment.MessageCenterFragment;
+import com.haixiajiemei.member.Module.Setting.Fragment.MyOrderFragment;
 import com.haixiajiemei.member.Module.Setting.Fragment.ProfileFragment;
 import com.haixiajiemei.member.Module.Setting.Fragment.QRCodeFragment;
 import com.haixiajiemei.member.Module.Setting.Fragment.RechargePlanFragment;
 
 import static com.haixiajiemei.member.Util.FunTools.switchFragmentToActivity;
 import static com.haixiajiemei.member.Util.Proclaim.ACCOUNT;
+import static com.haixiajiemei.member.Util.Proclaim.COUPON;
 import static com.haixiajiemei.member.Util.Proclaim.DISTRIBUTION;
 import static com.haixiajiemei.member.Util.Proclaim.EXPENSESRECORD;
 import static com.haixiajiemei.member.Util.Proclaim.INTRODUCTION;
@@ -104,6 +108,8 @@ public class ToolBarActivity extends AppCompatActivity {
             case MESSAGECENTER:
                 toolbar_title.setText(intent.getExtras().getString("title"));
                 toolbar_title.setTextSize(18);
+                MessageCenterFragment messageCenterFragment=new MessageCenterFragment();
+                switchFragmentToActivity(R.id.fragment_Introduction, messageCenterFragment, this);
                 break;
             case MYAPPOINTMENT:
                 toolbar_title.setText(intent.getExtras().getString("title"));
@@ -116,6 +122,8 @@ public class ToolBarActivity extends AppCompatActivity {
             case MYORDER:
                 toolbar_title.setText(intent.getExtras().getString("title"));
                 toolbar_title.setTextSize(18);
+                MyOrderFragment myOrderFragment=new MyOrderFragment();
+                switchFragmentToActivity(R.id.fragment_Introduction, myOrderFragment, this);
                 break;
             case EXPENSESRECORD:
                 toolbar_title.setText(intent.getExtras().getString("title"));
@@ -154,6 +162,13 @@ public class ToolBarActivity extends AppCompatActivity {
                 toolbar_title.setTextSize(18);
                 ProfileFragment profileFragment=new ProfileFragment();
                 switchFragmentToActivity(R.id.fragment_Introduction, profileFragment, this);
+                break;
+
+            case COUPON:
+                toolbar_title.setText(intent.getExtras().getString("title"));
+                toolbar_title.setTextSize(18);
+                CouponFragment couponFragment=new CouponFragment();
+                switchFragmentToActivity(R.id.fragment_Introduction, couponFragment, this);
                 break;
         }
     }

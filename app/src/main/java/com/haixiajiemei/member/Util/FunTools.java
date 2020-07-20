@@ -8,6 +8,8 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import com.haixiajiemei.member.Module.Home.Model.ImgAndTxt;
+import com.haixiajiemei.member.Module.Setting.Model.Coupon;
+import com.haixiajiemei.member.Module.Setting.Model.Expenses;
 import com.haixiajiemei.member.Module.Setting.Model.MemberInfo;
 import com.haixiajiemei.member.Module.Setting.Model.Recharge;
 import com.haixiajiemei.member.Parser.ClassParser;
@@ -70,6 +72,38 @@ public class FunTools {
                 JSONObject jsonObject = array.getJSONObject(i);
                 JO = jsonObject.toString();
                 test.add(ClassParser.toData(JO, Recharge.class));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return test;
+    }
+
+    public static List<Expenses> JSONArrayToExpenses(String JSONArray) {
+        String JO = null;
+        List<Expenses> test=new ArrayList<>();
+        try {
+            org.json.JSONArray array = new JSONArray(JSONArray);
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject jsonObject = array.getJSONObject(i);
+                JO = jsonObject.toString();
+                test.add(ClassParser.toData(JO, Expenses.class));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return test;
+    }
+
+    public static List<Coupon> JSONArrayToCoupon(String JSONArray) {
+        String JO = null;
+        List<Coupon> test=new ArrayList<>();
+        try {
+            org.json.JSONArray array = new JSONArray(JSONArray);
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject jsonObject = array.getJSONObject(i);
+                JO = jsonObject.toString();
+                test.add(ClassParser.toData(JO, Coupon.class));
             }
         } catch (JSONException e) {
             e.printStackTrace();

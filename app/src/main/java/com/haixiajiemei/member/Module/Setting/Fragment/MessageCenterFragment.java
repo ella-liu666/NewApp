@@ -15,8 +15,8 @@ import com.haixiajiemei.member.R;
 
 public class MessageCenterFragment extends Fragment {
 
-    @BindView(R.id.news_item)
-    RecyclerView news_item;
+//    @BindView(R.id.news_item)
+//    RecyclerView news_item;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
