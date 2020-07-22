@@ -179,7 +179,6 @@ public class ToolBarActivity extends AppCompatActivity {
                 cardDetailsFragment.setArguments(bundle);
                 bundle.putString("cardID",intent.getExtras().getString("cardID"));
                 bundle.putString("Tag",intent.getExtras().getString("Tag"));
-                Log.e("9999=====","cardID ="+intent.getExtras().getString("cardID"));
                 switchFragmentToActivity(R.id.fragment_Introduction, cardDetailsFragment, this);
                 break;
         }

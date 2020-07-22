@@ -1,5 +1,8 @@
 package com.haixiajiemei.app.Module.Setting.Fragment;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -21,16 +24,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.haixiajiemei.app.Helper.GlideApp;
+import com.haixiajiemei.app.Module.Setting.Contract.BuyCardContract;
 import com.haixiajiemei.app.Module.Setting.Contract.CardDetailContract;
 import com.haixiajiemei.app.Module.Setting.Contract.VIPDetailContract;
 import com.haixiajiemei.app.Module.Setting.Model.CardDetail;
+import com.haixiajiemei.app.Module.Setting.Presenter.BuyCardPresenter;
 import com.haixiajiemei.app.Module.Setting.Presenter.CardDetailPresenter;
 import com.haixiajiemei.app.Module.Setting.Presenter.VIPDetailPresenter;
 import com.haixiajiemei.app.R;
 
 import static com.haixiajiemei.app.Util.FunTools.CreateAlertDialogTool;
 
-public class CardDetailsFragment extends Fragment implements CardDetailContract.ViewAction, VIPDetailContract.ViewAction {
+public class CardDetailsFragment extends Fragment implements CardDetailContract.ViewAction, VIPDetailContract.ViewAction, BuyCardContract.ViewAction {
     @BindView(R.id.CardName)
     TextView CardName;
     @BindView(R.id.CardInfo)
@@ -46,7 +51,9 @@ public class CardDetailsFragment extends Fragment implements CardDetailContract.
 
     private CardDetailPresenter presenter;
     private VIPDetailPresenter vipDetailPresenter;
+    private BuyCardPresenter buyCardPresenter;
     private Handler mHandler = new Handler(Looper.getMainLooper());
+    private CardDetail mcardDetail;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,19 +74,42 @@ public class CardDetailsFragment extends Fragment implements CardDetailContract.
 
     @OnClick(R.id.btn_buy)
     public void onClick(View view) {
+        switch (mcardDetail.getBuyStatus().getType()) {
+            case 1:
+                CreateAlertDialogTool(requireContext(), R.string.remind, mcardDetail.getBuyStatus().getMsg());
+                break;
+            case 2:
+            case 3:
+                AlertDialog(requireContext(), R.string.remind, mcardDetail.getBuyStatus().getMsg(), mcardDetail.getCardID(),
+                        mcardDetail.getCardCategoryID(), mcardDetail.getBuyStatus().getType(), mcardDetail.getCardName(), mcardDetail.getCardPrice()
+                        , mcardDetail.getUpgradeCardPrice(), mcardDetail.getCardCurrentAmount());
+                break;
+        }
 
+    }
+
+    public void AlertDialog(Context context, int Title, String Message, int cardID, int cardCategoryID, int type, String cardName, float cardPrice, float upgradeCardPrice, float cardCurrentAmount) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(Title);
+        builder.setMessage(Message);
+        builder.setPositiveButton(R.string.confirm, (dialog, which) -> {
+            buyCardPresenter = new BuyCardPresenter(this, requireContext(), cardID, cardCategoryID, type, cardName, cardPrice, upgradeCardPrice, cardCurrentAmount);
+            buyCardPresenter.doBuyCard();
+        });
+        builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());
+        AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
     }
 
     @Override
     public void CardDetailSuccess(CardDetail cardDetail) {
         mHandler.postDelayed(() -> {
-            if (cardDetail.getBuyStatus().getType() == 0 && !"".equals(cardDetail.getBuyStatus().getMsg())) {
-                CreateAlertDialogTool(requireContext(), R.string.remind, cardDetail.getBuyStatus().getMsg());
-            }
+            mcardDetail = cardDetail;
 
             CardName.setText(cardDetail.getCardName());
             GlideApp.with(requireContext())
-                    .load(cardDetail.getImg())
+                    .load(cardDetail.getCardImg())
                     .fitCenter()
                     .into(img_card);
             for (int i = 0; i < cardDetail.getCardBev().size(); i++) {
@@ -131,10 +161,11 @@ public class CardDetailsFragment extends Fragment implements CardDetailContract.
                     btn_buy.setVisibility(View.GONE);
                     break;
                 case 1:
+                case 2:
                     btn_buy.setVisibility(View.VISIBLE);
                     btn_buy.setText(R.string.ToPay);
                     break;
-                case 2:
+                case 3:
                     btn_buy.setVisibility(View.VISIBLE);
                     btn_buy.setText(R.string.ToUpgrade);
                     break;
@@ -145,13 +176,11 @@ public class CardDetailsFragment extends Fragment implements CardDetailContract.
     @Override
     public void VIPDetailSuccess(CardDetail cardDetail) {
         mHandler.postDelayed(() -> {
-            if (cardDetail.getBuyStatus().getType() == 0 && !"".equals(cardDetail.getBuyStatus().getMsg())) {
-                CreateAlertDialogTool(requireContext(), R.string.remind, cardDetail.getBuyStatus().getMsg());
-            }
+            mcardDetail = cardDetail;
 
             CardName.setText(cardDetail.getCardName());
             GlideApp.with(requireContext())
-                    .load(cardDetail.getImg())
+                    .load(cardDetail.getCardImg())
                     .fitCenter()
                     .into(img_card);
             for (int i = 0; i < cardDetail.getCardBev().size(); i++) {
@@ -203,14 +232,22 @@ public class CardDetailsFragment extends Fragment implements CardDetailContract.
                     btn_buy.setVisibility(View.GONE);
                     break;
                 case 1:
+                case 2:
                     btn_buy.setVisibility(View.VISIBLE);
                     btn_buy.setText(R.string.ToPay);
                     break;
-                case 2:
+                case 3:
                     btn_buy.setVisibility(View.VISIBLE);
                     btn_buy.setText(R.string.ToUpgrade);
                     break;
             }
+        }, 1);
+    }
+
+    @Override
+    public void BuyCardSuccess() {
+        mHandler.postDelayed(() -> {
+            getActivity().onBackPressed();
         }, 1);
     }
 

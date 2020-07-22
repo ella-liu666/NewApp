@@ -11,26 +11,29 @@ public class BuyCardTask extends DataTask<String> {
 
     private SettingRtf api;
 
-    private int accountCouponMapID;
-    private float denomination;
-    private String name;
-    private String storeName;
-    private String dueTime;
+    private int cardID;
+    private int cardCategoryID;
+    private int type;
+    private String cardName;
+    private float cardPrice;
+    private float upgradeCardPrice;
+    private float cardCurrentAmount;
 
-    public BuyCardTask(@NonNull Context context,int accountCouponMapID, float denomination, String name, String storeName, String dueTime) {
+    public BuyCardTask(@NonNull Context context, int cardID, int cardCategoryID, int type, String cardName, float cardPrice, float upgradeCardPrice, float cardCurrentAmount) {
         api = new SettingRtf(context);
 
-        this.accountCouponMapID = accountCouponMapID;
-        this.denomination = denomination;
-        this.name = name;
-        this.storeName = storeName;
-        this.dueTime = dueTime;
+        this.cardID = cardID;
+        this.cardCategoryID = cardCategoryID;
+        this.type = type;
+        this.cardName = cardName;
+        this.cardPrice = cardPrice;
+        this.upgradeCardPrice = upgradeCardPrice;
+        this.cardCurrentAmount = cardCurrentAmount;
     }
 
     @Override
     protected String load() throws Exception {
-//        return api.getBuyCard(accountCouponMapID,denomination,name,storeName,dueTime);
-        return api.QRcodeCoupon(accountCouponMapID,denomination,name,storeName,dueTime);
+        return api.getBuyCard(cardID, cardCategoryID, type, cardName, cardPrice,upgradeCardPrice,cardCurrentAmount);
     }
 
     @Override

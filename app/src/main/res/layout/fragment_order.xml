@@ -43,31 +43,6 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:orientation="vertical"
-                android:layout_margin="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dip"
-                    android:layout_weight="0.3"
-                    android:textSize="20sp"
-                    android:textColor="@color/black"
-                    android:text="@string/Pickup"/>
-
-                <Switch
-                    android:id="@+id/PickupMethod"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dip"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="0.5"
-                    android:switchTextAppearance="@style/SwitchTextColorTheme"
-                    android:thumb="@drawable/switch_custom_thumb_selector"
-                    android:track="@drawable/switch_custom_track_selector" />
-            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

@@ -6,7 +6,6 @@ buildscript {
         jcenter()
         mavenCentral()
         maven { url 'https://maven.google.com' }
-        
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.0'
@@ -22,6 +21,9 @@ allprojects {
         jcenter()
         mavenCentral()
         maven { url 'https://maven.google.com' }
+        flatDir {
+            dirs 'libs'
+        }
     }
 }
 

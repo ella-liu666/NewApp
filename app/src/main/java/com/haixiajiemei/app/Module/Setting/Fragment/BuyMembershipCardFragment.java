@@ -80,7 +80,6 @@ public class BuyMembershipCardFragment extends Fragment implements VIPCardContra
                     intent.putExtra("Type", CARDDETAILS);
                     intent.putExtra("Tag","VIP");
                     intent.putExtra("cardID", getCenterItem(view));
-                    Log.e("111====", "ff =" +getCenterItem(view));
                     startActivity(intent);
                 });
 
@@ -106,7 +105,6 @@ public class BuyMembershipCardFragment extends Fragment implements VIPCardContra
                     intent.putExtra("Type", CARDDETAILS);
                     intent.putExtra("Tag","Card");
                     intent.putExtra("cardID", getCenterItem(view));
-                    Log.e("111====", "gg =" +getCenterItem(view));
                     startActivity(intent);
                 });
 //                MonthlyCardItemContainer.addView(imageView, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));

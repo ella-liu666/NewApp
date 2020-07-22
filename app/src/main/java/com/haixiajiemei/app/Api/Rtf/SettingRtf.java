@@ -121,9 +121,16 @@ public class SettingRtf extends BaseRtf<SettingRtf.Service>{
         return this.execute(this.api.CardDetail(params.getMap()));
     }
 
-    public String getBuyCard(@NonNull int cardID) throws Exception {//未完成
+    public String getBuyCard(@NonNull int cardID,@NonNull int cardCategoryID,@NonNull int type,
+            @NonNull String cardName,@NonNull float cardPrice,@NonNull float upgradeCardPrice,@NonNull float cardCurrentAmount) throws Exception {
         Params params = new Params();
         params.putRequired("cardID", cardID);
+        params.putRequired("cardCategoryID", cardCategoryID);
+        params.putRequired("type", type);
+        params.putRequired("cardName", cardName);
+        params.putRequired("cardPrice", cardPrice);
+        params.putRequired("upgradeCardPrice", upgradeCardPrice);
+        params.putRequired("cardCurrentAmount", cardCurrentAmount);
 
         return this.execute(this.api.BuyCard(params.getMap()));
     }
