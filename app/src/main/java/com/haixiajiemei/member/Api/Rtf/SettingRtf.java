@@ -107,6 +107,20 @@ public class SettingRtf extends BaseRtf<SettingRtf.Service>{
         return this.execute(this.api.QRcodeCoupon(params.getMap()));
     }
 
+    public String getVIPDetail(@NonNull int cardID) throws Exception {
+        Params params = new Params();
+        params.putRequired("cardID", cardID);
+
+        return this.execute(this.api.VIPDetail(params.getMap()));
+    }
+
+    public String getCardDetail(@NonNull int cardID) throws Exception {
+        Params params = new Params();
+        params.putRequired("cardID", cardID);
+
+        return this.execute(this.api.CardDetail(params.getMap()));
+    }
+
     public interface Service {
         @GET("Wallet/Recharge")
         Call<String> Recharge();
@@ -137,6 +151,12 @@ public class SettingRtf extends BaseRtf<SettingRtf.Service>{
 
         @GET("Wallet/MonthCardBuy")
         Call<String> MonthCardBuy();
+
+        @POST("Wallet/VIPDetail")
+        Call<String> VIPDetail(@Body Map<String, Object> params);
+
+        @POST("Wallet/CardDetail")
+        Call<String> CardDetail(@Body Map<String, Object> params);
 
         @GET("Wallet/CouponUnused")
         Call<String> CouponUnused();

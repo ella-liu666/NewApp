@@ -36,9 +36,15 @@ public class CouponExpiredFragment extends Fragment implements CouponExpiredCont
         View view = inflater.inflate(R.layout.fragment_coupon_expired, container, false);
         ButterKnife.bind(this, view);
 
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         presenter=new CouponExpiredPresenter(this,requireContext());
         presenter.doCouponExpired();
-        return view;
     }
 
     @Override

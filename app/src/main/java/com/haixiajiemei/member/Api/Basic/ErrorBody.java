@@ -7,7 +7,7 @@ public class ErrorBody implements Serializable {
     @SerializedName("ErrorCode")
     private String statusCode;
 
-    @SerializedName("Status")
+    @SerializedName("CardStatus")
     private String error;
 
     @SerializedName("Message")

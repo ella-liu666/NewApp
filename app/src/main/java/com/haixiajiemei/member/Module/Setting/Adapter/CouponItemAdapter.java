@@ -23,11 +23,13 @@ public class CouponItemAdapter extends RecyclerView.Adapter<CouponItemAdapter.Vi
     private List<Coupon> item;
     private CouponItemCallback callback;
     private Context context;
+    private String tag;
 
-    public CouponItemAdapter(List<Coupon> item, CouponItemCallback callback, Context context) {
+    public CouponItemAdapter(List<Coupon> item, CouponItemCallback callback, Context context,String tag) {
         this.item = item;
         this.callback = callback;
         this.context = context;
+        this.tag=tag;
     }
 
     public CouponItemAdapter(List<Coupon> item,  Context context) {
@@ -48,8 +50,11 @@ public class CouponItemAdapter extends RecyclerView.Adapter<CouponItemAdapter.Vi
         holder.couponCategoryName.setText(item.get(position).getcouponCategoryName());
         holder.dueTime.setText(item.get(position).getDueTime());
         holder.Warning.setText(context.getString(R.string.Warning, item.get(position).getStoreName()));
-        holder.coupon_item.setOnClickListener(view -> callback.onCouponItemClicked(item.get(position).getAccountCouponMapID(),
-                item.get(position).getDenomination(),item.get(position).getName(),item.get(position).getStoreName(),item.get(position).getDueTime()));
+        if(tag!=null){
+            holder.coupon_item.setOnClickListener(view -> callback.onCouponItemClicked(item.get(position).getAccountCouponMapID(),
+                    item.get(position).getDenomination(),item.get(position).getName(),item.get(position).getStoreName(),item.get(position).getDueTime()));
+        }
+
     }
 
     @Override

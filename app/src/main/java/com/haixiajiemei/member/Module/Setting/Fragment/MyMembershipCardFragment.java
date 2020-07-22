@@ -1,5 +1,6 @@
 package com.haixiajiemei.member.Module.Setting.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,6 +9,7 @@ import butterknife.ButterKnife;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +24,11 @@ import com.haixiajiemei.member.Module.Setting.Contract.VIPCardBuyContract;
 import com.haixiajiemei.member.Module.Setting.Presenter.MonthCardBuyPresenter;
 import com.haixiajiemei.member.Module.Setting.Presenter.VIPCardBuyPresenter;
 import com.haixiajiemei.member.R;
+import com.haixiajiemei.member.ToolBarActivity;
 
 import java.util.List;
+
+import static com.haixiajiemei.member.Util.Proclaim.CARDDETAILS;
 
 public class MyMembershipCardFragment extends Fragment implements VIPCardBuyContract.ViewAction, MonthCardBuyContract.ViewAction {
 
@@ -51,6 +56,12 @@ public class MyMembershipCardFragment extends Fragment implements VIPCardBuyCont
         return view;
     }
 
+    private String getCenterItem(View view) {
+        String s = String.valueOf (((ImageView) view).getId());
+        Log.v("performItemClick", s);
+        return s;
+    }
+
     @Override
     public void VIPCardBuySuccess(List<ImgAndTxt> imgAndTxt) {
         mHandler.postDelayed(() -> {
@@ -61,6 +72,15 @@ public class MyMembershipCardFragment extends Fragment implements VIPCardBuyCont
                         .fitCenter()
                         .into(imageView);
                 imageView.setPadding(0, 0, 16, 0);
+                imageView.setId(imgAndTxt.get(i).getId());
+                imageView.setOnClickListener(view -> {
+                    Intent intent = new Intent(getActivity(), ToolBarActivity.class);
+                    intent.putExtra("Type", CARDDETAILS);
+                    intent.putExtra("cardID", getCenterItem(view));
+                    intent.putExtra("Tag","VIP");
+                    Log.e("222====", "tt =" +getCenterItem(view));
+                    startActivity(intent);
+                });
 //                MembershipCardItemContainer.addView(imageView, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
                 MembershipCardItemContainer.addView(imageView, new ViewGroup.LayoutParams(800, 450));
             }
@@ -77,6 +97,15 @@ public class MyMembershipCardFragment extends Fragment implements VIPCardBuyCont
                         .fitCenter()
                         .into(imageView);
                 imageView.setPadding(0, 0, 16, 0);
+                imageView.setId(imgAndTxt.get(i).getId());
+                imageView.setOnClickListener(view -> {
+                    Intent intent = new Intent(getActivity(), ToolBarActivity.class);
+                    intent.putExtra("Type", CARDDETAILS);
+                    intent.putExtra("cardID", getCenterItem(view));
+                    intent.putExtra("Tag","Card");
+                    Log.e("222====", "rr =" +getCenterItem(view));
+                    startActivity(intent);
+                });
 //                MonthlyCardItemContainer.addView(imageView, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
                 MonthlyCardItemContainer.addView(imageView, new ViewGroup.LayoutParams(800, 450));
             }

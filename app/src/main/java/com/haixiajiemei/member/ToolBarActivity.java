@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.haixiajiemei.member.Module.Home.Fragment.IntroductionFragment;
 import com.haixiajiemei.member.Module.Setting.Fragment.AccountFragment;
+import com.haixiajiemei.member.Module.Setting.Fragment.CardDetailsFragment;
 import com.haixiajiemei.member.Module.Setting.Fragment.CouponFragment;
 import com.haixiajiemei.member.Module.Setting.Fragment.ExpensesRecordFragment;
 import com.haixiajiemei.member.Module.Setting.Fragment.MembershipCardUpgradeFragment;
@@ -29,6 +30,7 @@ import com.haixiajiemei.member.Module.Setting.Fragment.RechargePlanFragment;
 
 import static com.haixiajiemei.member.Util.FunTools.switchFragmentToActivity;
 import static com.haixiajiemei.member.Util.Proclaim.ACCOUNT;
+import static com.haixiajiemei.member.Util.Proclaim.CARDDETAILS;
 import static com.haixiajiemei.member.Util.Proclaim.COUPON;
 import static com.haixiajiemei.member.Util.Proclaim.DISTRIBUTION;
 import static com.haixiajiemei.member.Util.Proclaim.EXPENSESRECORD;
@@ -95,7 +97,6 @@ public class ToolBarActivity extends AppCompatActivity {
                 AccountFragment accountFragment = new AccountFragment();
                 bundle = new Bundle();
                 if (intent.getExtras().getString("Balance")!=null) {
-                    Log.e("444====","ff ="+intent.getExtras().getString("Balance"));
                     bundle.putString("Balance", intent.getExtras().getString("Balance"));
                 }else {
                     bundle.putFloat("Balance", intent.getExtras().getFloat("Balance"));
@@ -168,18 +169,26 @@ public class ToolBarActivity extends AppCompatActivity {
                 ProfileFragment profileFragment = new ProfileFragment();
                 switchFragmentToActivity(R.id.fragment_Introduction, profileFragment, this);
                 break;
-
             case COUPON:
                 toolbar_title.setText(intent.getExtras().getString("title"));
                 toolbar_title.setTextSize(18);
                 CouponFragment couponFragment = new CouponFragment();
                 switchFragmentToActivity(R.id.fragment_Introduction, couponFragment, this);
                 break;
+            case CARDDETAILS:
+                CardDetailsFragment cardDetailsFragment=new CardDetailsFragment();
+                bundle = new Bundle();
+                cardDetailsFragment.setArguments(bundle);
+                bundle.putString("cardID",intent.getExtras().getString("cardID"));
+                bundle.putString("Tag",intent.getExtras().getString("Tag"));
+                Log.e("9999=====","cardID ="+intent.getExtras().getString("cardID"));
+                switchFragmentToActivity(R.id.fragment_Introduction, cardDetailsFragment, this);
+                break;
         }
     }
 
     @OnClick(R.id.toolbar_title)
     public void onClick() {
-        finish();
+        onBackPressed();
     }
 }

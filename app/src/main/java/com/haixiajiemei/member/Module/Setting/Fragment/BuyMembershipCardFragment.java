@@ -1,13 +1,16 @@
 package com.haixiajiemei.member.Module.Setting.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +25,14 @@ import com.haixiajiemei.member.Module.Setting.Contract.VIPCardContract;
 import com.haixiajiemei.member.Module.Setting.Presenter.MonthCardPresenter;
 import com.haixiajiemei.member.Module.Setting.Presenter.VIPCardPresenter;
 import com.haixiajiemei.member.R;
+import com.haixiajiemei.member.ToolBarActivity;
+
 import android.view.ViewGroup.LayoutParams;
+import android.widget.TextView;
 
 import java.util.List;
+
+import static com.haixiajiemei.member.Util.Proclaim.CARDDETAILS;
 
 public class BuyMembershipCardFragment extends Fragment implements VIPCardContract.ViewAction, MonthCardContract.ViewAction {
 
@@ -45,24 +53,39 @@ public class BuyMembershipCardFragment extends Fragment implements VIPCardContra
         View view = inflater.inflate(R.layout.fragment_buy_membership_card, container, false);
         ButterKnife.bind(this, view);
 
-        vipCardPresenter=new VIPCardPresenter(this,requireContext());
+        vipCardPresenter = new VIPCardPresenter(this, requireContext());
         vipCardPresenter.doVIPCard();
-        monthCardPresenter=new MonthCardPresenter(this,requireContext());
+        monthCardPresenter = new MonthCardPresenter(this, requireContext());
         monthCardPresenter.doMonthCard();
         return view;
     }
 
+    private String getCenterItem(View view) {
+        String s = String.valueOf (((ImageView) view).getId());
+        Log.v("performItemClick", s);
+        return s;
+    }
 
     @Override
     public void VIPCardSuccess(List<ImgAndTxt> imgAndTxt) {
         mHandler.postDelayed(() -> {
             for (int i = 0; i < imgAndTxt.size(); i++) {
-                ImageView imageView=new ImageView(requireContext());
+                ImageView imageView = new ImageView(requireContext());
                 GlideApp.with(requireContext())
                         .load(imgAndTxt.get(i).getImg().toString())
                         .fitCenter()
                         .into(imageView);
-                imageView.setPadding(0,0,16,0);
+                imageView.setPadding(0, 0, 16, 0);
+                imageView.setId(imgAndTxt.get(i).getId());
+                imageView.setOnClickListener(view -> {
+                    Intent intent = new Intent(getActivity(), ToolBarActivity.class);
+                    intent.putExtra("Type", CARDDETAILS);
+                    intent.putExtra("Tag","VIP");
+                    intent.putExtra("cardID", getCenterItem(view));
+                    Log.e("111====", "ff =" +getCenterItem(view));
+                    startActivity(intent);
+                });
+
 //                MembershipCardItemContainer.addView(imageView, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
                 MembershipCardItemContainer.addView(imageView, new LayoutParams(800, 450));
             }
@@ -73,12 +96,21 @@ public class BuyMembershipCardFragment extends Fragment implements VIPCardContra
     public void MonthCardSuccess(List<ImgAndTxt> imgAndTxt) {
         mHandler.postDelayed(() -> {
             for (int i = 0; i < imgAndTxt.size(); i++) {
-                ImageView imageView=new ImageView(requireContext());
+                ImageView imageView = new ImageView(requireContext());
                 GlideApp.with(requireContext())
                         .load(imgAndTxt.get(i).getImg().toString())
                         .fitCenter()
                         .into(imageView);
-                imageView.setPadding(0,0,16,0);
+                imageView.setPadding(0, 0, 16, 0);
+                imageView.setId(imgAndTxt.get(i).getId());
+                imageView.setOnClickListener(view -> {
+                    Intent intent = new Intent(getActivity(), ToolBarActivity.class);
+                    intent.putExtra("Type", CARDDETAILS);
+                    intent.putExtra("Tag","Card");
+                    intent.putExtra("cardID", getCenterItem(view));
+                    Log.e("111====", "gg =" +getCenterItem(view));
+                    startActivity(intent);
+                });
 //                MonthlyCardItemContainer.addView(imageView, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
                 MonthlyCardItemContainer.addView(imageView, new LayoutParams(800, 450));
             }

@@ -36,9 +36,15 @@ public class CouponUsedFragment extends Fragment implements CouponUsedContract.V
         View view = inflater.inflate(R.layout.fragment_coupon_used, container, false);
         ButterKnife.bind(this, view);
 
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         presenter = new CouponUsedPresenter(this, requireContext());
         presenter.doCouponUsed();
-        return view;
     }
 
     @Override

@@ -27,8 +27,14 @@ public class CouponFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_coupon, container, false);
         ButterKnife.bind(this, view);
 
-        init();
+
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        init();
     }
 
     private void init(){

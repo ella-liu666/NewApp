@@ -39,15 +39,20 @@ public class CouponUnusedFragment extends Fragment implements CouponUnusedContra
         View view = inflater.inflate(R.layout.fragment_coupon_unused, container, false);
         ButterKnife.bind(this, view);
 
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         presenter = new CouponUnusedPresenter(this, requireContext());
         presenter.doCouponUnused();
-        return view;
     }
 
     @Override
     public void CouponUnusedSuccess(List<Coupon> rechargeList) {
         mHandler.postDelayed(() -> {
-            adapter = new CouponItemAdapter(rechargeList, CouponUnusedFragment.this, requireContext());
+            adapter = new CouponItemAdapter(rechargeList, CouponUnusedFragment.this, requireContext(),"Coupon");
             CouponUnused.setLayoutManager(new LinearLayoutManager(requireContext()));
             CouponUnused.setAdapter(adapter);
         }, 1);
