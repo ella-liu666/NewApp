@@ -16,7 +16,7 @@
         app:tabIndicatorColor="@color/black"
         android:layout_alignParentStart="true"/>
 
-    <com.haixiajiemei.member.Util.CustomViewPager
+    <com.haixiajiemei.app.Util.CustomViewPager
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/viewpage"

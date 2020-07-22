@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">一心回乡会员</string>
+    <string name="app_name">一心回乡</string>
 
     <string name="Healthy_food">保健食品</string>
     <string name="EcologicalAndVegetables">生态果蔬</string>
@@ -88,6 +88,7 @@
     <string name="txt_buyCard">购买%s</string>
     <string name="ToPay">去支付</string>
     <string name="ToUpgrade">去升级</string>
+    <string name="remind">提醒</string>
 
     <string name="UnderConstruction">建置中</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>

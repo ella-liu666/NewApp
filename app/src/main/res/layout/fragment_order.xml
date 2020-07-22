@@ -106,7 +106,7 @@
 
         </LinearLayout>
 
-        <com.haixiajiemei.member.Util.CustomViewPager
+        <com.haixiajiemei.app.Util.CustomViewPager
             android:id="@+id/tab_viewpage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
