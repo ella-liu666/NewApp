@@ -14,6 +14,7 @@ import butterknife.OnClick;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,6 +81,7 @@ public class CardDetailsFragment extends Fragment implements CardDetailContract.
                 break;
             case 2:
             case 3:
+                Log.e("333====","gg ="+ mcardDetail.getCardPrice());
                 AlertDialog(requireContext(), R.string.remind, mcardDetail.getBuyStatus().getMsg(), mcardDetail.getCardID(),
                         mcardDetail.getCardCategoryID(), mcardDetail.getBuyStatus().getType(), mcardDetail.getCardName(), mcardDetail.getCardPrice()
                         , mcardDetail.getUpgradeCardPrice(), mcardDetail.getCardCurrentAmount());
@@ -88,12 +90,12 @@ public class CardDetailsFragment extends Fragment implements CardDetailContract.
 
     }
 
-    public void AlertDialog(Context context, int Title, String Message, int cardID, int cardCategoryID, int type, String cardName, float cardPrice, float upgradeCardPrice, float cardCurrentAmount) {
+    public void AlertDialog(Context context, int Title, String Message, int cardID, int cardCategoryID, int type, String cardName, float cardPrice, float upgradeCardPrice, int cardCurrentAmount) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(Title);
         builder.setMessage(Message);
         builder.setPositiveButton(R.string.confirm, (dialog, which) -> {
-            buyCardPresenter = new BuyCardPresenter(this, requireContext(), cardID, cardCategoryID, type, cardName, cardPrice, upgradeCardPrice, cardCurrentAmount);
+            buyCardPresenter = new BuyCardPresenter(this, requireContext(), cardID, cardCategoryID, type, cardName, String.valueOf(cardPrice), upgradeCardPrice, cardCurrentAmount);
             buyCardPresenter.doBuyCard();
         });
         builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());
@@ -115,7 +117,7 @@ public class CardDetailsFragment extends Fragment implements CardDetailContract.
             for (int i = 0; i < cardDetail.getCardBev().size(); i++) {
                 TextView textView = new TextView(requireContext());
                 Drawable drawable = getResources().getDrawable(R.drawable.baseline_star_border_black_18dp);
-                drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());//這句一定要加
+                drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
                 textView.setCompoundDrawables(drawable, null, null, null);
                 textView.setText(cardDetail.getCardBev().get(i).getName());
                 textView.setTextSize(14);

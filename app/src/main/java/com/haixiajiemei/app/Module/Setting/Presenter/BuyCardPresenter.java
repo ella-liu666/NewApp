@@ -15,13 +15,14 @@ public class BuyCardPresenter implements BuyCardContract.PresenterAction {
     private int cardCategoryID;
     private int type;
     private String cardName;
-    private float cardPrice;
+//    private float cardPrice;
+    private String cardPrice;
     private float upgradeCardPrice;
-    private float cardCurrentAmount;
+    private int cardCurrentAmount;
 
     public BuyCardPresenter(BuyCardContract.ViewAction viewAction, Context mcontext, int cardID,
-            int cardCategoryID, int type, String cardName, float cardPrice, float upgradeCardPrice,
-            float cardCurrentAmount) {
+            int cardCategoryID, int type, String cardName, String cardPrice, float upgradeCardPrice,
+            int cardCurrentAmount) {
         this.viewAction = viewAction;
         this.mcontext = mcontext;
         this.cardID = cardID;

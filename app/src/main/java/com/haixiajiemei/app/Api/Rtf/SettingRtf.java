@@ -122,7 +122,7 @@ public class SettingRtf extends BaseRtf<SettingRtf.Service>{
     }
 
     public String getBuyCard(@NonNull int cardID,@NonNull int cardCategoryID,@NonNull int type,
-            @NonNull String cardName,@NonNull float cardPrice,@NonNull float upgradeCardPrice,@NonNull float cardCurrentAmount) throws Exception {
+            @NonNull String cardName,@NonNull String cardPrice,@NonNull float upgradeCardPrice,@NonNull int cardCurrentAmount) throws Exception {
         Params params = new Params();
         params.putRequired("cardID", cardID);
         params.putRequired("cardCategoryID", cardCategoryID);

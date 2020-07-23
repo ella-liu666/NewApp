@@ -11,7 +11,6 @@ import com.haixiajiemei.app.Module.Home.Fragment.HomeFragment;
 import com.haixiajiemei.app.Module.Setting.Fragment.SettingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import static com.haixiajiemei.app.Util.FunTools.CreateAlertDialogTool;
 import static com.haixiajiemei.app.Util.FunTools.switchFragmentToActivity;
 
 public class MainActivity extends AppCompatActivity {

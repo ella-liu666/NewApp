@@ -33,7 +33,7 @@ public class CardDetail implements Serializable {
     private String cardInfo;
 
     @SerializedName("cardCurrentAmount")
-    private float cardCurrentAmount;
+    private int cardCurrentAmount;
 
     @SerializedName("cardBev")//優惠福利
     private List<CardBev> cardBev;
@@ -78,7 +78,7 @@ public class CardDetail implements Serializable {
         return cardInfo;
     }
 
-    public float getCardCurrentAmount() {
+    public int getCardCurrentAmount() {
         return cardCurrentAmount;
     }
 

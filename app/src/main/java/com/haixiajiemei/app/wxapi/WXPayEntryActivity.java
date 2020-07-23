@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.haixiajiemei.app.R;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+import static com.haixiajiemei.app.Util.FunTools.CreateAlertDialogTool;
 
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     private static String TAG = "MicroMsg.WXEntryActivity";
@@ -20,7 +23,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, false);
+        api = WXAPIFactory.createWXAPI(this, "wxd2070218abd7547a", false);
         api.handleIntent(getIntent(), this);
 
         try {
@@ -56,6 +59,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
     @Override
     public void onResp(BaseResp resp) {
+        CreateAlertDialogTool(this, R.string.note,String.valueOf(resp.errCode));
         Log.d(TAG, "onPayFinish, errCode = " + resp.errCode);// 支付结果码
     }
 }
