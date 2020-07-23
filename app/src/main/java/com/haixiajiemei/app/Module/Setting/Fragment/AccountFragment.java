@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +16,18 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.haixiajiemei.app.R;
 import com.haixiajiemei.app.ToolBarActivity;
+import com.haixiajiemei.app.wxapi.Constants;
+import com.haixiajiemei.app.wxapi.WXPayActivity;
+import com.haixiajiemei.app.wxapi.WXPayEntryActivity;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -115,16 +125,34 @@ public class AccountFragment extends Fragment {
                 break;
             case R.id.btn_Bonus:
                 if (WeChat.isChecked()) {
-                    try {//喚醒app
-                        intent = new Intent();
-                        intent.setAction(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse("weixin://wap/pay?"));//微信
-                        startActivity(intent);
-                    } catch (android.content.ActivityNotFoundException e) {
-                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://weixin.qq.com/"));//微信
-                        startActivity(intent);
+//                    try {//喚醒app
 
-                    }
+//                        IWXAPI api = WXAPIFactory.createWXAPI(requireContext(), Constants.APP_ID);
+//                        api.registerApp(Constants.APP_ID);
+//
+//                        PayReq req = new PayReq();
+//                        req.appId = Constants.APP_ID;// 也就是Values.WXPAYAPPID，如果二者不一致的話是沒法發起支付的。
+//                        req.partnerId = json.getString("partnerId");
+//                        req.prepayId = json.getString("prepayid");
+//                        req.nonceStr = json.getString("noncestr");
+//                        req.timeStamp = json.getString("timestamp");
+//                        req.packageValue = "Sign=WXPay";
+//                        req.sign = json.getString("sign");//de7cd6d4ffe79297c787a1806fcf671c
+//
+//                        boolean r = api.sendReq(req);
+//                        if (!r) {
+//                            Toast.makeText(requireContext(), "開啟微信支付失敗!", Toast.LENGTH_SHORT).show();
+//                        }
+
+                        intent = new Intent(getActivity(), WXPayActivity.class);
+//                        intent.setAction(Intent.ACTION_VIEW);
+//                        intent.setData(Uri.parse("weixin://wap/pay?"));//微信
+                        startActivity(intent);
+//                    } catch (android.content.ActivityNotFoundException e) {
+//                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://weixin.qq.com/"));//微信
+//                        startActivity(intent);
+//
+//                    }
                 } else if (Alipay.isChecked()) {
                     try {//喚醒app
                         intent = new Intent();

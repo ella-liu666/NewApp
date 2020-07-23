@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.KeyEvent;
 
 import com.haixiajiemei.app.Module.Home.Model.ImgAndTxt;
@@ -26,6 +27,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class FunTools {
 

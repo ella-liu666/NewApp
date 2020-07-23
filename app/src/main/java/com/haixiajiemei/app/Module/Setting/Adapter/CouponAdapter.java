@@ -1,5 +1,7 @@
 package com.haixiajiemei.app.Module.Setting.Adapter;
 
+import android.view.ViewGroup;
+
 import com.haixiajiemei.app.Module.Setting.Fragment.CouponExpiredFragment;
 import com.haixiajiemei.app.Module.Setting.Fragment.CouponUnusedFragment;
 import com.haixiajiemei.app.Module.Setting.Fragment.CouponUsedFragment;
@@ -48,12 +50,4 @@ public class CouponAdapter extends FragmentPagerAdapter {
         return POSITION_NONE;
     }
 
-    //    @NonNull
-//    @Override
-//    public Object instantiateItem(@NonNull ViewGroup container, int position) {
-////        return super.instantiateItem(container, position);
-//        Fragment fragment = (Fragment)super.instantiateItem(container, position);
-//
-//        return fragment;
-//    }
 }

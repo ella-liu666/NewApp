@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,8 @@ public class MembershipCardUpgradeFragment extends Fragment {
     @BindView(R.id.viewpage)
     CustomViewPager viewpage;
 
+    private MembershipCardAdapter adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -31,9 +35,16 @@ public class MembershipCardUpgradeFragment extends Fragment {
         return view;
     }
 
-    private void init(){
-        viewpage.setAdapter(new MembershipCardAdapter(getFragmentManager(), getResources().getStringArray(R.array.tab_membership_card)));
-        if(getArguments().getString("title").equals(getString(R.string.MembershipCard))){
+    @Override
+    public void onResume() {
+        super.onResume();
+        new Handler().postDelayed(() -> adapter.notifyDataSetChanged(),10);
+    }
+
+    private void init() {
+        adapter= new MembershipCardAdapter(getFragmentManager(), getResources().getStringArray(R.array.tab_membership_card));
+        viewpage.setAdapter(adapter);
+        if (getArguments().getString("title") != null && getArguments().getString("title").equals(getString(R.string.MembershipCard))) {
             viewpage.setCurrentItem(1);
         }
 

@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.haixiajiemei.app.WelcomeActivity"
+        <activity
+            android:name="com.haixiajiemei.app.WelcomeActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,18 +21,29 @@
         </activity>
         <activity
             android:name="com.haixiajiemei.app.ToolBarActivity"
-            android:screenOrientation="portrait"
-            android:hardwareAccelerated="false"/>
+            android:hardwareAccelerated="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.haixiajiemei.app.MainActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
 
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="wxd2070218abd7547a" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".wxapi.WXPayActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
