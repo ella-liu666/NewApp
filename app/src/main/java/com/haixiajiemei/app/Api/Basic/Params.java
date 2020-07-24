@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public class Params {
@@ -102,6 +103,10 @@ public class Params {
             this.map.put(key, value);
         }
 
+    }
+
+    public void putRequired(String key, List values) {
+        this.put(key, values, true);
     }
 
     public void putRequired(String key, String[] values) {

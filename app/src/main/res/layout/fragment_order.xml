@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/original_bg"
     android:orientation="vertical"
-    tools:context=".Module.Order.OrderFragment">
+    tools:context=".Module.Order.Fragment.OrderFragment">
 
     <LinearLayout
         android:id="@+id/orderbar"

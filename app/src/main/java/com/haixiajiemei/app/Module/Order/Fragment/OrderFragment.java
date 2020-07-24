@@ -1,4 +1,4 @@
-package com.haixiajiemei.app.Module.Order;
+package com.haixiajiemei.app.Module.Order.Fragment;
 
 import android.os.Bundle;
 

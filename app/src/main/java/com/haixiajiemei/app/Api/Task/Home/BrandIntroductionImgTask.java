@@ -10,7 +10,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 
-import static com.haixiajiemei.app.Util.FunTools.JSONArrayToTags;
+import static com.haixiajiemei.app.Util.FunTools.JSONArrayToClass;
 
 public class BrandIntroductionImgTask extends DataTask<List<ImgAndTxt>> {
     private HomeRtf api;
@@ -31,7 +31,8 @@ public class BrandIntroductionImgTask extends DataTask<List<ImgAndTxt>> {
 
     @Override
     protected List<ImgAndTxt> parseData(String s) throws Exception {
-        List<ImgAndTxt> response = JSONArrayToTags(s);
+//        List<ImgAndTxt> response = JSONArrayToTags(s);
+        List<ImgAndTxt> response = JSONArrayToClass(s,ImgAndTxt.class);
         return response;
     }
 }

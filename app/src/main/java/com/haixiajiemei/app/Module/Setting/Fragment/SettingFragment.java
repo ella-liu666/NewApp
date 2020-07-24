@@ -76,6 +76,13 @@ public class SettingFragment extends Fragment implements SettingItemCallback, Se
             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
         ButterKnife.bind(this, view);
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         presenter = new SettingPresenter(this, requireContext());
         presenter.doSettingMemberInfo();
 
@@ -85,7 +92,6 @@ public class SettingFragment extends Fragment implements SettingItemCallback, Se
                 .into(user_Avatar);
 
         setting_item_init();
-        return view;
     }
 
     private void setting_item_init() {

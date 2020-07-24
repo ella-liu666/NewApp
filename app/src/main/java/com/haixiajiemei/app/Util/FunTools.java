@@ -3,14 +3,8 @@ package com.haixiajiemei.app.Util;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.KeyEvent;
 
-import com.haixiajiemei.app.Module.Home.Model.ImgAndTxt;
-import com.haixiajiemei.app.Module.Setting.Model.Coupon;
-import com.haixiajiemei.app.Module.Setting.Model.Expenses;
-import com.haixiajiemei.app.Module.Setting.Model.Recharge;
 import com.haixiajiemei.app.Parser.ClassParser;
 import com.haixiajiemei.app.R;
 
@@ -18,8 +12,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +20,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class FunTools {
 
@@ -48,79 +39,21 @@ public class FunTools {
         transaction.commit();
     }
 
-    public static List<ImgAndTxt> JSONArrayToTags(String JSONArray) {
+
+    public static List JSONArrayToClass(String JSONArray,Class t) {
         String JO = null;
-        List<ImgAndTxt> test=new ArrayList<>();
+        List test=new ArrayList<>();
         try {
             org.json.JSONArray array = new JSONArray(JSONArray);
             for (int i = 0; i < array.length(); i++) {
                 JSONObject jsonObject = array.getJSONObject(i);
                 JO = jsonObject.toString();
-                test.add(ClassParser.toData(JO, ImgAndTxt.class));
+                test.add(ClassParser.toData(JO, t));
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return test;
-    }
-
-    public static List<Recharge> JSONArrayToRecharge(String JSONArray) {
-        String JO = null;
-        List<Recharge> test=new ArrayList<>();
-        try {
-            org.json.JSONArray array = new JSONArray(JSONArray);
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject jsonObject = array.getJSONObject(i);
-                JO = jsonObject.toString();
-                test.add(ClassParser.toData(JO, Recharge.class));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return test;
-    }
-
-    public static List<Expenses> JSONArrayToExpenses(String JSONArray) {
-        String JO = null;
-        List<Expenses> test=new ArrayList<>();
-        try {
-            org.json.JSONArray array = new JSONArray(JSONArray);
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject jsonObject = array.getJSONObject(i);
-                JO = jsonObject.toString();
-                test.add(ClassParser.toData(JO, Expenses.class));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return test;
-    }
-
-    public static List<Coupon> JSONArrayToCoupon(String JSONArray) {
-        String JO = null;
-        List<Coupon> test=new ArrayList<>();
-        try {
-            org.json.JSONArray array = new JSONArray(JSONArray);
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject jsonObject = array.getJSONObject(i);
-                JO = jsonObject.toString();
-                test.add(ClassParser.toData(JO, Coupon.class));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return test;
-    }
-
-    public static Drawable LoadImageFromWebOperations(String url) {
-        try {
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "src name");
-            return d;
-        } catch (Exception e) {
-            System.out.println("Exc=" + e);
-            return null;
-        }
     }
 
     public static void CreateAlertDialogTool(Context context) {

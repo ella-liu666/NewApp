@@ -10,7 +10,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 
-import static com.haixiajiemei.app.Util.FunTools.JSONArrayToCoupon;
+import static com.haixiajiemei.app.Util.FunTools.JSONArrayToClass;
 
 public class CouponUsedTask  extends DataTask<List<Coupon>> {
     private SettingRtf api;
@@ -25,7 +25,8 @@ public class CouponUsedTask  extends DataTask<List<Coupon>> {
 
     @Override
     protected List<Coupon> parseData(String s) throws Exception {
-        List<Coupon> response = JSONArrayToCoupon(s);
+//        List<Coupon> response = JSONArrayToCoupon(s);
+        List<Coupon> response = JSONArrayToClass(s,Coupon.class);
         return response;
     }
 }

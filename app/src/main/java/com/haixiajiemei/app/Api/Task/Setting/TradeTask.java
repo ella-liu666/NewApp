@@ -10,7 +10,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 
-import static com.haixiajiemei.app.Util.FunTools.JSONArrayToExpenses;
+import static com.haixiajiemei.app.Util.FunTools.JSONArrayToClass;
 
 public class TradeTask  extends DataTask<List<Expenses>> {
     private SettingRtf api;
@@ -25,7 +25,8 @@ public class TradeTask  extends DataTask<List<Expenses>> {
 
     @Override
     protected List<Expenses> parseData(String s) throws Exception {
-        List<Expenses> response = JSONArrayToExpenses(s);
+//        List<Expenses> response = JSONArrayToExpenses(s);
+        List<Expenses> response = JSONArrayToClass(s,Expenses.class);
         return response;
     }
 }

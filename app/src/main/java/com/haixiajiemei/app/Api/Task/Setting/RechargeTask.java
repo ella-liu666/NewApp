@@ -10,7 +10,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 
-import static com.haixiajiemei.app.Util.FunTools.JSONArrayToRecharge;
+import static com.haixiajiemei.app.Util.FunTools.JSONArrayToClass;
 
 public class RechargeTask extends DataTask<List<Recharge>> {
     private SettingRtf api;
@@ -25,7 +25,8 @@ public class RechargeTask extends DataTask<List<Recharge>> {
 
     @Override
     protected List<Recharge> parseData(String s) throws Exception {
-        List<Recharge> response = JSONArrayToRecharge(s);
+//        List<Recharge> response = JSONArrayToRecharge(s);
+        List<Recharge> response = JSONArrayToClass(s,Recharge.class);
         return response;
     }
 }

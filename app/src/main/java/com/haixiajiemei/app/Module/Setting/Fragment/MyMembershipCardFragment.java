@@ -65,6 +65,7 @@ public class MyMembershipCardFragment extends Fragment implements VIPCardBuyCont
     @Override
     public void VIPCardBuySuccess(List<ImgAndTxt> imgAndTxt) {
         mHandler.postDelayed(() -> {
+            MembershipCardItemContainer.removeAllViews();
             for (int i = 0; i < imgAndTxt.size(); i++) {
                 ImageView imageView = new ImageView(requireContext());
                 GlideApp.with(requireContext())
@@ -89,6 +90,7 @@ public class MyMembershipCardFragment extends Fragment implements VIPCardBuyCont
     @Override
     public void MonthCardBuySuccess(List<ImgAndTxt> imgAndTxt) {
         mHandler.postDelayed(() -> {
+            MonthlyCardItemContainer.removeAllViews();
             for (int i = 0; i < imgAndTxt.size(); i++) {
                 ImageView imageView = new ImageView(requireContext());
                 GlideApp.with(requireContext())
