@@ -27,17 +27,14 @@ public class AdvertisingAdapter extends StaticPagerAdapter {
     public View getView(ViewGroup container, int position) {
         LinearLayout view=new LinearLayout(context);
         ImageView img = new ImageView(container.getContext());
-//        Drawable drawable = LoadImageFromWebOperations(imgs.get(position).getImg().toString());
-//        view.setImageDrawable(drawable);
-//        view.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
         GlideApp.with(context)
                 .load(imgs.get(position).getImg().toString())
                 .fitCenter()
-                .override(1242,699)
+//                .override(1242,699)
                 .into(img);
 
-        view.addView(img,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        view.addView(img,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         return view;

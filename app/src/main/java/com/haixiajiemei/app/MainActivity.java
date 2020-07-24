@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import com.haixiajiemei.app.Module.Account.Fragment.LoginFragment;
 import com.haixiajiemei.app.Module.Home.Fragment.HomeFragment;
+import com.haixiajiemei.app.Module.Order.Fragment.OrderFragment;
 import com.haixiajiemei.app.Module.Setting.Fragment.SettingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -34,12 +35,10 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     switchFragmentToActivity(R.id.fragment_container,homeFragment, this);
                     return true;
-//                case R.id.navigation_order:
-////                    OrderFragment orderFragment = new OrderFragment();
-////                    switchFragmentToActivity(R.id.fragment_container,orderFragment,this);
-//                    switchFragmentToActivity(R.id.fragment_container,homeFragment, this);
-//                    CreateAlertDialogTool(this);
-//                    return true;
+                case R.id.navigation_order:
+                    OrderFragment orderFragment = new OrderFragment();
+                    switchFragmentToActivity(R.id.fragment_container,orderFragment,this);
+                    return true;
 //                case R.id.navigation_organic:
 //                    switchFragmentToActivity(R.id.fragment_container,homeFragment, this);
 //                    CreateAlertDialogTool(this);

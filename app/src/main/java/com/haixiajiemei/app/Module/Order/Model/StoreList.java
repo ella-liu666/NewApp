@@ -3,7 +3,6 @@ package com.haixiajiemei.app.Module.Order.Model;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class StoreList implements Serializable {
 
@@ -14,7 +13,7 @@ public class StoreList implements Serializable {
     private String dbName;
 
     @SerializedName("storeInfo")
-    private List<StoreInfo> storeInfo;
+    private StoreInfo storeInfo;
 
 
 
@@ -26,7 +25,7 @@ public class StoreList implements Serializable {
         return dbName;
     }
 
-    public List<StoreInfo> getStoreInfo() {
+    public StoreInfo getStoreInfo() {
         return storeInfo;
     }
 }

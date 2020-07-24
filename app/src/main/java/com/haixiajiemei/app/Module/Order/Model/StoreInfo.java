@@ -13,6 +13,9 @@ public class StoreInfo implements Serializable {
     @SerializedName("image")
     private URL image;
 
+    @SerializedName("address")
+    private String address;
+
 
 
     public String getcName() {
@@ -21,5 +24,9 @@ public class StoreInfo implements Serializable {
 
     public URL getImage() {
         return image;
+    }
+
+    public String getAddress() {
+        return address;
     }
 }

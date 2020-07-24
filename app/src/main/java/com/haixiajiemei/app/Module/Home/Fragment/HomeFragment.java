@@ -118,7 +118,13 @@ public class HomeFragment extends Fragment implements HomeStoreImgContract.ViewA
             BrandIntroductionItem.addAll(imgAndTxt);
 
             adapter = new BrandIntroAdapter(requireContext(), BrandIntroductionItem, HomeFragment.this);
-            BrandIntroductionGroup.setLayoutManager(new LinearLayoutManager(requireContext()));
+            LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext()){
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            };
+            BrandIntroductionGroup.setLayoutManager(layoutManager);
             BrandIntroductionGroup.setAdapter(adapter);
         }, 1);
 
