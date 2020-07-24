@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.haixiajiemei.app.Module.Setting.Contract.ProfileNameContract;
-import com.haixiajiemei.app.Module.Setting.Presenter.ProfileNamePresenter;
+import com.haixiajiemei.app.Module.Setting.Present.ProfileNamePresenter;
 import com.haixiajiemei.app.R;
 
 import androidx.fragment.app.Fragment;

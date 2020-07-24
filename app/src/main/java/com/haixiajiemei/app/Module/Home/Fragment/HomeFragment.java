@@ -35,7 +35,7 @@ import com.haixiajiemei.app.Module.Home.Model.ImgAndTxt;
 import com.haixiajiemei.app.Module.Home.Present.HomeAdImgPresenter;
 import com.haixiajiemei.app.Module.Home.Present.HomeStoreImgPresenter;
 import com.haixiajiemei.app.Module.Setting.Contract.PointContract;
-import com.haixiajiemei.app.Module.Setting.Presenter.PointPresenter;
+import com.haixiajiemei.app.Module.Setting.Present.PointPresenter;
 import com.haixiajiemei.app.R;
 import com.haixiajiemei.app.ToolBarActivity;
 import com.jude.rollviewpager.RollPagerView;

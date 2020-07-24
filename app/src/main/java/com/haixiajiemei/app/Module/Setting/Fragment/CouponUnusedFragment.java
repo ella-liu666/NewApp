@@ -18,7 +18,7 @@ import com.haixiajiemei.app.Module.Setting.Adapter.CouponItemAdapter;
 import com.haixiajiemei.app.Module.Setting.Contract.CouponItemCallback;
 import com.haixiajiemei.app.Module.Setting.Contract.CouponUnusedContract;
 import com.haixiajiemei.app.Module.Setting.Model.Coupon;
-import com.haixiajiemei.app.Module.Setting.Presenter.CouponUnusedPresenter;
+import com.haixiajiemei.app.Module.Setting.Present.CouponUnusedPresenter;
 import com.haixiajiemei.app.R;
 
 import java.util.List;

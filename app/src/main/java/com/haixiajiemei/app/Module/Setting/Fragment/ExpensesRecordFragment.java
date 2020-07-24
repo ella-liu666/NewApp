@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import com.haixiajiemei.app.Module.Setting.Adapter.RechargeAdapter;
 import com.haixiajiemei.app.Module.Setting.Contract.TradeContract;
 import com.haixiajiemei.app.Module.Setting.Model.Expenses;
-import com.haixiajiemei.app.Module.Setting.Presenter.TradePresenter;
+import com.haixiajiemei.app.Module.Setting.Present.TradePresenter;
 import com.haixiajiemei.app.R;
 
 import java.util.ArrayList;

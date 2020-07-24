@@ -25,7 +25,7 @@ import com.haixiajiemei.app.Module.Setting.Adapter.SettingItemAdapter;
 import com.haixiajiemei.app.Module.Setting.Contract.SettingContract;
 import com.haixiajiemei.app.Module.Setting.Contract.SettingItemCallback;
 import com.haixiajiemei.app.Module.Setting.Model.MemberInfo;
-import com.haixiajiemei.app.Module.Setting.Presenter.SettingPresenter;
+import com.haixiajiemei.app.Module.Setting.Present.SettingPresenter;
 import com.haixiajiemei.app.R;
 import com.haixiajiemei.app.ToolBarActivity;
 

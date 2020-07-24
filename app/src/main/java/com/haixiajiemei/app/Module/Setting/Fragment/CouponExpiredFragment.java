@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import com.haixiajiemei.app.Module.Setting.Adapter.CouponItemAdapter;
 import com.haixiajiemei.app.Module.Setting.Contract.CouponExpiredContract;
 import com.haixiajiemei.app.Module.Setting.Model.Coupon;
-import com.haixiajiemei.app.Module.Setting.Presenter.CouponExpiredPresenter;
+import com.haixiajiemei.app.Module.Setting.Present.CouponExpiredPresenter;
 import com.haixiajiemei.app.R;
 
 import java.util.List;

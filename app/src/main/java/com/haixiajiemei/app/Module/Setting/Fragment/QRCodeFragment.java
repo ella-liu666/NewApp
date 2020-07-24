@@ -21,7 +21,7 @@ import android.widget.TextView;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.haixiajiemei.app.Module.Setting.Contract.QRcodePointContract;
-import com.haixiajiemei.app.Module.Setting.Presenter.QRcodePointPresenter;
+import com.haixiajiemei.app.Module.Setting.Present.QRcodePointPresenter;
 import com.haixiajiemei.app.R;
 import com.haixiajiemei.app.ToolBarActivity;
 import com.journeyapps.barcodescanner.BarcodeEncoder;

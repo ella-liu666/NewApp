@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import com.haixiajiemei.app.Module.Setting.Adapter.RechargeAdapter;
 import com.haixiajiemei.app.Module.Setting.Contract.RechargeContract;
 import com.haixiajiemei.app.Module.Setting.Model.Recharge;
-import com.haixiajiemei.app.Module.Setting.Presenter.RechargePresenter;
+import com.haixiajiemei.app.Module.Setting.Present.RechargePresenter;
 import com.haixiajiemei.app.R;
 
 import java.util.ArrayList;

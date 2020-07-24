@@ -2,7 +2,6 @@ package com.haixiajiemei.app.Module.Setting.Fragment;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -29,9 +28,9 @@ import com.haixiajiemei.app.Module.Setting.Contract.BuyCardContract;
 import com.haixiajiemei.app.Module.Setting.Contract.CardDetailContract;
 import com.haixiajiemei.app.Module.Setting.Contract.VIPDetailContract;
 import com.haixiajiemei.app.Module.Setting.Model.CardDetail;
-import com.haixiajiemei.app.Module.Setting.Presenter.BuyCardPresenter;
-import com.haixiajiemei.app.Module.Setting.Presenter.CardDetailPresenter;
-import com.haixiajiemei.app.Module.Setting.Presenter.VIPDetailPresenter;
+import com.haixiajiemei.app.Module.Setting.Present.BuyCardPresenter;
+import com.haixiajiemei.app.Module.Setting.Present.CardDetailPresenter;
+import com.haixiajiemei.app.Module.Setting.Present.VIPDetailPresenter;
 import com.haixiajiemei.app.R;
 
 import static com.haixiajiemei.app.Util.FunTools.CreateAlertDialogTool;

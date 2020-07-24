@@ -20,8 +20,8 @@ import com.haixiajiemei.app.MainActivity;
 import com.haixiajiemei.app.Module.Setting.Contract.ProfileContract;
 import com.haixiajiemei.app.Module.Setting.Contract.SignOutContract;
 import com.haixiajiemei.app.Module.Setting.Model.Profile;
-import com.haixiajiemei.app.Module.Setting.Presenter.ProfilePresenter;
-import com.haixiajiemei.app.Module.Setting.Presenter.SignOutPresenter;
+import com.haixiajiemei.app.Module.Setting.Present.ProfilePresenter;
+import com.haixiajiemei.app.Module.Setting.Present.SignOutPresenter;
 import com.haixiajiemei.app.R;
 
 import static com.haixiajiemei.app.Util.FunTools.switchFragmentToBack;

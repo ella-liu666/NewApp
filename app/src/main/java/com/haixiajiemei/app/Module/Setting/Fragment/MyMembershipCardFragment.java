@@ -21,8 +21,8 @@ import com.haixiajiemei.app.Helper.GlideApp;
 import com.haixiajiemei.app.Module.Home.Model.ImgAndTxt;
 import com.haixiajiemei.app.Module.Setting.Contract.MonthCardBuyContract;
 import com.haixiajiemei.app.Module.Setting.Contract.VIPCardBuyContract;
-import com.haixiajiemei.app.Module.Setting.Presenter.MonthCardBuyPresenter;
-import com.haixiajiemei.app.Module.Setting.Presenter.VIPCardBuyPresenter;
+import com.haixiajiemei.app.Module.Setting.Present.MonthCardBuyPresenter;
+import com.haixiajiemei.app.Module.Setting.Present.VIPCardBuyPresenter;
 import com.haixiajiemei.app.R;
 import com.haixiajiemei.app.ToolBarActivity;
 
