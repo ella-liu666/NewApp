@@ -2,10 +2,12 @@ package com.haixiajiemei.app.Module.Order.Contract;
 
 import com.haixiajiemei.app.Module.Order.Model.IdAndTxt;
 
+import java.util.List;
+
 public interface StoreFilterContract {
 
     interface ViewAction {
-        void StoreFilterSuccess(IdAndTxt idAndTxt);
+        void StoreFilterSuccess(List<IdAndTxt> idAndTxt);
 
         void showProgress();
 

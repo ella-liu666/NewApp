@@ -22,6 +22,8 @@ public class StoreItem implements Serializable {
     @SerializedName("price")
     private float price;
 
+    @SerializedName("dbName")
+    private String dbName;
 
 
     public int getId() {
@@ -42,5 +44,9 @@ public class StoreItem implements Serializable {
 
     public float getPrice() {
         return price;
+    }
+
+    public String getDbName() {
+        return dbName;
     }
 }

@@ -30,10 +30,10 @@
                     android:id="@+id/store_infor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/baseline_place_black_18dp"
+                    android:drawableLeft="@drawable/ic_place"
                     android:textColor="@color/black"
                     android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/distance"
@@ -46,47 +46,89 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <HorizontalScrollView
-            android:id="@+id/storeName_horizontalScrollView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:fadingEdgeLength="0dp"
-            android:requiresFadingEdge="horizontal"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:id="@+id/storeNameItemContainer"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal"></LinearLayout>
-        </HorizontalScrollView>
-    </LinearLayout>
-
-    <LinearLayout
+    <HorizontalScrollView
+        android:id="@+id/storeName_horizontalScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_centerHorizontal="true"
+        android:fadingEdgeLength="0dp"
+        android:background="@color/PureWhite"
+        android:requiresFadingEdge="horizontal"
+        android:scrollbars="none">
 
         <LinearLayout
-            android:id="@+id/txt_tab"
-            android:layout_width="0dp"
+            android:id="@+id/storeNameItemContainer"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:gravity="center"
+            android:orientation="horizontal" />
+    </HorizontalScrollView>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ScrollView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/original_bg">
+
+                <LinearLayout
+                    android:id="@+id/txt_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"/>
+
+            </ScrollView>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/order_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/PureWhite"
+                    android:visibility="gone"/>
+
+                <LinearLayout
+                    android:id="@+id/NoData"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no_data"
+                        android:textSize="30sp"/>
+                </LinearLayout>
+            </FrameLayout>
         </LinearLayout>
 
-        <com.haixiajiemei.app.Util.CustomViewPager
-            android:id="@+id/tab_viewpage"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/SelectStore"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"/>
-    </LinearLayout>
+            android:layout_gravity="center"
+            android:gravity="center">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/PleaseSelectStore"
+                android:textSize="30sp"/>
+        </LinearLayout>
+    </FrameLayout>
 </LinearLayout>

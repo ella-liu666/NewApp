@@ -1,17 +1,22 @@
 package com.haixiajiemei.app.Module.Account.Fragment;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -40,7 +45,7 @@ public class ForgetFragment extends Fragment implements ForgetContract.ViewActio
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_forget, container, false);
         ButterKnife.bind(this, view);
 
@@ -50,8 +55,31 @@ public class ForgetFragment extends Fragment implements ForgetContract.ViewActio
         confirm.setTextColor(getResources().getColor(R.color.PureWhite));
         confirm.setTextSize(16);
 
+        edit_account.setOnKeyListener(Onkey);
+        edit_phone.setOnKeyListener(Onkey);
+        edit_password.setOnKeyListener(Onkey);
+        edit_second_password.setOnKeyListener(Onkey);
+
         return view;
     }
+
+    View.OnKeyListener Onkey = (view, keyCode, keyEvent) -> {
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && keyEvent.getAction() == KeyEvent.ACTION_UP) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setTitle(R.string.note);
+            builder.setMessage(R.string.Exit);
+            builder.setPositiveButton(R.string.confirm, (dialog, which) ->  getActivity().onBackPressed());
+            builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());
+            AlertDialog dialog = builder.create();
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+            return true;
+        }
+        return false;
+    };
 
     @OnClick(R.id.confirm)
     public void onClick(View view) {
@@ -71,6 +99,10 @@ public class ForgetFragment extends Fragment implements ForgetContract.ViewActio
     @Override
     public void onResume() {
         super.onResume();
+        edit_account.setOnKeyListener(Onkey);
+        edit_phone.setOnKeyListener(Onkey);
+        edit_password.setOnKeyListener(Onkey);
+        edit_second_password.setOnKeyListener(Onkey);
         FragmentKEYCODE_BACK(requireContext(), this, requireActivity(), R.string.note, R.string.Exit);
     }
 

@@ -2,10 +2,12 @@ package com.haixiajiemei.app.Module.Order.Contract;
 
 import com.haixiajiemei.app.Module.Order.Model.StoreItem;
 
+import java.util.List;
+
 public interface StoreItemContract {
 
     interface ViewAction {
-        void StoreItemSuccess(StoreItem storeItem);
+        void StoreItemSuccess(List<StoreItem> storeItem);
 
         void showProgress();
 

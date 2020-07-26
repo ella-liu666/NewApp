@@ -89,6 +89,8 @@
     <string name="ToPay">去支付</string>
     <string name="ToUpgrade">去升级</string>
     <string name="remind">提醒</string>
+    <string name="PleaseSelectStore">请选择店家</string>
+    <string name="no_data">无资料</string>
 
     <string name="UnderConstruction">建置中</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>

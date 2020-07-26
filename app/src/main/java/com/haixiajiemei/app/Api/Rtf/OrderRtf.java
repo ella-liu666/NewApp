@@ -29,8 +29,9 @@ public class OrderRtf extends BaseRtf<OrderRtf.Service> {
         return this.execute(this.api.StoreList());
     }
 
-    public String getStoreFilter(@NonNull String dbName) throws Exception {
+    public String getStoreFilter(@NonNull int dbid,@NonNull String dbName) throws Exception {
         Params params = new Params();
+        params.putRequired("dbid", dbid);
         params.putRequired("dbName", dbName);
 
         return this.execute(this.api.StoreFilter(params.getMap()));

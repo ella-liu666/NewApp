@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+
+    signingConfigs {
+        release {
+            storeFile file('/Users/Fish/Desktop/NewApp/app/android.jks')
+            storePassword 'c8xji@kunchi'
+            keyPassword 'c8xji@kunchi'
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
     defaultConfig {
@@ -9,6 +17,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -19,13 +28,16 @@ android {
 
     buildTypes {
         debug {
+            debuggable true
             buildConfigField "String", "API_URL", "\"http://apidemo.haixiajiemei.com/api/\""
+//            buildConfigField "String", "API_URL", "\"https://api.haixiajiemei.com/api/\""
         }
 
         release {
-            buildConfigField "String", "API_URL", "\"http://api.haixiajiemei.com/api/\""
+            buildConfigField "String", "API_URL", "\"https://api.haixiajiemei.com/api/\""
 
             minifyEnabled false
+            debuggable true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -41,7 +53,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.jakewharton:butterknife:10.2.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
-    implementation 'com.google.android.material:material:1.3.0-alpha01'
+    implementation 'com.google.android.material:material:1.3.0-alpha02'
     implementation 'com.jude:rollviewpager:1.4.6'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.orhanobut:logger:2.2.0'

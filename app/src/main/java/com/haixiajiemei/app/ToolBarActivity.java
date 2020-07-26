@@ -188,4 +188,9 @@ public class ToolBarActivity extends AppCompatActivity {
     public void onClick() {
         onBackPressed();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

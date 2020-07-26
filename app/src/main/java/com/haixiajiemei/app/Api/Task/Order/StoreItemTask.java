@@ -7,7 +7,11 @@ import com.haixiajiemei.app.Api.Task.DataTask;
 import com.haixiajiemei.app.Module.Order.Model.StoreItem;
 import com.haixiajiemei.app.Parser.ClassParser;
 
-public class StoreItemTask extends DataTask<StoreItem> {
+import java.util.List;
+
+import static com.haixiajiemei.app.Util.FunTools.JSONArrayToClass;
+
+public class StoreItemTask extends DataTask<List<StoreItem>> {
     private OrderRtf api;
 
     private Context context;
@@ -28,8 +32,8 @@ public class StoreItemTask extends DataTask<StoreItem> {
     }
 
     @Override
-    protected StoreItem parseData(String s) throws Exception {
-        StoreItem response = ClassParser.toData(s, StoreItem.class);
+    protected List<StoreItem> parseData(String s) throws Exception {
+        List<StoreItem> response = JSONArrayToClass(s,StoreItem.class);
         return response;
     }
 }

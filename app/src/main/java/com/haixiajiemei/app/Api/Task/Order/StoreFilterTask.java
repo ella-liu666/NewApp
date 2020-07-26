@@ -5,29 +5,34 @@ import android.content.Context;
 import com.haixiajiemei.app.Api.Rtf.OrderRtf;
 import com.haixiajiemei.app.Api.Task.DataTask;
 import com.haixiajiemei.app.Module.Order.Model.IdAndTxt;
-import com.haixiajiemei.app.Parser.ClassParser;
 
-public class StoreFilterTask extends DataTask<IdAndTxt> {
+import java.util.List;
+
+import static com.haixiajiemei.app.Util.FunTools.JSONArrayToClass;
+
+public class StoreFilterTask extends DataTask<List<IdAndTxt>> {
     private OrderRtf api;
 
     private Context context;
     private String dbName;
+    private int dbid;
 
-    public StoreFilterTask(Context context, String dbName) {
+    public StoreFilterTask(Context context, int dbid, String dbName) {
         api = new OrderRtf(context);
 
         this.context = context;
+        this.dbid = dbid;
         this.dbName = dbName;
     }
 
     @Override
     protected String load() throws Exception {
-        return api.getStoreFilter(dbName);
+        return api.getStoreFilter(dbid,dbName);
     }
 
     @Override
-    protected IdAndTxt parseData(String s) throws Exception {
-        IdAndTxt response = ClassParser.toData(s, IdAndTxt.class);
+    protected List<IdAndTxt> parseData(String s) throws Exception {
+        List<IdAndTxt> response = JSONArrayToClass(s,IdAndTxt.class);
         return response;
     }
 }

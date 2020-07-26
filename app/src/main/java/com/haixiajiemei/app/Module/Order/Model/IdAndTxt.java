@@ -12,6 +12,8 @@ public class IdAndTxt implements Serializable {
     @SerializedName("name")
     private String name;
 
+    @SerializedName("dbName")
+    private String dbName;
 
 
     public int getId() {
@@ -20,5 +22,9 @@ public class IdAndTxt implements Serializable {
 
     public String getName() {
         return name;
+    }
+
+    public String getDbName() {
+        return dbName;
     }
 }

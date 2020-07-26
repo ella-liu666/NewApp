@@ -8,6 +8,8 @@ import com.haixiajiemei.app.Api.Task.Order.StoreItemTask;
 import com.haixiajiemei.app.Module.Order.Contract.StoreItemContract;
 import com.haixiajiemei.app.Module.Order.Model.StoreItem;
 
+import java.util.List;
+
 public class StoreItemPresenter implements StoreItemContract.PresenterAction{
 
     private StoreItemContract.ViewAction viewAction;
@@ -27,8 +29,8 @@ public class StoreItemPresenter implements StoreItemContract.PresenterAction{
         DataLoader.run(new StoreItemTask(mcontext,dbName,mcid) {
 
             @Override
-            protected void onResult(StoreItem storeItem) throws Exception {
-                viewAction.StoreItemSuccess(storeItem);
+            protected void onResult(List<StoreItem> storeItems) throws Exception {
+                viewAction.StoreItemSuccess(storeItems);
             }
 
             @Override

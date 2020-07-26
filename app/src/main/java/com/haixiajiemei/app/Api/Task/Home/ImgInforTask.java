@@ -24,7 +24,6 @@ public class ImgInforTask extends DataTask<List<ImgAndTxt>> {
 
     @Override
     protected List<ImgAndTxt> parseData(String s) throws Exception {
-//        List<ImgAndTxt> response = JSONArrayToTags(s);
         List<ImgAndTxt> response = JSONArrayToClass(s,ImgAndTxt.class);
         return response;
     }
