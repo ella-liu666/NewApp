@@ -56,16 +56,17 @@ public class FunTools {
         return test;
     }
 
-    public static void CreateAlertDialogTool(Context context) {
+    public static void CreateAlertDialogTool(Context context, int Title, String Message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage(R.string.UnderConstruction);
+        builder.setTitle(Title);
+        builder.setMessage(Message);
         builder.setPositiveButton(R.string.confirm, (dialog, which) -> dialog.dismiss());
         AlertDialog dialog = builder.create();
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
     }
 
-    public static void CreateAlertDialogTool(Context context, int Title, String Message) {
+    public static void CreateAlertDialogTool(Context context, String Title, int Message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(Title);
         builder.setMessage(Message);

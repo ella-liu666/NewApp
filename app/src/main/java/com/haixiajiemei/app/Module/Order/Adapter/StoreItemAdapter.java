@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -48,6 +49,8 @@ public class StoreItemAdapter extends RecyclerView.Adapter<StoreItemAdapter.View
         holder.item_title.setText(items.get(position).getName());
         holder.item_detail.setText(items.get(position).getDetail());
         holder.item_price.setText("¥"+String.valueOf(items.get(position).getPrice()));
+        holder.StoreItem.setOnClickListener(view -> callback.onSettingItemClicked(items.get(position).getId(),items.get(position).getDbName()));
+
     }
 
     @Override
@@ -65,6 +68,8 @@ public class StoreItemAdapter extends RecyclerView.Adapter<StoreItemAdapter.View
         TextView item_detail;
         @BindView(R.id.item_price)
         TextView item_price;
+        @BindView(R.id.StoreItem)
+        LinearLayout StoreItem;
 
         ViewHolder(final View itemView) {
             super(itemView);

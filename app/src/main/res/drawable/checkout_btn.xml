@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/Checkout_btn" />
+    <corners android:topLeftRadius="500px"
+        android:topRightRadius="500px"
+        android:bottomRightRadius="500px"
+        android:bottomLeftRadius="500px"/>
+</shape>

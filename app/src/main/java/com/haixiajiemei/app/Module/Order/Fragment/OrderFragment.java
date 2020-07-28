@@ -1,7 +1,9 @@
 package com.haixiajiemei.app.Module.Order.Fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,24 +14,31 @@ import butterknife.ButterKnife;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.haixiajiemei.app.Helper.GlideApp;
 import com.haixiajiemei.app.Module.Order.Adapter.StoreItemAdapter;
+import com.haixiajiemei.app.Module.Order.Contract.StoreFeedingContract;
 import com.haixiajiemei.app.Module.Order.Contract.StoreFilterContract;
 import com.haixiajiemei.app.Module.Order.Contract.StoreItemCallback;
 import com.haixiajiemei.app.Module.Order.Contract.StoreItemContract;
 import com.haixiajiemei.app.Module.Order.Contract.StoreListContract;
 import com.haixiajiemei.app.Module.Order.Model.IdAndTxt;
+import com.haixiajiemei.app.Module.Order.Model.ShoppingCartList;
+import com.haixiajiemei.app.Module.Order.Model.StoreFeed;
 import com.haixiajiemei.app.Module.Order.Model.StoreItem;
 import com.haixiajiemei.app.Module.Order.Model.StoreList;
 import com.haixiajiemei.app.Module.Order.Model.StoreListModel;
+import com.haixiajiemei.app.Module.Order.Present.StoreFeedingPresenter;
 import com.haixiajiemei.app.Module.Order.Present.StoreFilterPresenter;
 import com.haixiajiemei.app.Module.Order.Present.StoreItemPresenter;
 import com.haixiajiemei.app.Module.Order.Present.StoreListPresenter;
@@ -38,7 +47,10 @@ import com.haixiajiemei.app.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderFragment extends Fragment implements StoreListContract.ViewAction, StoreItemContract.ViewAction, StoreFilterContract.ViewAction, StoreItemCallback {
+import static com.haixiajiemei.app.Util.FunTools.CreateAlertDialogTool;
+
+public class OrderFragment extends Fragment implements StoreListContract.ViewAction, StoreItemContract.ViewAction,
+        StoreFilterContract.ViewAction, StoreItemCallback, StoreFeedingContract.ViewAction {
 
     @BindView(R.id.storeNameItemContainer)
     LinearLayout storeNameItemContainer;
@@ -52,15 +64,19 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
     RecyclerView order_recycler;
     @BindView(R.id.store_infor)
     TextView store_infor;
+    @BindView(R.id.distance)
+    TextView distance;
 
     private StoreListPresenter storeListPresenter;
     private StoreFilterPresenter storeFilterPresenter;
     private StoreItemPresenter storeItemPresenter;
+    private StoreFeedingPresenter storeFeedingPresenter;
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
     private StoreItemAdapter storeItemAdapter;
-
+    private int Num = 1;
     private List<StoreListModel> list;
+    private ShoppingCartList ShoppingCart;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -99,12 +115,17 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
                 imageView.setPadding(0, 0, 0, 16);
                 imageView.setId(storeListList.get(i).getDbid());
                 imageView.setOnClickListener(view -> {
-                    for (StoreList storeList : storeListList) {
-                        if (storeList.getDbid() == getCenterItem(view)) {
-                            store_infor.setText(storeList.getStoreInfo().getcName());
-                            storeFilterPresenter = new StoreFilterPresenter(this,
-                                    requireContext(), getCenterItem(view), storeList.getDbName());
-                            storeFilterPresenter.doStoreFilter();
+                    if (ShoppingCart != null && ShoppingCart.storeFeeds.size() > 0) {
+                        CreateAlertDialogTool(requireContext(), R.string.note, R.string.clear_shopping_cart);
+                    } else {
+                        for (StoreList storeList : storeListList) {
+                            if (storeList.getDbid() == getCenterItem(view)) {
+                                store_infor.setText(storeList.getStoreInfo().getcName());
+                                distance.setText(storeList.getStoreInfo().getAddress());
+                                storeFilterPresenter = new StoreFilterPresenter(this,
+                                        requireContext(), getCenterItem(view), storeList.getDbName());
+                                storeFilterPresenter.doStoreFilter();
+                            }
                         }
                     }
                 });
@@ -128,17 +149,16 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
     @Override
     public void StoreItemSuccess(List<StoreItem> storeItem) {
         mHandler.postDelayed(() -> {
-            if(storeItem.size()==0){
+            if (storeItem.size() == 0) {
                 order_recycler.setVisibility(View.GONE);
                 NoData.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 NoData.setVisibility(View.GONE);
                 order_recycler.setVisibility(View.VISIBLE);
-                storeItemAdapter=new StoreItemAdapter(storeItem,requireContext(),OrderFragment.this);
+                storeItemAdapter = new StoreItemAdapter(storeItem, requireContext(), OrderFragment.this);
                 order_recycler.setLayoutManager(new LinearLayoutManager(requireContext()));
                 order_recycler.setAdapter(storeItemAdapter);
             }
-
         }, 1);
     }
 
@@ -147,13 +167,13 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
         mHandler.postDelayed(() -> {
             SelectStore.setVisibility(View.GONE);
             txt_tab.removeAllViews();
-            list= new ArrayList<>();
+            list = new ArrayList<>();
             for (int i = 0; i < idAndTxt.size(); i++) {
                 LinearLayout layout = new LinearLayout(requireContext());
                 layout.setGravity(Gravity.CENTER_VERTICAL);
                 layout.setId(i);
                 if (i == 0) {
-                    storeItemPresenter=new StoreItemPresenter(this,requireContext(),idAndTxt.get(0).getDbName(),idAndTxt.get(0).getId());
+                    storeItemPresenter = new StoreItemPresenter(this, requireContext(), idAndTxt.get(0).getDbName(), idAndTxt.get(0).getId());
                     storeItemPresenter.doStoreItem();
                     layout.setBackground(getResources().getDrawable(R.drawable.order_item_bg));
                 }
@@ -167,8 +187,8 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
                 layout.addView(txt, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
                 StoreListModel storeListModel = new StoreListModel();
-                storeListModel.dbid=idAndTxt.get(i).getId();
-                storeListModel.dbName=idAndTxt.get(i).getDbName();
+                storeListModel.dbid = idAndTxt.get(i).getId();
+                storeListModel.dbName = idAndTxt.get(i).getDbName();
                 storeListModel.tab = layout;
 
 
@@ -178,13 +198,20 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
                     for (StoreListModel SLM : list) {
                         SLM.tab.setBackgroundColor(getResources().getColor(R.color.original_bg));
                         if (SLM.tab.getId() == view.getId()) {
-                            storeItemPresenter=new StoreItemPresenter(this,requireContext(),SLM.dbName,SLM.dbid);
+                            storeItemPresenter = new StoreItemPresenter(this, requireContext(), SLM.dbName, SLM.dbid);
                             storeItemPresenter.doStoreItem();
                             storeListModel.tab.setBackground(getResources().getDrawable(R.drawable.order_item_bg));
                         }
                     }
                 });
             }
+        }, 1);
+    }
+
+    @Override
+    public void StoreFeedingSuccess(StoreFeed storeFeed) {
+        mHandler.postDelayed(() -> {
+            AlertDialog(storeFeed);
         }, 1);
     }
 
@@ -205,11 +232,57 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
 
     @Override
     public void onSettingItemClicked(int id, String name) {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-//        builder.setMessage(R.string.UnderConstruction);
-//        builder.setPositiveButton(R.string.confirm, (dialog, which) -> dialog.dismiss());
-//        AlertDialog dialog = builder.create();
-//        dialog.setCanceledOnTouchOutside(true);
-//        dialog.show();
+        storeFeedingPresenter = new StoreFeedingPresenter(this, requireContext(), name, id);
+        storeFeedingPresenter.doStoreFeeding();
+    }
+
+    private void AlertDialog(StoreFeed storeFeed) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        View view = getLayoutInflater().inflate(R.layout.store_feed, null);
+        ImageView feed_img = view.findViewById(R.id.feed_img);
+        GlideApp.with(requireContext())
+                .load(storeFeed.getImage().toString())
+                .fitCenter()
+                .into(feed_img);
+        TextView feed_title = view.findViewById(R.id.feed_title);
+        feed_title.setText(storeFeed.getName());
+        TextView feed_price = view.findViewById(R.id.feed_price);
+        feed_price.setText("¥" + String.valueOf(storeFeed.getPrice()));
+        TextView Introduction = view.findViewById(R.id.Introduction);
+        Introduction.setText(storeFeed.getDetail());
+        TextView num = view.findViewById(R.id.num);
+        num.setText(String.valueOf(Num));
+        ImageView less = view.findViewById(R.id.less);
+        less.setOnClickListener(view1 -> {
+            Num--;
+            if (Num < 1) {
+                Num = 1;
+            }
+            num.setText(String.valueOf(Num));
+        });
+
+        ImageView plus = view.findViewById(R.id.plus);
+        plus.setOnClickListener(view12 -> {
+            Num++;
+            num.setText(String.valueOf(Num));
+        });
+
+        LinearLayout customizedItem = view.findViewById(R.id.customizedItem);
+
+        AlertDialog alertDialog = builder.create();
+        Button add_shopping_cart = view.findViewById(R.id.add_shopping_cart);
+        add_shopping_cart.setOnClickListener(view13 -> {
+            ShoppingCart = new ShoppingCartList();
+            ShoppingCart.storeFeeds = new ArrayList<>();
+            ShoppingCart.setcName(store_infor.getText().toString());
+            ShoppingCart.setAddress(distance.getText().toString());
+            ShoppingCart.storeFeeds.add(storeFeed);
+
+            alertDialog.dismiss();
+        });
+
+        alertDialog.setView(view);
+        alertDialog.setCancelable(true);
+        alertDialog.show();
     }
 }

@@ -1,11 +1,11 @@
 package com.haixiajiemei.app.Module.Order.Contract;
 
-import com.haixiajiemei.app.Module.Order.Model.IdAndTxt;
+import com.haixiajiemei.app.Module.Order.Model.StoreFeed;
 
 public interface StoreFeedingContract {
 
     interface ViewAction {
-        void StoreFeedingSuccess(IdAndTxt idAndTxt);
+        void StoreFeedingSuccess(StoreFeed storeFeed);
 
         void showProgress();
 

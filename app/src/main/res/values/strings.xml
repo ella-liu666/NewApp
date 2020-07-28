@@ -91,6 +91,16 @@
     <string name="remind">提醒</string>
     <string name="PleaseSelectStore">请选择店家</string>
     <string name="no_data">无资料</string>
+    <string name="add_shopping_cart">加入购物车</string>
+    <string name="customized">客制化调整</string>
+    <string name="SelfMention">自提</string>
+    <string name="delivery">外送</string>
+    <string name="ToSettle">去结算</string>
+    <string name="Total">应付合计 ¥ %s</string>
+    <string name="clear_shopping_cart">请先结清购物车</string>
+    <string name="PaymentSuccessful">支付成功</string>
+    <string name="PaymentFailed">支付失败</string>
+
 
     <string name="UnderConstruction">建置中</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>

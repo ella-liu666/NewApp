@@ -135,6 +135,22 @@ public class SettingRtf extends BaseRtf<SettingRtf.Service>{
         return this.execute(this.api.BuyCard(params.getMap()));
     }
 
+    public String getAlipayRequest(@NonNull float rechargeTotal) throws Exception {
+        Params params = new Params();
+        params.putRequired("rechargeTotal", rechargeTotal);
+
+        return this.execute(this.api.AlipayRequest(params.getMap()));
+    }
+
+    public String getStoredValue(@NonNull String orderNo,@NonNull float value,@NonNull String sourceID) throws Exception {
+        Params params = new Params();
+        params.putRequired("orderNo", orderNo);
+        params.putRequired("value", value);
+        params.putRequired("sourceID", sourceID);
+
+        return this.execute(this.api.StoredValue(params.getMap()));
+    }
+
     public interface Service {
         @GET("Wallet/Recharge")
         Call<String> Recharge();
@@ -195,6 +211,12 @@ public class SettingRtf extends BaseRtf<SettingRtf.Service>{
 
         @GET("Wallet/Member/LogOut")
         Call<String> sign_out();
+
+        @POST("Wallet/Order/AlipayRequest")
+        Call<String> AlipayRequest(@Body Map<String, Object> params);
+
+        @POST("Wallet/Recharge")
+        Call<String> StoredValue(@Body Map<String, Object> params);
     }
 
 }

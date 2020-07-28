@@ -22,7 +22,8 @@
         <activity
             android:name="com.haixiajiemei.app.ToolBarActivity"
             android:hardwareAccelerated="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="false"/>
         <activity
             android:name="com.haixiajiemei.app.MainActivity"
             android:screenOrientation="portrait"></activity>

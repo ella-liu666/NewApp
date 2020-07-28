@@ -52,7 +52,10 @@ public class BrandIntroAdapter extends RecyclerView.Adapter<BrandIntroAdapter.Vi
                     .into(holder.imgleft);
 
             holder.nameleft.setText(BrandIntroductionItem.get(position).getTxt());
-            holder.layoutleft.setOnClickListener(view -> callback.onBrandIntroClicked(position, BrandIntroductionItem.get(position).getId(), BrandIntroductionItem.get(position).getTxt()));
+            if(!BrandIntroductionItem.get(position).getTxt().equals("有机农场")){
+                holder.layoutleft.setOnClickListener(view -> callback.onBrandIntroClicked(position, BrandIntroductionItem.get(position).getId(), BrandIntroductionItem.get(position).getTxt()));
+            }
+
 
             GlideApp.with(context)
                     .load(BrandIntroductionItem.get(position + 1).getImg().toString())
