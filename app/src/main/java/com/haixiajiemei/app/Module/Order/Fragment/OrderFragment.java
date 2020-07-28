@@ -1,5 +1,6 @@
 package com.haixiajiemei.app.Module.Order.Fragment;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -13,15 +14,19 @@ import butterknife.ButterKnife;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.haixiajiemei.app.Helper.GlideApp;
@@ -31,6 +36,7 @@ import com.haixiajiemei.app.Module.Order.Contract.StoreFilterContract;
 import com.haixiajiemei.app.Module.Order.Contract.StoreItemCallback;
 import com.haixiajiemei.app.Module.Order.Contract.StoreItemContract;
 import com.haixiajiemei.app.Module.Order.Contract.StoreListContract;
+import com.haixiajiemei.app.Module.Order.Model.Feeding;
 import com.haixiajiemei.app.Module.Order.Model.IdAndTxt;
 import com.haixiajiemei.app.Module.Order.Model.ShoppingCart;
 import com.haixiajiemei.app.Module.Order.Model.ShoppingCartList;
@@ -77,8 +83,10 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
 
     private StoreItemAdapter storeItemAdapter;
     private int Num = 1;
+    private boolean check = false;
     private List<StoreListModel> list;
-    private ShoppingCartList shoppingCartList= new ShoppingCartList();
+    private List<RadioButton> radioButtonlist;
+    private ShoppingCartList shoppingCartList = new ShoppingCartList();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -252,6 +260,8 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
     }
 
     private void AlertDialog(StoreFeed storeFeed) {
+        radioButtonlist = new ArrayList<>();
+        Num = 1;
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         View view = getLayoutInflater().inflate(R.layout.store_feed, null);
         ImageView feed_img = view.findViewById(R.id.feed_img);
@@ -281,27 +291,96 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
             Num++;
             num.setText(String.valueOf(Num));
         });
-
+        ImageButton close = view.findViewById(R.id.close);
         LinearLayout customizedItem = view.findViewById(R.id.customizedItem);
+        for (int i = 0; i < storeFeed.getFeeding().size(); i++) {
+            TextView title = new TextView(requireContext());
+            title.setTextColor(getResources().getColor(R.color.black));
+            title.setTextSize(16);
+            title.setText(storeFeed.getFeeding().get(i).getFeedingCategoryName() + "/" + storeFeed.getFeeding().get(i).getFeedingStatusName());
+            title.setTypeface(Typeface.DEFAULT_BOLD);
+            title.setPadding(16, 16, 16, 16);
+            customizedItem.addView(title, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+            if (storeFeed.getFeeding().get(i).getFeedingStatusName().equals("必選且只能一項")) {
+                RadioGroup radioGroup = new RadioGroup(requireContext());
+                radioGroup.setOrientation(LinearLayout.VERTICAL);
+                customizedItem.addView(radioGroup, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+                for (int j = 0; j < storeFeed.getFeeding().get(i).getBlend().size(); j++) {
+                    RadioButton radioButton = new RadioButton(requireContext());
+                    if (j == 0) {
+                        radioButton.setChecked(true);
+                    }
+                    radioButton.setId(storeFeed.getFeeding().get(i).getBlend().get(j).getFeedingID());
+                    radioButton.setTextColor(getResources().getColor(R.color.black));
+                    radioButton.setTextSize(16);
+                    radioButton.setText(storeFeed.getFeeding().get(i).getBlend().get(j).getNewName());
+
+                    radioButtonlist.add(radioButton);
+
+                    radioGroup.addView(radioButton, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                }
+            } else {
+                for (int j = 0; j < storeFeed.getFeeding().get(i).getBlend().size(); j++) {
+                    RadioButton radioButton = new RadioButton(requireContext());
+                    radioButton.setId(storeFeed.getFeeding().get(i).getBlend().get(j).getFeedingID());
+                    radioButton.setTextColor(getResources().getColor(R.color.black));
+                    radioButton.setTextSize(16);
+                    radioButton.setText(storeFeed.getFeeding().get(i).getBlend().get(j).getNewName());
+
+                    radioButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (!check) {
+                                radioButton.setChecked(true);
+                                check = true;
+                            } else {
+                                radioButton.setChecked(false);
+                                check = false;
+                            }
+                        }
+                    });
+                    radioButtonlist.add(radioButton);
+                    customizedItem.addView(radioButton, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                }
+            }
+        }
+
 
         AlertDialog alertDialog = builder.create();
+        close.setOnClickListener(view14 -> alertDialog.dismiss());
         Button add_shopping_cart = view.findViewById(R.id.add_shopping_cart);
         add_shopping_cart.setOnClickListener(view13 -> {
             shoppingCartList.setcName(store_infor.getText().toString());
             shoppingCartList.setAddress(distance.getText().toString());
-            ShoppingCart SC=new ShoppingCart();
-            SC.mealID=String.valueOf(storeFeed.getMealsID());
-            SC.mealName=storeFeed.getName();
-            SC.amount=Num;
-            SC.price=storeFeed.getPrice();
-//            SC.feeding.add(storeFeed.getFeeding().g);
+            ShoppingCart SC = new ShoppingCart();
+            SC.mealID = String.valueOf(storeFeed.getMealsID());
+            SC.mealName = storeFeed.getName();
+            SC.amount = Num;
+            SC.price = storeFeed.getPrice();
+            SC.feeding = new ArrayList<>();
+            for (RadioButton RB : radioButtonlist) {
+                if (RB.isChecked()) {
+                    Feeding feeding = new Feeding();
+                    feeding.id = String.valueOf(RB.getId());
+                    feeding.name = RB.getText().toString();
+                    if (RB.getText().toString().contains("$")) {
+                        feeding.price = Float.parseFloat(RB.getText().toString().substring(RB.getText().toString().indexOf("$")).replace("$", "").replace(")", ""));
+                    } else {
+                        feeding.price = 0;
+                    }
+                    SC.feeding.add(feeding);
+                }
+            }
             shoppingCartList.cart.add(SC);
 
             alertDialog.dismiss();
         });
 
         alertDialog.setView(view);
-        alertDialog.setCancelable(true);
+        alertDialog.setCancelable(false);
+        alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.show();
     }
 }

@@ -149,7 +149,6 @@ public class AccountFragment extends Fragment implements AlipayRequestContract.V
             case R.id.btn_Bonus:
                 if (WeChat.isChecked()) {
 //                    try {//喚醒app
-
 //                        IWXAPI api = WXAPIFactory.createWXAPI(requireContext(), Constants.APP_ID);
 //                        api.registerApp(Constants.APP_ID);
 //

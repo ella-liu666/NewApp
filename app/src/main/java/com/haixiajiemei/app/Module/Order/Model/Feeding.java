@@ -1,31 +1,12 @@
 package com.haixiajiemei.app.Module.Order.Model;
 
-import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
+public class Feeding {
 
-public class Feeding implements Serializable {
+    public String id;
 
-    @SerializedName("id")
-    private String id;
+    public String name;
 
-    @SerializedName("name")
-    private String name;
+    public float price;
 
-    @SerializedName("price")
-    private float price;
-
-
-
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public float getPrice() {
-        return price;
-    }
 }
