@@ -1,46 +1,18 @@
 package com.haixiajiemei.app.Module.Order.Model;
 
-import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class ShoppingCart implements Serializable {
+public class ShoppingCart {
 
-    @SerializedName("mealID")
-    private String mealID;
+    public String mealID;//品項ID
 
-    @SerializedName("mealName")
-    private String mealName;
+    public String mealName;//品名
 
-    @SerializedName("amount")
-    private int amount;
+    public int amount;//數量
 
-    @SerializedName("price")
-    private float price;
+    public float price;//單價
 
-    @SerializedName("feeding")
-    private List<Feeding> feeding;
+    public List<Feeding> feeding;//客製化調整
 
-
-
-    public String getMealID() {
-        return mealID;
-    }
-
-    public String getMealName() {
-        return mealName;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public List<Feeding> getFeeding() {
-        return feeding;
-    }
 }

@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -77,7 +78,7 @@ public class BuyMembershipCardFragment extends Fragment implements VIPCardContra
                 imageView.setPadding(0, 0, 16, 0);
                 imageView.setId(imgAndTxt.get(i).getId());
                 imageView.setOnClickListener(view -> {
-                    Intent intent = new Intent(getActivity(), ToolBarActivity.class);
+                    Intent intent = new Intent(requireActivity(), ToolBarActivity.class);
                     intent.putExtra("Type", CARDDETAILS);
                     intent.putExtra("Tag","VIP");
                     intent.putExtra("cardID", getCenterItem(view));
@@ -103,7 +104,7 @@ public class BuyMembershipCardFragment extends Fragment implements VIPCardContra
                 imageView.setPadding(0, 0, 16, 0);
                 imageView.setId(imgAndTxt.get(i).getId());
                 imageView.setOnClickListener(view -> {
-                    Intent intent = new Intent(getActivity(), ToolBarActivity.class);
+                    Intent intent = new Intent(requireActivity(), ToolBarActivity.class);
                     intent.putExtra("Type", CARDDETAILS);
                     intent.putExtra("Tag","Card");
                     intent.putExtra("cardID", getCenterItem(view));
@@ -117,12 +118,23 @@ public class BuyMembershipCardFragment extends Fragment implements VIPCardContra
 
     @Override
     public void showProgress() {
-        getActivity().runOnUiThread(() -> progressBar.setVisibility(View.VISIBLE));
+        mHandler.postDelayed(() -> {
+            requireActivity().runOnUiThread(() -> {
+                progressBar.setVisibility(View.VISIBLE);
+                requireActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            });
+        }, 1);
     }
 
     @Override
     public void hideProgress() {
-        getActivity().runOnUiThread(() -> progressBar.setVisibility(View.GONE));
+        mHandler.postDelayed(() -> {
+            requireActivity().runOnUiThread(() -> {
+                progressBar.setVisibility(View.GONE);
+                requireActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            });
+        }, 1);
     }
 
     @Override

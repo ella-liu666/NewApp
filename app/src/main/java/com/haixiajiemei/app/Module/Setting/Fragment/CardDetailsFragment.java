@@ -248,7 +248,7 @@ public class CardDetailsFragment extends Fragment implements CardDetailContract.
     @Override
     public void BuyCardSuccess() {
         mHandler.postDelayed(() -> {
-            getActivity().onBackPressed();
+            requireActivity().onBackPressed();
         }, 1);
     }
 

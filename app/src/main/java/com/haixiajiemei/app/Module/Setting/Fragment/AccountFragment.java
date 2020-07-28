@@ -119,7 +119,7 @@ public class AccountFragment extends Fragment implements AlipayRequestContract.V
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.RechargePlan:
-                Intent intent = new Intent(getActivity(), ToolBarActivity.class);
+                Intent intent = new Intent(requireActivity(), ToolBarActivity.class);
                 intent.putExtra("Type", RECHARGEPLAN);
                 intent.putExtra("title", RECHARGEPLAN);
                 startActivity(intent);
@@ -167,7 +167,7 @@ public class AccountFragment extends Fragment implements AlipayRequestContract.V
 //                            Toast.makeText(requireContext(), "開啟微信支付失敗!", Toast.LENGTH_SHORT).show();
 //                        }
 
-                    intent = new Intent(getActivity(), WXPayActivity.class);
+                    intent = new Intent(requireActivity(), WXPayActivity.class);
 //                        intent.setAction(Intent.ACTION_VIEW);
 //                        intent.setData(Uri.parse("weixin://wap/pay?"));//微信
                     startActivity(intent);
@@ -224,7 +224,7 @@ public class AccountFragment extends Fragment implements AlipayRequestContract.V
         final Runnable payRunnable = new Runnable() {
             @Override
             public void run() {
-                PayTask alipay = new PayTask(getActivity());
+                PayTask alipay = new PayTask(requireActivity());
                 Map<String, String> result = alipay.payV2(orderInfo, true);//第二个参数设置为true，将会在调用pay接口的时候直接唤起一个loading
                 Log.i("msp", result.toString());
 
@@ -254,7 +254,7 @@ public class AccountFragment extends Fragment implements AlipayRequestContract.V
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
             builder.setTitle("");
             builder.setMessage(R.string.PaymentSuccessful);
-            builder.setPositiveButton(R.string.confirm, (dialog, which) -> getActivity().finish());
+            builder.setPositiveButton(R.string.confirm, (dialog, which) -> requireActivity().finish());
             AlertDialog dialog = builder.create();
             dialog.setCanceledOnTouchOutside(false);
             dialog.show();

@@ -11,6 +11,7 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
@@ -58,12 +59,23 @@ public class IntroductionFragment extends Fragment implements BrandIntroductionI
 
     @Override
     public void showProgress() {
-        getActivity().runOnUiThread(() -> progressBar.setVisibility(View.VISIBLE));
+        mHandler.postDelayed(() -> {
+            requireActivity().runOnUiThread(() -> {
+                progressBar.setVisibility(View.VISIBLE);
+                requireActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            });
+        }, 1);
     }
 
     @Override
     public void hideProgress() {
-        getActivity().runOnUiThread(() -> progressBar.setVisibility(View.GONE));
+        mHandler.postDelayed(() -> {
+            requireActivity().runOnUiThread(() -> {
+                progressBar.setVisibility(View.GONE);
+                requireActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            });
+        }, 1);
     }
 
     @Override

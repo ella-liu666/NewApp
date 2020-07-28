@@ -57,7 +57,7 @@ public class QRCodeFragment extends Fragment implements QRcodePointContract.View
 
     @OnClick(R.id.btn_Recharge)
     public void onClick(View view) {
-        Intent intent = new Intent(getActivity(), ToolBarActivity.class);
+        Intent intent = new Intent(requireActivity(), ToolBarActivity.class);
         intent.putExtra("Type", ACCOUNT);
         if (getArguments().getString("Balance") != null) {
             intent.putExtra("Balance", getArguments().getString("Balance"));
@@ -65,7 +65,7 @@ public class QRCodeFragment extends Fragment implements QRcodePointContract.View
             intent.putExtra("Balance", getArguments().getFloat("Balance"));
         }
         startActivity(intent);
-        getActivity().finish();
+        requireActivity().finish();
     }
 
     @Override

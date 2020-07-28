@@ -1,6 +1,5 @@
 package com.haixiajiemei.app.Module.Order.Fragment;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -14,15 +13,15 @@ import butterknife.ButterKnife;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.haixiajiemei.app.Helper.GlideApp;
@@ -33,6 +32,7 @@ import com.haixiajiemei.app.Module.Order.Contract.StoreItemCallback;
 import com.haixiajiemei.app.Module.Order.Contract.StoreItemContract;
 import com.haixiajiemei.app.Module.Order.Contract.StoreListContract;
 import com.haixiajiemei.app.Module.Order.Model.IdAndTxt;
+import com.haixiajiemei.app.Module.Order.Model.ShoppingCart;
 import com.haixiajiemei.app.Module.Order.Model.ShoppingCartList;
 import com.haixiajiemei.app.Module.Order.Model.StoreFeed;
 import com.haixiajiemei.app.Module.Order.Model.StoreItem;
@@ -66,6 +66,8 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
     TextView store_infor;
     @BindView(R.id.distance)
     TextView distance;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     private StoreListPresenter storeListPresenter;
     private StoreFilterPresenter storeFilterPresenter;
@@ -76,7 +78,7 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
     private StoreItemAdapter storeItemAdapter;
     private int Num = 1;
     private List<StoreListModel> list;
-    private ShoppingCartList ShoppingCart;
+    private ShoppingCartList shoppingCartList= new ShoppingCartList();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,6 +88,8 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
 
         storeListPresenter = new StoreListPresenter(this, requireContext());
         storeListPresenter.doStoreList();
+
+        shoppingCartList.cart = new ArrayList<>();
         return view;
     }
 
@@ -115,7 +119,7 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
                 imageView.setPadding(0, 0, 0, 16);
                 imageView.setId(storeListList.get(i).getDbid());
                 imageView.setOnClickListener(view -> {
-                    if (ShoppingCart != null && ShoppingCart.storeFeeds.size() > 0) {
+                    if (shoppingCartList != null && shoppingCartList.cart.size() > 0) {
                         CreateAlertDialogTool(requireContext(), R.string.note, R.string.clear_shopping_cart);
                     } else {
                         for (StoreList storeList : storeListList) {
@@ -217,12 +221,23 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
 
     @Override
     public void showProgress() {
-
+        mHandler.postDelayed(() -> {
+            requireActivity().runOnUiThread(() -> {
+                progressBar.setVisibility(View.VISIBLE);
+                requireActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            });
+        }, 1);
     }
 
     @Override
     public void hideProgress() {
-
+        mHandler.postDelayed(() -> {
+            requireActivity().runOnUiThread(() -> {
+                progressBar.setVisibility(View.GONE);
+                requireActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            });
+        }, 1);
     }
 
     @Override
@@ -272,11 +287,15 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
         AlertDialog alertDialog = builder.create();
         Button add_shopping_cart = view.findViewById(R.id.add_shopping_cart);
         add_shopping_cart.setOnClickListener(view13 -> {
-            ShoppingCart = new ShoppingCartList();
-            ShoppingCart.storeFeeds = new ArrayList<>();
-            ShoppingCart.setcName(store_infor.getText().toString());
-            ShoppingCart.setAddress(distance.getText().toString());
-            ShoppingCart.storeFeeds.add(storeFeed);
+            shoppingCartList.setcName(store_infor.getText().toString());
+            shoppingCartList.setAddress(distance.getText().toString());
+            ShoppingCart SC=new ShoppingCart();
+            SC.mealID=String.valueOf(storeFeed.getMealsID());
+            SC.mealName=storeFeed.getName();
+            SC.amount=Num;
+            SC.price=storeFeed.getPrice();
+//            SC.feeding.add(storeFeed.getFeeding().g);
+            shoppingCartList.cart.add(SC);
 
             alertDialog.dismiss();
         });

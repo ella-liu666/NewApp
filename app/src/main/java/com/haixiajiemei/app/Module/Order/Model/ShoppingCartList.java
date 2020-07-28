@@ -8,7 +8,11 @@ public class ShoppingCartList {
 
     private String address;
 
-    public List<StoreFeed> storeFeeds;
+    private String storeAccount;//dbName
+
+    public static final String delType = "3";
+
+    public List<ShoppingCart> cart;
 
 
 
@@ -28,4 +32,11 @@ public class ShoppingCartList {
         this.address = address;
     }
 
+    public String getStoreAccount() {
+        return storeAccount;
+    }
+
+    public void setStoreAccount(String storeAccount) {
+        this.storeAccount = storeAccount;
+    }
 }

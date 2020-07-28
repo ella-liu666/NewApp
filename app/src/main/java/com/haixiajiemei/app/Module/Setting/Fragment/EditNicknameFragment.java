@@ -42,7 +42,7 @@ public class EditNicknameFragment extends Fragment implements ProfileNameContrac
     @Override
     public void ProfileNameSuccess() {
         mHandler.postDelayed(() -> {
-            getActivity().onBackPressed();
+            requireActivity().onBackPressed();
         }, 1);
     }
 

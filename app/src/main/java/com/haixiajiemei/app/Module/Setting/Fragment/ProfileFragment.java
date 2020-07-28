@@ -91,9 +91,9 @@ public class ProfileFragment extends Fragment implements ProfileContract.ViewAct
     @Override
     public void SignOutSuccess() {
         mHandler.postDelayed(() -> {
-            Intent intent = new Intent(getActivity(), MainActivity.class);
+            Intent intent = new Intent(requireActivity(), MainActivity.class);
             startActivity(intent);
-            getActivity().finish();
+            requireActivity().finish();
         }, 1);
     }
 

@@ -54,7 +54,7 @@ public class EditPasswordFragment extends Fragment implements ProfilePwdContract
     @Override
     public void ProfilePwdSuccess() {
         mHandler.postDelayed(() -> {
-            getActivity().onBackPressed();
+            requireActivity().onBackPressed();
         }, 1);
     }
 

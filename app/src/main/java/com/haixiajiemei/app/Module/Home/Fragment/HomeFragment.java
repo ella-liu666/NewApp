@@ -20,6 +20,7 @@ import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -70,7 +71,7 @@ public class HomeFragment extends Fragment implements HomeStoreImgContract.ViewA
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
 
@@ -102,7 +103,7 @@ public class HomeFragment extends Fragment implements HomeStoreImgContract.ViewA
 
     @OnClick(R.id.qrcode)
     public void onClick(View view) {
-        if (getActivity().getSharedPreferences("UserToken", MODE_PRIVATE).getBoolean("loginStatus", true)) {
+        if (requireActivity().getSharedPreferences("UserToken", MODE_PRIVATE).getBoolean("loginStatus", true)) {
             PointPresenter = new PointPresenter(this, requireContext());
             PointPresenter.doPoint();
         } else {
@@ -118,7 +119,7 @@ public class HomeFragment extends Fragment implements HomeStoreImgContract.ViewA
             BrandIntroductionItem.addAll(imgAndTxt);
 
             adapter = new BrandIntroAdapter(requireContext(), BrandIntroductionItem, HomeFragment.this);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext()){
+            LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext()) {
                 @Override
                 public boolean canScrollVertically() {
                     return false;
@@ -144,22 +145,33 @@ public class HomeFragment extends Fragment implements HomeStoreImgContract.ViewA
     @Override
     public void PointSuccess(String s) {
         mHandler.postDelayed(() -> {
-            Intent intent = new Intent(getActivity(), ToolBarActivity.class);
+            Intent intent = new Intent(requireActivity(), ToolBarActivity.class);
             intent.putExtra("Type", QRCODE);
             intent.putExtra("title", R.string.Payment_QR_code);
-            intent.putExtra("Balance",s);
+            intent.putExtra("Balance", s);
             startActivity(intent);
         }, 1);
     }
 
     @Override
     public void showProgress() {
-        getActivity().runOnUiThread(() -> progressBar.setVisibility(View.VISIBLE));
+        mHandler.postDelayed(() -> {
+            requireActivity().runOnUiThread(() -> {
+                progressBar.setVisibility(View.VISIBLE);
+                requireActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            });
+        }, 1);
     }
 
     @Override
     public void hideProgress() {
-        getActivity().runOnUiThread(() -> progressBar.setVisibility(View.GONE));
+        mHandler.postDelayed(() -> {
+            requireActivity().runOnUiThread(() -> {
+                progressBar.setVisibility(View.GONE);
+                requireActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            });
+        }, 1);
     }
 
     @Override
@@ -168,7 +180,7 @@ public class HomeFragment extends Fragment implements HomeStoreImgContract.ViewA
 
     @Override
     public void onBrandIntroClicked(int position, int id, String title) {
-        Intent intent = new Intent(getActivity(), ToolBarActivity.class);
+        Intent intent = new Intent(requireActivity(), ToolBarActivity.class);
         intent.putExtra("id", id);
         intent.putExtra("title", title);
         intent.putExtra("Type", INTRODUCTION);
@@ -208,7 +220,7 @@ public class HomeFragment extends Fragment implements HomeStoreImgContract.ViewA
             }
         });
         builder.setNegativeButton(R.string.disagree, (dialog, which) -> {
-            getActivity().finish();
+            requireActivity().finish();
         });
 
         builder.setNeutralButton(R.string.back, (dialog, which) -> {

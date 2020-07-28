@@ -66,12 +66,12 @@ public class QRcodeCouponFragment extends Fragment implements QRcodeCouponContra
 
     @OnClick(R.id.checkout)
     public void onClick(View view) {
-        Intent intent = new Intent(getActivity(), ToolBarActivity.class);
+        Intent intent = new Intent(requireActivity(), ToolBarActivity.class);
         intent.putExtra("Type", QRCODE);
         intent.putExtra("title", R.string.Payment_QR_code);
         intent.putExtra("Balance", Balance);
         startActivity(intent);
-        getActivity().finish();
+        requireActivity().finish();
     }
 
     @Override

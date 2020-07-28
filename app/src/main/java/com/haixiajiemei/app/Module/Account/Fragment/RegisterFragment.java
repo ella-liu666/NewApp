@@ -107,13 +107,13 @@ public class RegisterFragment extends Fragment implements RegisterContract.ViewA
                 }
                 break;
             case R.id.registered_Terms:
-                Intent intent = new Intent(getActivity(), ToolBarActivity.class);
+                Intent intent = new Intent(requireActivity(), ToolBarActivity.class);
                 intent.putExtra("Type", RECHARGEPLAN);
                 intent.putExtra("title", getString(R.string.Terms));
                 startActivity(intent);
                 break;
             case R.id.registered_Privacy:
-                intent = new Intent(getActivity(), ToolBarActivity.class);
+                intent = new Intent(requireActivity(), ToolBarActivity.class);
                 intent.putExtra("Type", RECHARGEPLAN);
                 intent.putExtra("title", getString(R.string.Privacy));
                 startActivity(intent);
@@ -135,12 +135,12 @@ public class RegisterFragment extends Fragment implements RegisterContract.ViewA
     View.OnKeyListener Onkey = (view, keyCode, keyEvent) -> {
         if (keyCode == KeyEvent.KEYCODE_BACK
                 && keyEvent.getAction() == KeyEvent.ACTION_UP) {
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
             builder.setTitle(R.string.note);
             builder.setMessage(R.string.Exit);
-            builder.setPositiveButton(R.string.confirm, (dialog, which) ->  getActivity().onBackPressed());
+            builder.setPositiveButton(R.string.confirm, (dialog, which) ->  requireActivity().onBackPressed());
             builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());
             AlertDialog dialog = builder.create();
             dialog.setCanceledOnTouchOutside(false);

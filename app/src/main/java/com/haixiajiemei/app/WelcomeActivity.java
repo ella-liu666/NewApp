@@ -1,6 +1,7 @@
 package com.haixiajiemei.app;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 
 import com.haixiajiemei.app.Module.Account.Contract.VisitorsContract;
@@ -34,10 +36,10 @@ public class WelcomeActivity extends AppCompatActivity implements VisitorsContra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         ButterKnife.bind(this);
-        if ("".equals(getSharedPreferences("UserToken", MODE_PRIVATE).getString("access_token",""))) {
+        if ("".equals(getSharedPreferences("UserToken", MODE_PRIVATE).getString("access_token", ""))) {
             visitorsPresenter = new VisitorsPresenter(this, this, "kunchiguest");
             visitorsPresenter.doVisitors();
-        }else{
+        } else {
             startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
             finish();
         }
@@ -72,12 +74,23 @@ public class WelcomeActivity extends AppCompatActivity implements VisitorsContra
 
     @Override
     public void showProgress() {
-        runOnUiThread(() -> progressBar.setVisibility(View.VISIBLE));
+        mHandler.postDelayed(() -> {
+            runOnUiThread(() -> {
+                progressBar.setVisibility(View.VISIBLE);
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            });
+        }, 1);
     }
 
     @Override
     public void hideProgress() {
-        runOnUiThread(() -> progressBar.setVisibility(View.GONE));
+        mHandler.postDelayed(() -> {
+            runOnUiThread(() -> {
+                progressBar.setVisibility(View.GONE);
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            });
+        }, 1);
     }
 
     @Override

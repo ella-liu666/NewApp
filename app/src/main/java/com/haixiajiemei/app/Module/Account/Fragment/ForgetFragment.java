@@ -66,12 +66,12 @@ public class ForgetFragment extends Fragment implements ForgetContract.ViewActio
     View.OnKeyListener Onkey = (view, keyCode, keyEvent) -> {
         if (keyCode == KeyEvent.KEYCODE_BACK
                 && keyEvent.getAction() == KeyEvent.ACTION_UP) {
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
             builder.setTitle(R.string.note);
             builder.setMessage(R.string.Exit);
-            builder.setPositiveButton(R.string.confirm, (dialog, which) ->  getActivity().onBackPressed());
+            builder.setPositiveButton(R.string.confirm, (dialog, which) ->  requireActivity().onBackPressed());
             builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());
             AlertDialog dialog = builder.create();
             dialog.setCanceledOnTouchOutside(false);

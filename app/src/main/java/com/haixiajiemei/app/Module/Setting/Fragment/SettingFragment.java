@@ -17,7 +17,9 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.haixiajiemei.app.Helper.GlideApp;
@@ -65,6 +67,8 @@ public class SettingFragment extends Fragment implements SettingItemCallback, Se
     RecyclerView membership_item;
     @BindView(R.id.user_Avatar)
     ImageView user_Avatar;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     private SettingItemAdapter settingItemAdapter;
     private SettingPresenter presenter;
@@ -108,31 +112,31 @@ public class SettingFragment extends Fragment implements SettingItemCallback, Se
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.Balance:
-                Intent intent = new Intent(getActivity(), ToolBarActivity.class);
+                Intent intent = new Intent(requireActivity(), ToolBarActivity.class);
                 intent.putExtra("Type", ACCOUNT);
                 intent.putExtra("Balance",Balance);
                 startActivity(intent);
                 break;
             case R.id.Coupon:
-                intent = new Intent(getActivity(), ToolBarActivity.class);
+                intent = new Intent(requireActivity(), ToolBarActivity.class);
                 intent.putExtra("Type", COUPON);
                 intent.putExtra("title", getString(R.string.Coupon));
                 startActivity(intent);
                 break;
             case R.id.MembershipCard:
-                intent = new Intent(getActivity(), ToolBarActivity.class);
+                intent = new Intent(requireActivity(), ToolBarActivity.class);
                 intent.putExtra("Type", MEMBERSHIPCARDUPGRADE);
                 intent.putExtra("title", getString(R.string.MembershipCard));
                 startActivity(intent);
                 break;
             case R.id.user_info:
-                intent = new Intent(getActivity(), ToolBarActivity.class);
+                intent = new Intent(requireActivity(), ToolBarActivity.class);
                 intent.putExtra("Type", PROFILE);
                 intent.putExtra("title", getString(R.string.personal));
                 startActivity(intent);
                 break;
             case R.id.qrcode:
-                intent = new Intent(getActivity(), ToolBarActivity.class);
+                intent = new Intent(requireActivity(), ToolBarActivity.class);
                 intent.putExtra("Type", QRCODE);
                 intent.putExtra("title", R.string.Payment_QR_code);
                 intent.putExtra("Balance",Balance);
@@ -146,12 +150,12 @@ public class SettingFragment extends Fragment implements SettingItemCallback, Se
         switch (position) {
             case 0:
                 if (title.equals(getString(R.string.Terms))) {
-                    Intent intent = new Intent(getActivity(), ToolBarActivity.class);
+                    Intent intent = new Intent(requireActivity(), ToolBarActivity.class);
                     intent.putExtra("Type", RECHARGEPLAN);
                     intent.putExtra("title", title);
                     startActivity(intent);
                 } else {
-                    Intent intent = new Intent(getActivity(), ToolBarActivity.class);
+                    Intent intent = new Intent(requireActivity(), ToolBarActivity.class);
                     intent.putExtra("Type", MESSAGECENTER);
                     intent.putExtra("title", title);
                     startActivity(intent);
@@ -160,12 +164,12 @@ public class SettingFragment extends Fragment implements SettingItemCallback, Se
                 break;
             case 1:
                 if (title.equals(getString(R.string.Privacy))) {
-                    Intent intent = new Intent(getActivity(), ToolBarActivity.class);
+                    Intent intent = new Intent(requireActivity(), ToolBarActivity.class);
                     intent.putExtra("Type", RECHARGEPLAN);
                     intent.putExtra("title", title);
                     startActivity(intent);
                 } else {
-                    Intent intent = new Intent(getActivity(), ToolBarActivity.class);
+                    Intent intent = new Intent(requireActivity(), ToolBarActivity.class);
                     intent.putExtra("Type", MYORDER);
                     intent.putExtra("title", title);
                     startActivity(intent);
@@ -173,13 +177,13 @@ public class SettingFragment extends Fragment implements SettingItemCallback, Se
                 }
                 break;
             case 2:
-                Intent intent = new Intent(getActivity(), ToolBarActivity.class);
+                Intent intent = new Intent(requireActivity(), ToolBarActivity.class);
                 intent.putExtra("Type", EXPENSESRECORD);
                 intent.putExtra("title", title);
                 startActivity(intent);
                 break;
             case 3:
-                intent = new Intent(getActivity(), ToolBarActivity.class);
+                intent = new Intent(requireActivity(), ToolBarActivity.class);
                 intent.putExtra("Type", MEMBERSHIPCARDUPGRADE);
                 intent.putExtra("title", title);
                 startActivity(intent);
@@ -264,14 +268,24 @@ public class SettingFragment extends Fragment implements SettingItemCallback, Se
 
     @Override
     public void showProgress() {
-
+        mHandler.postDelayed(() -> {
+            requireActivity().runOnUiThread(() -> {
+                progressBar.setVisibility(View.VISIBLE);
+                requireActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            });
+        }, 1);
     }
 
     @Override
     public void hideProgress() {
-
+        mHandler.postDelayed(() -> {
+            requireActivity().runOnUiThread(() -> {
+                progressBar.setVisibility(View.GONE);
+                requireActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            });
+        }, 1);
     }
-
     @Override
     public void errorOccurred(String reason) {
 
