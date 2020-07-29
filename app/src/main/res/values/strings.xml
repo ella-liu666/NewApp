@@ -100,6 +100,8 @@
     <string name="clear_shopping_cart">请先结清购物车</string>
     <string name="PaymentSuccessful">支付成功</string>
     <string name="PaymentFailed">支付失败</string>
+    <string name="delete">确定删除</string>
+    <string name="PointInsufficient">点数不足，请先储值</string>
 
 
     <string name="UnderConstruction">建置中</string>

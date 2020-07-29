@@ -6,118 +6,142 @@
     android:orientation="vertical"
     tools:context=".Module.Order.Fragment.ShoppingCartFragment">
 
-    <LinearLayout
-        android:id="@+id/ShoppingCartbar"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/PureWhite"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/information"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:id="@+id/ShoppingCartbar"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
+                android:background="@color/PureWhite"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/store_infor"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_place"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:textStyle="bold"/>
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/distance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/txt_color"
-                    android:textSize="14sp" />
+                    <LinearLayout
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/store_infor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_place"
+                            android:textColor="@color/black"
+                            android:textSize="24sp"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/distance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/txt_color"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:layout_weight="0.3">
+
+                        <RadioGroup
+                            android:id="@+id/Pickup_method"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <RadioButton
+                                android:id="@+id/SelfMention"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checked="true"
+                                android:text="@string/SelfMention"
+                                android:textSize="16sp" />
+
+                            <RadioButton
+                                android:id="@+id/delivery"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="16sp"
+                                android:text="@string/delivery"/>
+                        </RadioGroup>
+
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/ShoppingCart"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:background="@color/PureWhite"/>
 
             <LinearLayout
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_weight="0.3">
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/PureWhite"
+                android:orientation="horizontal">
 
-                <RadioGroup
-                    android:id="@+id/Pickup_method"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="left">
 
-                    <RadioButton
-                        android:id="@+id/SelfMention"
+                    <TextView
+                        android:id="@+id/Sum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/SelfMention"
-                        android:textSize="16sp" />
+                        android:layout_marginLeft="16dp"
+                        android:text="@string/Total"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"/>
+                </LinearLayout>
 
-                    <RadioButton
-                        android:id="@+id/delivery"
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/PureWhite"
+                    android:gravity="right">
+
+                    <Button
+                        android:id="@+id/ToSettle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:text="@string/delivery"/>
-                </RadioGroup>
-
+                        android:layout_margin="16dp"
+                        android:background="@drawable/checkout_btn"
+                        android:textColor="@color/PureWhite"
+                        android:textSize="20sp"
+                        android:text="@string/ToSettle"/>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/ShoppingCart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/PureWhite"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/PureWhite"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/NoData"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center_vertical"
-            android:gravity="left">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:text="@string/Total"
-                android:textSize="18sp"
-                android:textColor="@color/black"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/PureWhite"
-            android:gravity="right">
-
-            <Button
-                android:id="@+id/ToSettle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:background="@drawable/checkout_btn"
-                android:textColor="@color/PureWhite"
-                android:textSize="20sp"
-                android:text="@string/ToSettle"/>
-        </LinearLayout>
-    </LinearLayout>
-
+            android:text="暂无资料"
+            android:textSize="30sp"
+            android:layout_gravity="center"/>
+    </FrameLayout>
 </LinearLayout>

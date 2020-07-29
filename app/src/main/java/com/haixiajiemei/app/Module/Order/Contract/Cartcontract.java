@@ -4,7 +4,7 @@ public interface Cartcontract {
 
     interface ViewAction {
 
-        void CartSuccess();
+        void CartSuccess(String s);
 
         void showProgress();
 

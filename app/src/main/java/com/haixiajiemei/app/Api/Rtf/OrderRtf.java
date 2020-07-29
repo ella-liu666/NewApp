@@ -1,6 +1,7 @@
 package com.haixiajiemei.app.Api.Rtf;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.haixiajiemei.app.Api.Basic.Params;
 import com.haixiajiemei.app.Module.Order.Model.ShoppingCart;
@@ -59,7 +60,6 @@ public class OrderRtf extends BaseRtf<OrderRtf.Service> {
         params.putRequired("total", total);
         params.putRequired("delType", delType);
         params.putRequired("cart", cart);
-
         return this.execute(this.api.Cart(params.getMap()));
     }
 

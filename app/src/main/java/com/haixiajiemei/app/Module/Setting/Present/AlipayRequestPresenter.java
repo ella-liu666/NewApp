@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.haixiajiemei.app.Api.Basic.ApiException;
 import com.haixiajiemei.app.Api.DataLoader;
-import com.haixiajiemei.app.Api.Task.Setting.AlipayRequestTask;
+import com.haixiajiemei.app.Api.Task.Payment.AlipayRequestTask;
 import com.haixiajiemei.app.Module.Setting.Contract.AlipayRequestContract;
 import com.haixiajiemei.app.Module.Setting.Model.AlipayRequest;
 

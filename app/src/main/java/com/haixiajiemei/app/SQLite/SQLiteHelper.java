@@ -16,11 +16,23 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-
+        sqLiteDatabase.execSQL(ShoppingCartDB.CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ShoppingCartDB.TABLE_NAME);
+        onCreate(sqLiteDatabase);
     }
+
+
+    public static SQLiteDatabase getDataBase(Context context)
+    {
+        if (DB == null || !DB.isOpen())
+        {
+            DB = new SQLiteHelper(context).getWritableDatabase();
+        }
+        return DB;
+    }
+
 }

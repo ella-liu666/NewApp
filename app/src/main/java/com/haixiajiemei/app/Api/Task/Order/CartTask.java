@@ -34,7 +34,8 @@ public class CartTask  extends DataTask<String> {
 
     @Override
     protected String parseData(String s) throws Exception {
-        return s;
+        String point=s.replace("\"", "");
+        return point;
     }
 
 }

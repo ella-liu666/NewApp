@@ -1,11 +1,13 @@
 package com.haixiajiemei.app.Module.Account.Fragment;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +19,23 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.haixiajiemei.app.SQLite.ShoppingCartDB.GetShoppingCart;
 import static com.haixiajiemei.app.Util.FunTools.CreateAlertDialogTool;
 import static com.haixiajiemei.app.Util.FunTools.switchFragmentToActivity;
 import static com.haixiajiemei.app.Util.FunTools.switchFragmentToBack;
 
+import com.google.gson.Gson;
 import com.haixiajiemei.app.Module.Account.Contract.LoginContract;
 import com.haixiajiemei.app.Module.Account.Present.LoginPresenter;
+import com.haixiajiemei.app.Module.Order.Contract.Cartcontract;
+import com.haixiajiemei.app.Module.Order.Fragment.ShoppingCartFragment;
+import com.haixiajiemei.app.Module.Order.Model.ShoppingCartList;
+import com.haixiajiemei.app.Module.Order.Present.CartPresenter;
+import com.haixiajiemei.app.Module.Setting.Contract.PointContract;
 import com.haixiajiemei.app.Module.Setting.Fragment.SettingFragment;
+import com.haixiajiemei.app.Module.Setting.Present.PointPresenter;
 import com.haixiajiemei.app.R;
+import com.haixiajiemei.app.SQLite.ShoppingCartDB;
 
 public class LoginFragment extends Fragment implements LoginContract.ViewAction {
     @BindView(R.id.confirm)
@@ -43,7 +54,7 @@ public class LoginFragment extends Fragment implements LoginContract.ViewAction 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, view);
 
@@ -64,11 +75,11 @@ public class LoginFragment extends Fragment implements LoginContract.ViewAction 
                 break;
             case R.id.txtRegister:
                 RegisterFragment registerFragment = new RegisterFragment();
-                switchFragmentToBack(R.id.fragment_container,registerFragment, requireActivity());
+                switchFragmentToBack(R.id.fragment_container, registerFragment, requireActivity());
                 break;
             case R.id.txtForgetPassword:
                 ForgetFragment forgetFragment = new ForgetFragment();
-                switchFragmentToBack(R.id.fragment_container,forgetFragment, requireActivity());
+                switchFragmentToBack(R.id.fragment_container, forgetFragment, requireActivity());
                 break;
         }
     }
@@ -76,8 +87,13 @@ public class LoginFragment extends Fragment implements LoginContract.ViewAction 
     @Override
     public void LoginSuccess() {
         mHandler.postDelayed(() -> {
-            SettingFragment settingFragment = new SettingFragment();
-            switchFragmentToActivity(R.id.fragment_container, settingFragment, requireActivity());
+            if (getArguments().getString("Type") != null) {
+                ShoppingCartFragment shoppingCartFragment = new ShoppingCartFragment();
+                switchFragmentToActivity(R.id.fragment_container, shoppingCartFragment, requireActivity());
+            } else {
+                SettingFragment settingFragment = new SettingFragment();
+                switchFragmentToActivity(R.id.fragment_container, settingFragment, requireActivity());
+            }
         }, 1);
     }
 

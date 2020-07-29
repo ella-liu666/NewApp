@@ -10,6 +10,10 @@ public class ShoppingCartList {
 
     private String storeAccount;//dbName
 
+    private int dbid;
+
+    private float Total;
+
     public static final String delType = "3";
 
     public List<ShoppingCart> cart;
@@ -38,5 +42,21 @@ public class ShoppingCartList {
 
     public void setStoreAccount(String storeAccount) {
         this.storeAccount = storeAccount;
+    }
+
+    public int getDbid() {
+        return dbid;
+    }
+
+    public void setDbid(int dbid) {
+        this.dbid = dbid;
+    }
+
+    public float getTotal() {
+        return Total;
+    }
+
+    public void setTotal(float total) {
+        Total = total;
     }
 }

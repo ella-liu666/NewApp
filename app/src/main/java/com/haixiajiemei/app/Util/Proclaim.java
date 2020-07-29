@@ -16,5 +16,7 @@ public class Proclaim {
     public static final String PROFILE = "ProfileFragment";
     public static final String COUPON = "CouponFragment";
     public static final String CARDDETAILS = "CardDetailsFragment";
+    public static final String SHOPPINGCART = "ShoppingCartFragment";
+    public static final String CARTSUCCESS = "CartSuccess";
 
 }

@@ -1,6 +1,7 @@
 package com.haixiajiemei.app.Module.Order.Model;
 
 
+import java.net.URL;
 import java.util.List;
 
 public class ShoppingCart {
@@ -8,6 +9,8 @@ public class ShoppingCart {
     public String mealID;//品項ID
 
     public String mealName;//品名
+
+    public URL image;
 
     public int amount;//數量
 

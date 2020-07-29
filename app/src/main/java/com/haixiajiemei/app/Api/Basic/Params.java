@@ -2,6 +2,8 @@ package com.haixiajiemei.app.Api.Basic;
 
 import android.text.TextUtils;
 
+import com.haixiajiemei.app.Module.Order.Model.ShoppingCart;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -105,7 +107,7 @@ public class Params {
 
     }
 
-    public void putRequired(String key, List values) {
+    public void putRequired(String key, List<ShoppingCart> values) {
         this.put(key, values, true);
     }
 
@@ -167,6 +169,28 @@ public class Params {
             }
 
             this.map.put(key, sb.toString());
+        } else if (required) {
+            this.map.put(key, "");
+        }
+
+    }
+
+    private void put(String key, List<ShoppingCart> values, boolean required) {
+        if (values != null && values.size() > 0) {
+            StringBuilder sb = new StringBuilder();
+            boolean first = true;
+
+            ShoppingCart s;
+            for (Iterator var6 = values.iterator(); var6.hasNext(); sb.append(s)) {
+                s = (ShoppingCart) var6.next();
+                if (first) {
+                    first = false;
+                } else {
+                    sb.append(",");
+                }
+            }
+
+            this.map.put(key, values);
         } else if (required) {
             this.map.put(key, "");
         }

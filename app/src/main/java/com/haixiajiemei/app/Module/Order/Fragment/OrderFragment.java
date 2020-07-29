@@ -29,6 +29,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.haixiajiemei.app.Helper.GlideApp;
 import com.haixiajiemei.app.Module.Order.Adapter.StoreItemAdapter;
 import com.haixiajiemei.app.Module.Order.Contract.StoreFeedingContract;
@@ -49,10 +50,12 @@ import com.haixiajiemei.app.Module.Order.Present.StoreFilterPresenter;
 import com.haixiajiemei.app.Module.Order.Present.StoreItemPresenter;
 import com.haixiajiemei.app.Module.Order.Present.StoreListPresenter;
 import com.haixiajiemei.app.R;
+import com.haixiajiemei.app.SQLite.ShoppingCartDB;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.haixiajiemei.app.SQLite.ShoppingCartDB.GetShoppingCart;
 import static com.haixiajiemei.app.Util.FunTools.CreateAlertDialogTool;
 
 public class OrderFragment extends Fragment implements StoreListContract.ViewAction, StoreItemContract.ViewAction,
@@ -109,6 +112,7 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
     @Override
     public void StoreListSuccess(List<StoreList> storeListList) {
         mHandler.postDelayed(() -> {
+            ShoppingCartList sd = GetShoppingCart(requireContext());
             storeNameItemContainer.removeAllViews();
             for (int i = 0; i < storeListList.size(); i++) {
                 LinearLayout layout = new LinearLayout(requireContext());
@@ -127,19 +131,23 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
                 imageView.setPadding(0, 0, 0, 16);
                 imageView.setId(storeListList.get(i).getDbid());
                 imageView.setOnClickListener(view -> {
-                    if (shoppingCartList != null && shoppingCartList.cart.size() > 0) {
+                    shoppingCartList.setDbid(view.getId());
+
+                    if (sd != null && sd.getDbid() != view.getId()) {
                         CreateAlertDialogTool(requireContext(), R.string.note, R.string.clear_shopping_cart);
                     } else {
                         for (StoreList storeList : storeListList) {
                             if (storeList.getDbid() == getCenterItem(view)) {
                                 store_infor.setText(storeList.getStoreInfo().getcName());
                                 distance.setText(storeList.getStoreInfo().getAddress());
+                                shoppingCartList.setStoreAccount(storeList.getDbName());
                                 storeFilterPresenter = new StoreFilterPresenter(this,
                                         requireContext(), getCenterItem(view), storeList.getDbName());
                                 storeFilterPresenter.doStoreFilter();
                             }
                         }
                     }
+
                 });
 
                 layout.addView(imageView, lp);
@@ -269,6 +277,7 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
                 .load(storeFeed.getImage().toString())
                 .fitCenter()
                 .into(feed_img);
+
         TextView feed_title = view.findViewById(R.id.feed_title);
         feed_title.setText(storeFeed.getName());
         TextView feed_price = view.findViewById(R.id.feed_price);
@@ -329,16 +338,13 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
                     radioButton.setTextSize(16);
                     radioButton.setText(storeFeed.getFeeding().get(i).getBlend().get(j).getNewName());
 
-                    radioButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if (!check) {
-                                radioButton.setChecked(true);
-                                check = true;
-                            } else {
-                                radioButton.setChecked(false);
-                                check = false;
-                            }
+                    radioButton.setOnClickListener(view15 -> {
+                        if (!check) {
+                            radioButton.setChecked(true);
+                            check = true;
+                        } else {
+                            radioButton.setChecked(false);
+                            check = false;
                         }
                     });
                     radioButtonlist.add(radioButton);
@@ -352,28 +358,62 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
         close.setOnClickListener(view14 -> alertDialog.dismiss());
         Button add_shopping_cart = view.findViewById(R.id.add_shopping_cart);
         add_shopping_cart.setOnClickListener(view13 -> {
-            shoppingCartList.setcName(store_infor.getText().toString());
-            shoppingCartList.setAddress(distance.getText().toString());
-            ShoppingCart SC = new ShoppingCart();
-            SC.mealID = String.valueOf(storeFeed.getMealsID());
-            SC.mealName = storeFeed.getName();
-            SC.amount = Num;
-            SC.price = storeFeed.getPrice();
-            SC.feeding = new ArrayList<>();
-            for (RadioButton RB : radioButtonlist) {
-                if (RB.isChecked()) {
-                    Feeding feeding = new Feeding();
-                    feeding.id = String.valueOf(RB.getId());
-                    feeding.name = RB.getText().toString();
-                    if (RB.getText().toString().contains("$")) {
-                        feeding.price = Float.parseFloat(RB.getText().toString().substring(RB.getText().toString().indexOf("$")).replace("$", "").replace(")", ""));
-                    } else {
-                        feeding.price = 0;
+
+            Gson gson = new Gson();
+            ShoppingCartList sd = GetShoppingCart(requireContext());
+            if (sd == null) {
+                shoppingCartList.setcName(store_infor.getText().toString());
+                shoppingCartList.setAddress(distance.getText().toString());
+                ShoppingCart SC = new ShoppingCart();
+                SC.mealID = String.valueOf(storeFeed.getMealsID());
+                SC.mealName = storeFeed.getName();
+                SC.image = storeFeed.getImage();
+                SC.amount = Num;
+                SC.price = storeFeed.getPrice();
+                SC.feeding = new ArrayList<>();
+                for (RadioButton RB : radioButtonlist) {
+                    if (RB.isChecked()) {
+                        Feeding feeding = new Feeding();
+                        feeding.id = String.valueOf(RB.getId());
+                        feeding.name = RB.getText().toString();
+                        if (RB.getText().toString().contains("$")) {
+                            feeding.price = Float.parseFloat(RB.getText().toString().substring(RB.getText().toString().indexOf("$")).replace("$", "").replace(")", ""));
+                        } else {
+                            feeding.price = 0;
+                        }
+                        SC.feeding.add(feeding);
                     }
-                    SC.feeding.add(feeding);
                 }
+                shoppingCartList.cart.add(SC);
+                ShoppingCartDB.InsertData(getContext(), gson.toJson(shoppingCartList));
+            } else {
+                shoppingCartList=sd;
+                ShoppingCart SC = new ShoppingCart();
+                SC.mealID = String.valueOf(storeFeed.getMealsID());
+                SC.mealName = storeFeed.getName();
+                SC.image = storeFeed.getImage();
+                SC.amount = Num;
+                SC.price = storeFeed.getPrice();
+                SC.feeding = new ArrayList<>();
+                for (RadioButton RB : radioButtonlist) {
+                    if (RB.isChecked()) {
+                        Feeding feeding = new Feeding();
+                        feeding.id = String.valueOf(RB.getId());
+                        feeding.name = RB.getText().toString();
+                        if (RB.getText().toString().contains("$")) {
+                            feeding.price = Float.parseFloat(RB.getText().toString().substring(RB.getText().toString().indexOf("$")).replace("$", "").replace(")", ""));
+                        } else {
+                            feeding.price = 0;
+                        }
+                        SC.feeding.add(feeding);
+                    }
+                }
+                shoppingCartList.cart.add(SC);
+                ShoppingCartDB.UpdateData(getContext(), gson.toJson(shoppingCartList));
             }
-            shoppingCartList.cart.add(SC);
+//            ShoppingCartDB.DelData(getContext(), gson.toJson(shoppingCartList));
+//            sd = GetShoppingCart(requireContext());
+
 
             alertDialog.dismiss();
         });

@@ -1,20 +1,20 @@
-package com.haixiajiemei.app.Api.Task.Setting;
+package com.haixiajiemei.app.Api.Task.Payment;
 
 import android.content.Context;
 
-import com.haixiajiemei.app.Api.Rtf.SettingRtf;
+import com.haixiajiemei.app.Api.Rtf.PaymentRtf;
 import com.haixiajiemei.app.Api.Task.DataTask;
 import com.haixiajiemei.app.Module.Setting.Model.AlipayRequest;
 import com.haixiajiemei.app.Parser.ClassParser;
 
 public class AlipayRequestTask extends DataTask<AlipayRequest> {
-    private SettingRtf api;
+    private PaymentRtf api;
 
     private final Context context;
     private final float rechargeTotal;
 
     public AlipayRequestTask(Context context, float rechargeTotal) {
-        api = new SettingRtf(context);
+        api = new PaymentRtf(context);
 
         this.context = context;
         this.rechargeTotal = rechargeTotal;

@@ -35,7 +35,7 @@ public class CartPresenter implements Cartcontract.PresenterAction{
 
             @Override
             protected void onResult(String s) throws Exception {
-               viewAction.CartSuccess();
+               viewAction.CartSuccess(s);
             }
 
             @Override
