@@ -3,7 +3,6 @@ package com.haixiajiemei.app.Module.Setting.Fragment;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -22,26 +21,19 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.haixiajiemei.app.Aipay.util.PayResult;
-import com.haixiajiemei.app.MainActivity;
 import com.haixiajiemei.app.Module.Setting.Contract.AlipayRequestContract;
 import com.haixiajiemei.app.Module.Setting.Contract.StoredValueContract;
-import com.haixiajiemei.app.Module.Setting.Model.AlipayRequest;
+import com.haixiajiemei.app.Module.Setting.Contract.WxPayRequestContract;
+import com.haixiajiemei.app.Module.Setting.Model.PayRequest;
 import com.haixiajiemei.app.Module.Setting.Present.AlipayRequestPresenter;
 import com.haixiajiemei.app.Module.Setting.Present.StoredValuePresenter;
+import com.haixiajiemei.app.Module.Setting.Present.WxPayRequestPresenter;
 import com.haixiajiemei.app.R;
 import com.haixiajiemei.app.ToolBarActivity;
-import com.haixiajiemei.app.wxapi.Constants;
 import com.haixiajiemei.app.wxapi.WXPayActivity;
-import com.haixiajiemei.app.wxapi.WXPayEntryActivity;
-import com.tencent.mm.opensdk.modelpay.PayReq;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-
-import org.json.JSONObject;
 
 import java.util.Map;
 
@@ -53,7 +45,7 @@ import static com.haixiajiemei.app.Util.FunTools.CreateAlertDialogTool;
 import static com.haixiajiemei.app.Util.FunTools.switchFragmentToBack;
 import static com.haixiajiemei.app.Util.Proclaim.RECHARGEPLAN;
 
-public class AccountFragment extends Fragment implements AlipayRequestContract.ViewAction, StoredValueContract.ViewAction {
+public class AccountFragment extends Fragment implements AlipayRequestContract.ViewAction, StoredValueContract.ViewAction , WxPayRequestContract.ViewAction {
 
     @BindView(R.id.RechargePlan)
     TextView RechargePlan;
@@ -96,6 +88,7 @@ public class AccountFragment extends Fragment implements AlipayRequestContract.V
 
     private Handler mHandler = new Handler(Looper.getMainLooper());
     private AlipayRequestPresenter alipayRequestPresenter;
+    private WxPayRequestPresenter wxPayRequestPresenter;
     private StoredValuePresenter storedValuePresenter;
     private static final int SDK_PAY_FLAG = 1;
     private float value;
@@ -148,33 +141,16 @@ public class AccountFragment extends Fragment implements AlipayRequestContract.V
                 break;
             case R.id.btn_Bonus:
                 if (WeChat.isChecked()) {
-//                    try {//喚醒app
-//                        IWXAPI api = WXAPIFactory.createWXAPI(requireContext(), Constants.APP_ID);
-//                        api.registerApp(Constants.APP_ID);
-//
-//                        PayReq req = new PayReq();
-//                        req.appId = Constants.APP_ID;// 也就是Values.WXPAYAPPID，如果二者不一致的話是沒法發起支付的。
-//                        req.partnerId = json.getString("partnerId");
-//                        req.prepayId = json.getString("prepayid");
-//                        req.nonceStr = json.getString("noncestr");
-//                        req.timeStamp = json.getString("timestamp");
-//                        req.packageValue = "Sign=WXPay";
-//                        req.sign = json.getString("sign");//de7cd6d4ffe79297c787a1806fcf671c
-//
-//                        boolean r = api.sendReq(req);
-//                        if (!r) {
-//                            Toast.makeText(requireContext(), "開啟微信支付失敗!", Toast.LENGTH_SHORT).show();
-//                        }
 
                     intent = new Intent(requireActivity(), WXPayActivity.class);
 //                        intent.setAction(Intent.ACTION_VIEW);
 //                        intent.setData(Uri.parse("weixin://wap/pay?"));//微信
                     startActivity(intent);
-//                    } catch (android.content.ActivityNotFoundException e) {
-//                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://weixin.qq.com/"));//微信
-//                        startActivity(intent);
-//
-//                    }
+
+
+//                    value=Float.parseFloat(edit_Bonus.getText().toString().replace("元", ""));
+//                    wxPayRequestPresenter=new WxPayRequestPresenter(this,requireContext(),Float.parseFloat(edit_Bonus.getText().toString().replace("元", "")));
+//                    wxPayRequestPresenter.doWxPayRequest();
                 } else if (Alipay.isChecked()) {
                     value=Float.parseFloat(edit_Bonus.getText().toString().replace("元", ""));
                     alipayRequestPresenter = new AlipayRequestPresenter(this, requireContext(), Float.parseFloat(edit_Bonus.getText().toString().replace("元", "")));
@@ -240,10 +216,10 @@ public class AccountFragment extends Fragment implements AlipayRequestContract.V
     }
 
     @Override
-    public void AlipayRequestSuccess(AlipayRequest alipayRequest) {
+    public void AlipayRequestSuccess(PayRequest payRequest) {
         mHandler.postDelayed(() -> {
-            orderNo=alipayRequest.getOrderNo();
-            pay(alipayRequest.getAliBody());
+            orderNo= payRequest.getOrderNo();
+            pay(payRequest.getBody());
         }, 1);
     }
 
@@ -257,6 +233,13 @@ public class AccountFragment extends Fragment implements AlipayRequestContract.V
             AlertDialog dialog = builder.create();
             dialog.setCanceledOnTouchOutside(false);
             dialog.show();
+        }, 1);
+    }
+
+    @Override
+    public void WxPayRequestSuccess(PayRequest payRequest) {
+        mHandler.postDelayed(() -> {
+            orderNo= payRequest.getOrderNo();
         }, 1);
     }
 

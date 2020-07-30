@@ -31,8 +31,18 @@ public class PaymentRtf extends BaseRtf<PaymentRtf.Service> {
         return this.execute(this.api.AlipayRequest(params.getMap()));
     }
 
+    public String getWxPayRequest(@NonNull float rechargeTotal) throws Exception {
+        Params params = new Params();
+        params.putRequired("rechargeTotal", rechargeTotal);
+
+        return this.execute(this.api.WxPayRequest(params.getMap()));
+    }
+
     public interface Service {
         @POST("Payment/Payment/AliPayRequest")
         Call<String> AlipayRequest(@Body Map<String, Object> params);
+
+        @POST("Payment/Payment/WxPayRequest")
+        Call<String> WxPayRequest(@Body Map<String, Object> params);
     }
 }

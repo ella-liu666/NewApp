@@ -18,5 +18,8 @@ public class Proclaim {
     public static final String CARDDETAILS = "CardDetailsFragment";
     public static final String SHOPPINGCART = "ShoppingCartFragment";
     public static final String CARTSUCCESS = "CartSuccess";
+    public static final String PAYMENTSCREEN = "PaymentScreenFragment";
+    public static final String ADDRESS = "AddressFragment";
+    public static final String ADDADDRESS = "AddAddressFragment";
 
 }

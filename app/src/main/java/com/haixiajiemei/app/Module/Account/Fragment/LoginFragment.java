@@ -87,7 +87,7 @@ public class LoginFragment extends Fragment implements LoginContract.ViewAction 
     @Override
     public void LoginSuccess() {
         mHandler.postDelayed(() -> {
-            if (getArguments().getString("Type") != null) {
+            if (getArguments() != null && getArguments().getString("Type") != null) {
                 ShoppingCartFragment shoppingCartFragment = new ShoppingCartFragment();
                 switchFragmentToActivity(R.id.fragment_container, shoppingCartFragment, requireActivity());
             } else {

@@ -52,36 +52,6 @@
                             android:textColor="@color/txt_color"
                             android:textSize="14sp" />
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dip"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:layout_weight="0.3">
-
-                        <RadioGroup
-                            android:id="@+id/Pickup_method"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <RadioButton
-                                android:id="@+id/SelfMention"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:checked="true"
-                                android:text="@string/SelfMention"
-                                android:textSize="16sp" />
-
-                            <RadioButton
-                                android:id="@+id/delivery"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="16sp"
-                                android:text="@string/delivery"/>
-                        </RadioGroup>
-
-                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 

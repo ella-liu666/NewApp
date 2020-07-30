@@ -86,6 +86,16 @@ public class FunTools {
         dialog.show();
     }
 
+    public static void CreateAlertDialogTool(Context context, String Title, String Message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(Title);
+        builder.setMessage(Message);
+        builder.setPositiveButton(R.string.confirm, (dialog, which) -> dialog.dismiss());
+        AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
+    }
+
     public static void TwoBtnAlertDialogTool(Context context, int Title, int Message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(Title);

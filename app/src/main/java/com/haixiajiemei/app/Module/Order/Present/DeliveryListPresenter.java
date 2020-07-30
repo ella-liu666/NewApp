@@ -1,32 +1,32 @@
-package com.haixiajiemei.app.Module.Setting.Present;
+package com.haixiajiemei.app.Module.Order.Present;
 
 import android.content.Context;
 
 import com.haixiajiemei.app.Api.Basic.ApiException;
 import com.haixiajiemei.app.Api.DataLoader;
-import com.haixiajiemei.app.Api.Task.Payment.AlipayRequestTask;
-import com.haixiajiemei.app.Module.Setting.Contract.AlipayRequestContract;
-import com.haixiajiemei.app.Module.Setting.Model.PayRequest;
+import com.haixiajiemei.app.Api.Task.Order.DeliveryListTask;
+import com.haixiajiemei.app.Module.Order.Contract.DeliveryListContract;
+import com.haixiajiemei.app.Module.Order.Model.Address;
 
-public class AlipayRequestPresenter implements AlipayRequestContract.PresenterAction{
+import java.util.List;
 
-    private AlipayRequestContract.ViewAction viewAction;
+public class DeliveryListPresenter implements DeliveryListContract.PresenterAction {
+
+    private DeliveryListContract.ViewAction viewAction;
     private Context mcontext;
-    private float rechargeTotal;
 
-    public AlipayRequestPresenter(AlipayRequestContract.ViewAction viewAction, Context mcontext, float rechargeTotal) {
+    public DeliveryListPresenter(DeliveryListContract.ViewAction viewAction, Context mcontext) {
         this.viewAction = viewAction;
         this.mcontext = mcontext;
-        this.rechargeTotal = rechargeTotal;
     }
 
     @Override
-    public void doAlipayRequest() {
-        DataLoader.run(new AlipayRequestTask(mcontext,rechargeTotal){
+    public void doDeliveryList() {
+        DataLoader.run(new DeliveryListTask(mcontext){
 
             @Override
-            protected void onResult(PayRequest payRequest) throws Exception {
-                viewAction.AlipayRequestSuccess(payRequest);
+            protected void onResult(List<Address> addresses) throws Exception {
+                viewAction.DeliveryListSuccess(addresses);
             }
 
             @Override

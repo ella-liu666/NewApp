@@ -102,6 +102,22 @@
     <string name="PaymentFailed">支付失败</string>
     <string name="delete">确定删除</string>
     <string name="PointInsufficient">点数不足，请先储值</string>
+    <string name="PaymentPage">支付页面</string>
+    <string name="PickupMethod">取货方式</string>
+    <string name="Payment">支付</string>
+    <string name="AddAddress">添加地址</string>
+    <string name="Receiver">收货人</string>
+    <string name="HitReceiver">请输入收货人</string>
+    <string name="gender">性别</string>
+    <string name="phoneNum">手机号码</string>
+    <string name="HiotphoneNum">请输入手机号码</string>
+    <string name="address">地址</string>
+    <string name="Hitaddress">请输入地址</string>
+    <string name="mister">先生</string>
+    <string name="madam">女士</string>
+    <string name="SaveAddress">保存新地址</string>
+    <string name="TakeawayOrder">外卖订单</string>
+    <string name="MyAddress">我的地址</string>
 
 
     <string name="UnderConstruction">建置中</string>

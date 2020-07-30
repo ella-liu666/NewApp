@@ -2,6 +2,7 @@ package com.haixiajiemei.app.Api.Rtf;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Space;
 
 import com.haixiajiemei.app.Api.Basic.Params;
 import com.haixiajiemei.app.Module.Order.Model.ShoppingCart;
@@ -63,6 +64,27 @@ public class OrderRtf extends BaseRtf<OrderRtf.Service> {
         return this.execute(this.api.Cart(params.getMap()));
     }
 
+    public String GetDeliveryList() throws Exception {
+        return this.execute(this.api.GetDeliveryList());
+    }
+
+    public String getInsertDeliveryList(@NonNull String name, @NonNull String gender, @NonNull String telephone, @NonNull String address, @NonNull String memo) throws Exception {
+        Params params = new Params();
+        params.putRequired("name", name);
+        params.putRequired("gender", gender);
+        params.putRequired("telephone", telephone);
+        params.putRequired("address", address);
+        params.putRequired("memo", memo);
+
+        return this.execute(this.api.InsertDeliveryList(params.getMap()));
+    }
+
+    public String getDeleteDeliveryAddress(@NonNull int deliveryID) throws Exception {
+        Params params = new Params();
+        params.putRequired("deliveryID", deliveryID);
+
+        return this.execute(this.api.DeleteDeliveryAddress(params.getMap()));
+    }
 
 
     public interface Service {
@@ -80,5 +102,14 @@ public class OrderRtf extends BaseRtf<OrderRtf.Service> {
 
         @POST("Order/Order/Cart")
         Call<String> Cart(@Body Map<String, Object> params);
+
+        @GET("Wallet/Order/GetDeliveryList")
+        Call<String> GetDeliveryList();
+
+        @POST("Wallet/Order/InsertDeliveryList")
+        Call<String> InsertDeliveryList(@Body Map<String, Object> params);
+
+        @POST("Wallet/Order/DeleteDeliveryAddress")
+        Call<String> DeleteDeliveryAddress(@Body Map<String, Object> params);
     }
 }

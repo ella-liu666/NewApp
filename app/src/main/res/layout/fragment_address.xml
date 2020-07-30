@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/original_bg"
+    android:layout_margin="16dp"
+    android:orientation="vertical"
+    tools:context=".Module.Order.Fragment.AddressFragment">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/AddAddress">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/AddressList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/AddAddress"
+            android:layout_marginBottom="16dp"/>
+
+        <LinearLayout
+            android:id="@+id/NoData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_data"
+                android:textSize="30sp"/>
+        </LinearLayout>
+    </FrameLayout>
+
+
+    <Button
+        android:id="@+id/AddAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/address_btn"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/PureWhite"
+        android:textSize="20sp"
+        android:text="@string/AddAddress"/>
+
+</RelativeLayout>

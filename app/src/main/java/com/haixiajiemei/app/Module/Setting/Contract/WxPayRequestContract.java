@@ -2,10 +2,10 @@ package com.haixiajiemei.app.Module.Setting.Contract;
 
 import com.haixiajiemei.app.Module.Setting.Model.PayRequest;
 
-public interface AlipayRequestContract {
+public interface WxPayRequestContract {
 
     interface ViewAction {
-        void AlipayRequestSuccess(PayRequest payRequest);
+        void WxPayRequestSuccess(PayRequest payRequest);
 
         void showProgress();
 
@@ -17,6 +17,6 @@ public interface AlipayRequestContract {
 
     interface PresenterAction {
 
-        void doAlipayRequest();
+        void doWxPayRequest();
     }
 }

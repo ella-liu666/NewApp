@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.fragment.app.Fragment;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -16,6 +17,9 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.haixiajiemei.app.Module.Home.Fragment.IntroductionFragment;
+import com.haixiajiemei.app.Module.Order.Fragment.AddAddressFragment;
+import com.haixiajiemei.app.Module.Order.Fragment.AddressFragment;
+import com.haixiajiemei.app.Module.Order.Fragment.PaymentScreenFragment;
 import com.haixiajiemei.app.Module.Setting.Fragment.AccountFragment;
 import com.haixiajiemei.app.Module.Setting.Fragment.CardDetailsFragment;
 import com.haixiajiemei.app.Module.Setting.Fragment.CouponFragment;
@@ -29,6 +33,8 @@ import com.haixiajiemei.app.Module.Setting.Fragment.RechargePlanFragment;
 
 import static com.haixiajiemei.app.Util.FunTools.switchFragmentToActivity;
 import static com.haixiajiemei.app.Util.Proclaim.ACCOUNT;
+import static com.haixiajiemei.app.Util.Proclaim.ADDADDRESS;
+import static com.haixiajiemei.app.Util.Proclaim.ADDRESS;
 import static com.haixiajiemei.app.Util.Proclaim.CARDDETAILS;
 import static com.haixiajiemei.app.Util.Proclaim.COUPON;
 import static com.haixiajiemei.app.Util.Proclaim.DISTRIBUTION;
@@ -39,6 +45,7 @@ import static com.haixiajiemei.app.Util.Proclaim.MESSAGECENTER;
 import static com.haixiajiemei.app.Util.Proclaim.MYAPPOINTMENT;
 import static com.haixiajiemei.app.Util.Proclaim.MYORDER;
 import static com.haixiajiemei.app.Util.Proclaim.MYPOST;
+import static com.haixiajiemei.app.Util.Proclaim.PAYMENTSCREEN;
 import static com.haixiajiemei.app.Util.Proclaim.PROFILE;
 import static com.haixiajiemei.app.Util.Proclaim.QRCODE;
 import static com.haixiajiemei.app.Util.Proclaim.RECHARGEPLAN;
@@ -94,9 +101,9 @@ public class ToolBarActivity extends AppCompatActivity {
                 toolbar_title.setCompoundDrawables(drawable, null, null, null);
                 AccountFragment accountFragment = new AccountFragment();
                 bundle = new Bundle();
-                if (intent.getExtras().getString("Balance")!=null) {
+                if (intent.getExtras().getString("Balance") != null) {
                     bundle.putString("Balance", intent.getExtras().getString("Balance"));
-                }else {
+                } else {
                     bundle.putFloat("Balance", intent.getExtras().getFloat("Balance"));
                 }
                 accountFragment.setArguments(bundle);
@@ -174,12 +181,37 @@ public class ToolBarActivity extends AppCompatActivity {
                 switchFragmentToActivity(R.id.fragment_Introduction, couponFragment, this);
                 break;
             case CARDDETAILS:
-                CardDetailsFragment cardDetailsFragment=new CardDetailsFragment();
+                CardDetailsFragment cardDetailsFragment = new CardDetailsFragment();
                 bundle = new Bundle();
+                bundle.putString("cardID", intent.getExtras().getString("cardID"));
+                bundle.putString("Tag", intent.getExtras().getString("Tag"));
                 cardDetailsFragment.setArguments(bundle);
-                bundle.putString("cardID",intent.getExtras().getString("cardID"));
-                bundle.putString("Tag",intent.getExtras().getString("Tag"));
                 switchFragmentToActivity(R.id.fragment_Introduction, cardDetailsFragment, this);
+                break;
+            case PAYMENTSCREEN:
+                toolbar_title.setText(intent.getExtras().getString("title"));
+                toolbar_title.setTextSize(18);
+                PaymentScreenFragment paymentScreenFragment = new PaymentScreenFragment();
+
+                if (intent.getExtras().getString("Address") != null && intent.getExtras().getString("PhoneName") != null) {
+                    bundle = new Bundle();
+                    bundle.putString("Address", intent.getExtras().getString("Address"));
+                    bundle.putString("PhoneName", intent.getExtras().getString("PhoneName"));
+                    paymentScreenFragment.setArguments(bundle);
+                }
+                switchFragmentToActivity(R.id.fragment_Introduction, paymentScreenFragment, this);
+                break;
+            case ADDRESS:
+                toolbar_title.setText(intent.getExtras().getString("title"));
+                toolbar_title.setTextSize(18);
+                AddressFragment addressFragment = new AddressFragment();
+                switchFragmentToActivity(R.id.fragment_Introduction, addressFragment, this);
+                break;
+            case ADDADDRESS:
+                toolbar_title.setText(intent.getExtras().getString("title"));
+                toolbar_title.setTextSize(18);
+                AddAddressFragment addAddressFragment = new AddAddressFragment();
+                switchFragmentToActivity(R.id.fragment_Introduction, addAddressFragment, this);
                 break;
         }
     }

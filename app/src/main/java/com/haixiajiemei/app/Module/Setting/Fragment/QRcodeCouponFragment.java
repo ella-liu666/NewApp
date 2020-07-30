@@ -5,10 +5,12 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
@@ -36,17 +38,23 @@ public class QRcodeCouponFragment extends Fragment implements QRcodeCouponContra
     TextView txt_storeName;
     @BindView(R.id.txt_dueTime)
     TextView txt_dueTime;
+    @BindView(R.id.txt_name)
+    TextView txt_name;
+    @BindView(R.id.txt_CountDownTimer)
+    TextView txt_CountDownTimer;
     @BindView(R.id.imageView)
     ImageView imageView;
 
     private QRcodeCouponPresenter presenter;
     private PointPresenter PointPresenter;
+    private CountDownTimer QRCountDownTimer;
     private Handler mHandler = new Handler(Looper.getMainLooper());
     private String Balance;
+    private static String stringRemainTimer = "00:00:00";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_qrcode_coupon, container, false);
         ButterKnife.bind(this, view);
         PointPresenter = new PointPresenter(this, requireContext());
@@ -55,6 +63,8 @@ public class QRcodeCouponFragment extends Fragment implements QRcodeCouponContra
         txt_denomination.setText(String.valueOf(getArguments().getFloat("denomination")));
         txt_storeName.setText(getArguments().getString("storeName"));
         txt_dueTime.setText(getArguments().getString("dueTime"));
+        txt_name.setText(getArguments().getString("name"));
+
 
         presenter = new QRcodeCouponPresenter(this, requireContext());
         presenter.doQRcodeCoupon(requireContext(), getArguments().getInt("accountCouponMapID")
@@ -64,14 +74,25 @@ public class QRcodeCouponFragment extends Fragment implements QRcodeCouponContra
         return view;
     }
 
-    @OnClick(R.id.checkout)
+    @OnClick({R.id.checkout, R.id.CountDownTimer})
     public void onClick(View view) {
-        Intent intent = new Intent(requireActivity(), ToolBarActivity.class);
-        intent.putExtra("Type", QRCODE);
-        intent.putExtra("title", R.string.Payment_QR_code);
-        intent.putExtra("Balance", Balance);
-        startActivity(intent);
-        requireActivity().finish();
+        switch (view.getId()) {
+            case R.id.checkout:
+                Intent intent = new Intent(requireActivity(), ToolBarActivity.class);
+                intent.putExtra("Type", QRCODE);
+                intent.putExtra("title", R.string.Payment_QR_code);
+                intent.putExtra("Balance", Balance);
+                startActivity(intent);
+                requireActivity().finish();
+                break;
+            case R.id.CountDownTimer:
+                presenter = new QRcodeCouponPresenter(this, requireContext());
+                presenter.doQRcodeCoupon(requireContext(), getArguments().getInt("accountCouponMapID")
+                        , getArguments().getFloat("denomination"), getArguments().getString("name"),
+                        getArguments().getString("storeName"), getArguments().getString("dueTime"));
+                break;
+        }
+
     }
 
     @Override
@@ -80,8 +101,9 @@ public class QRcodeCouponFragment extends Fragment implements QRcodeCouponContra
             BarcodeEncoder encoder = new BarcodeEncoder();
             try {
                 Bitmap bit = encoder.encodeBitmap(s
-                        , BarcodeFormat.QR_CODE, 1500, 1300);
+                        , BarcodeFormat.QR_CODE, 1000, 1000);
                 imageView.setImageBitmap(bit);
+                CountdownTimer(5 * 60);
             } catch (WriterException e) {
                 e.printStackTrace();
             }
@@ -91,7 +113,7 @@ public class QRcodeCouponFragment extends Fragment implements QRcodeCouponContra
     @Override
     public void PointSuccess(String s) {
         mHandler.postDelayed(() -> {
-            Balance=s;
+            Balance = s;
         }, 1);
     }
 
@@ -107,6 +129,33 @@ public class QRcodeCouponFragment extends Fragment implements QRcodeCouponContra
 
     @Override
     public void errorOccurred(String reason) {
+
+    }
+
+    private void CountdownTimer(int finalSeconds) {
+        if (QRCountDownTimer != null) {
+            QRCountDownTimer.cancel();
+        }
+        QRCountDownTimer = new CountDownTimer((finalSeconds * 1000), 1000) {
+
+            @Override
+            public void onFinish() {
+                presenter = new QRcodeCouponPresenter(QRcodeCouponFragment.this, requireContext());
+                presenter.doQRcodeCoupon(requireContext(), getArguments().getInt("accountCouponMapID")
+                        , getArguments().getFloat("denomination"), getArguments().getString("name"),
+                        getArguments().getString("storeName"), getArguments().getString("dueTime"));
+            }
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                long mins = (millisUntilFinished / 1000) / 60;
+                long secs = (millisUntilFinished / 1000) % 60;
+                stringRemainTimer = mins + ":" + secs;
+
+                txt_CountDownTimer.setText(stringRemainTimer);
+            }
+
+        }.start();
 
     }
 }

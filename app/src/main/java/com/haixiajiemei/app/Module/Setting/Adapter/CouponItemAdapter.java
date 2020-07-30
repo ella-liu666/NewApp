@@ -46,8 +46,8 @@ public class CouponItemAdapter extends RecyclerView.Adapter<CouponItemAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull CouponItemAdapter.ViewHolder holder, int position) {
         holder.denomination.setText(String.valueOf(item.get(position).getDenomination()));
-        holder.storeName.setText(item.get(position).getStoreName());
-        holder.couponCategoryName.setText(item.get(position).getcouponCategoryName());
+        holder.storeName.setText(item.get(position).getName());
+        holder.couponCategoryName.setText(item.get(position).getStoreName());
         holder.dueTime.setText(item.get(position).getDueTime());
         holder.Warning.setText(context.getString(R.string.Warning, item.get(position).getStoreName()));
         if(tag!=null){

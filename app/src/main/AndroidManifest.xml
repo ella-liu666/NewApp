@@ -29,7 +29,13 @@
             android:screenOrientation="portrait"></activity>
 
         <activity
-            android:name=".wxapi.WXPayEntryActivity"
+            android:name="com.haixiajiemei.app.wxapi.WXPayActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name="com.haixiajiemei.app.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
@@ -40,9 +46,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".wxapi.WXPayActivity"
-            android:screenOrientation="portrait"></activity>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

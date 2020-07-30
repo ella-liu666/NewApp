@@ -7,13 +7,13 @@ import com.haixiajiemei.app.Api.Task.DataTask;
 import com.haixiajiemei.app.Module.Setting.Model.PayRequest;
 import com.haixiajiemei.app.Parser.ClassParser;
 
-public class AlipayRequestTask extends DataTask<PayRequest> {
+public class WxPayRequestTask extends DataTask<PayRequest> {
     private PaymentRtf api;
 
     private final Context context;
     private final float rechargeTotal;
 
-    public AlipayRequestTask(Context context, float rechargeTotal) {
+    public WxPayRequestTask(Context context, float rechargeTotal) {
         api = new PaymentRtf(context);
 
         this.context = context;

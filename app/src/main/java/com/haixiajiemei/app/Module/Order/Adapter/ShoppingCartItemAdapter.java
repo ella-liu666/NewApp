@@ -31,11 +31,19 @@ public class ShoppingCartItemAdapter extends RecyclerView.Adapter<ShoppingCartIt
     private ShoppingCartItemCallback callback;
     private int Num;
     private List<String> name;
+    private String Type;
 
-    public ShoppingCartItemAdapter(List<ShoppingCart> cart, Context context, ShoppingCartItemCallback callback) {
+    public ShoppingCartItemAdapter(List<ShoppingCart> cart, Context context, ShoppingCartItemCallback callback, String Type) {
         this.cart = cart;
         this.context = context;
         this.callback = callback;
+        this.Type = Type;
+    }
+
+    public ShoppingCartItemAdapter(List<ShoppingCart> cart, Context context, String Type) {
+        this.cart = cart;
+        this.context = context;
+        this.Type = Type;
     }
 
     @NonNull
@@ -46,6 +54,12 @@ public class ShoppingCartItemAdapter extends RecyclerView.Adapter<ShoppingCartIt
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        if(Type.equals("ShoppingCart")){
+            holder.Quantity.setVisibility(View.VISIBLE);
+        }else {
+            holder.Quantity.setVisibility(View.GONE);
+        }
+
         GlideApp.with(context)
                 .load(cart.get(position).image.toString())
                 .override(200, 200)
@@ -53,13 +67,13 @@ public class ShoppingCartItemAdapter extends RecyclerView.Adapter<ShoppingCartIt
                 .into(holder.item_img);
         holder.item_title.setText(cart.get(position).mealName);
         holder.num.setText(String.valueOf(cart.get(position).amount));
-        float feedingPrice=0;
+        float feedingPrice = 0;
         for (int i = 0; i < cart.get(position).feeding.size(); i++) {
             name = new ArrayList<>();
             name.add(cart.get(position).feeding.get(i).name);
-            feedingPrice=feedingPrice+cart.get(position).feeding.get(i).price;
+            feedingPrice = feedingPrice + cart.get(position).feeding.get(i).price;
         }
-        holder.item_price.setText("¥" + String.valueOf(cart.get(position).price+feedingPrice));
+        holder.item_price.setText("¥" + String.valueOf(cart.get(position).price + feedingPrice));
         holder.item_feeding.setText(String.valueOf(name));
         holder.less.setOnClickListener(view -> {
             Num = Integer.parseInt(holder.num.getText().toString());
@@ -126,6 +140,8 @@ public class ShoppingCartItemAdapter extends RecyclerView.Adapter<ShoppingCartIt
         TextView num;
         @BindView(R.id.plus)
         ImageView plus;
+        @BindView(R.id.Quantity)
+        LinearLayout Quantity;
 
 
         ViewHolder(final View itemView) {
