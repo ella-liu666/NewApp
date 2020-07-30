@@ -7,6 +7,7 @@ import com.haixiajiemei.app.Api.DataLoader;
 import com.haixiajiemei.app.Api.Task.Payment.WxPayRequestTask;
 import com.haixiajiemei.app.Module.Setting.Contract.WxPayRequestContract;
 import com.haixiajiemei.app.Module.Setting.Model.PayRequest;
+import com.haixiajiemei.app.Module.Setting.Model.WxPayRequest;
 
 public class WxPayRequestPresenter implements WxPayRequestContract.PresenterAction {
 
@@ -25,8 +26,8 @@ public class WxPayRequestPresenter implements WxPayRequestContract.PresenterActi
         DataLoader.run(new WxPayRequestTask(mcontext,rechargeTotal){
 
             @Override
-            protected void onResult(PayRequest payRequest) throws Exception {
-                viewAction.WxPayRequestSuccess(payRequest);
+            protected void onResult(WxPayRequest wxPayRequest) throws Exception {
+                viewAction.WxPayRequestSuccess(wxPayRequest);
             }
 
             @Override

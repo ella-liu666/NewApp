@@ -5,9 +5,10 @@ import android.content.Context;
 import com.haixiajiemei.app.Api.Rtf.PaymentRtf;
 import com.haixiajiemei.app.Api.Task.DataTask;
 import com.haixiajiemei.app.Module.Setting.Model.PayRequest;
+import com.haixiajiemei.app.Module.Setting.Model.WxPayRequest;
 import com.haixiajiemei.app.Parser.ClassParser;
 
-public class WxPayRequestTask extends DataTask<PayRequest> {
+public class WxPayRequestTask extends DataTask<WxPayRequest> {
     private PaymentRtf api;
 
     private final Context context;
@@ -22,12 +23,12 @@ public class WxPayRequestTask extends DataTask<PayRequest> {
 
     @Override
     protected String load() throws Exception {
-        return api.getAlipayRequest(rechargeTotal);
+        return api.getWxPayRequest(rechargeTotal);
     }
 
     @Override
-    protected PayRequest parseData(String s) throws Exception {
-        PayRequest response = ClassParser.toData(s, PayRequest.class);
+    protected WxPayRequest parseData(String s) throws Exception {
+        WxPayRequest response = ClassParser.toData(s, WxPayRequest.class);
         return response;
     }
 }

@@ -205,8 +205,6 @@ public class SettingRtf extends BaseRtf<SettingRtf.Service>{
         @GET("Wallet/Member/LogOut")
         Call<String> sign_out();
 
-
-
         @POST("Wallet/Recharge")
         Call<String> StoredValue(@Body Map<String, Object> params);
     }

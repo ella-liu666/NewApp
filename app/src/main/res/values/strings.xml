@@ -31,6 +31,9 @@
     <string name="Five_thousand">5000元</string>
     <string name="txt_Bonus">请输入充值金额，最低1元</string>
     <string name="mmediate_recharge">立即充值</string>
+    <string name="TopUpSuccessfully">充值成功</string>
+    <string name="RechargeFailed">充值失败</string>
+    <string name="RechargeCancel">用户充值取消</string>
     <string name="agree">同意</string>
     <string name="disagree">不同意</string>
     <string name="back">返回</string>
@@ -92,7 +95,6 @@
     <string name="PleaseSelectStore">请选择店家</string>
     <string name="no_data">无资料</string>
     <string name="add_shopping_cart">加入购物车</string>
-    <string name="customized">客制化调整</string>
     <string name="SelfMention">自提</string>
     <string name="delivery">外送</string>
     <string name="ToSettle">去结算</string>

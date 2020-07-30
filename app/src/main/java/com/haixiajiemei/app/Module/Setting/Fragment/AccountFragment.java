@@ -3,6 +3,7 @@ package com.haixiajiemei.app.Module.Setting.Fragment;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -25,15 +26,20 @@ import android.widget.TextView;
 import com.alipay.sdk.app.PayTask;
 import com.haixiajiemei.app.Aipay.util.PayResult;
 import com.haixiajiemei.app.Module.Setting.Contract.AlipayRequestContract;
+import com.haixiajiemei.app.Module.Setting.Contract.PointContract;
 import com.haixiajiemei.app.Module.Setting.Contract.StoredValueContract;
 import com.haixiajiemei.app.Module.Setting.Contract.WxPayRequestContract;
 import com.haixiajiemei.app.Module.Setting.Model.PayRequest;
+import com.haixiajiemei.app.Module.Setting.Model.WxPayRequest;
 import com.haixiajiemei.app.Module.Setting.Present.AlipayRequestPresenter;
+import com.haixiajiemei.app.Module.Setting.Present.PointPresenter;
 import com.haixiajiemei.app.Module.Setting.Present.StoredValuePresenter;
 import com.haixiajiemei.app.Module.Setting.Present.WxPayRequestPresenter;
 import com.haixiajiemei.app.R;
 import com.haixiajiemei.app.ToolBarActivity;
-import com.haixiajiemei.app.wxapi.WXPayActivity;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.Map;
 
@@ -41,11 +47,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.haixiajiemei.app.Util.FunTools.CreateAlertDialogTool;
 import static com.haixiajiemei.app.Util.FunTools.switchFragmentToBack;
 import static com.haixiajiemei.app.Util.Proclaim.RECHARGEPLAN;
+import static com.haixiajiemei.app.wxapi.WXPayEntryActivity.APP_ID;
 
-public class AccountFragment extends Fragment implements AlipayRequestContract.ViewAction, StoredValueContract.ViewAction , WxPayRequestContract.ViewAction {
+public class AccountFragment extends Fragment implements AlipayRequestContract.ViewAction, StoredValueContract.ViewAction, WxPayRequestContract.ViewAction, PointContract.ViewAction {
 
     @BindView(R.id.RechargePlan)
     TextView RechargePlan;
@@ -90,9 +98,11 @@ public class AccountFragment extends Fragment implements AlipayRequestContract.V
     private AlipayRequestPresenter alipayRequestPresenter;
     private WxPayRequestPresenter wxPayRequestPresenter;
     private StoredValuePresenter storedValuePresenter;
+    private PointPresenter PointPresenter;
     private static final int SDK_PAY_FLAG = 1;
     private float value;
     private String orderNo;
+    private String sourceID;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -106,6 +116,16 @@ public class AccountFragment extends Fragment implements AlipayRequestContract.V
             BalanceNum.setText(String.valueOf(getArguments().getFloat("Balance")));
         }
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        PointPresenter = new PointPresenter(this, requireContext());
+        PointPresenter.doPoint();
+        edit_Bonus.setText("");
+        Alipay.setChecked(false);
+        WeChat.setChecked(false);
     }
 
     @OnClick({R.id.RechargePlan, R.id.three_hundred, R.id.five_hundred, R.id.one_thousand, R.id.two_thousand, R.id.Five_thousand, R.id.Statement, R.id.btn_Bonus})
@@ -141,21 +161,15 @@ public class AccountFragment extends Fragment implements AlipayRequestContract.V
                 break;
             case R.id.btn_Bonus:
                 if (WeChat.isChecked()) {
-
-                    intent = new Intent(requireActivity(), WXPayActivity.class);
-//                        intent.setAction(Intent.ACTION_VIEW);
-//                        intent.setData(Uri.parse("weixin://wap/pay?"));//微信
-                    startActivity(intent);
-
-
-//                    value=Float.parseFloat(edit_Bonus.getText().toString().replace("元", ""));
-//                    wxPayRequestPresenter=new WxPayRequestPresenter(this,requireContext(),Float.parseFloat(edit_Bonus.getText().toString().replace("元", "")));
-//                    wxPayRequestPresenter.doWxPayRequest();
+                    value = Float.parseFloat(edit_Bonus.getText().toString().replace("元", ""));
+                    sourceID="1";
+                    wxPayRequestPresenter = new WxPayRequestPresenter(this, requireContext(), Float.parseFloat(edit_Bonus.getText().toString().replace("元", "")));
+                    wxPayRequestPresenter.doWxPayRequest();
                 } else if (Alipay.isChecked()) {
-                    value=Float.parseFloat(edit_Bonus.getText().toString().replace("元", ""));
+                    value = Float.parseFloat(edit_Bonus.getText().toString().replace("元", ""));
+                    sourceID="2";
                     alipayRequestPresenter = new AlipayRequestPresenter(this, requireContext(), Float.parseFloat(edit_Bonus.getText().toString().replace("元", "")));
                     alipayRequestPresenter.doAlipayRequest();
-
                 } else {
                     CreateAlertDialogTool(requireContext(), R.string.note, R.string.Please_Select_Mode_of_Payment);
                 }
@@ -180,7 +194,7 @@ public class AccountFragment extends Fragment implements AlipayRequestContract.V
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
-                        storedValuePresenter = new StoredValuePresenter(AccountFragment.this, requireContext(),orderNo,value,"2");
+                        storedValuePresenter = new StoredValuePresenter(AccountFragment.this, requireContext(), orderNo, value, sourceID);
                         storedValuePresenter.doStoredValue();
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
@@ -215,10 +229,42 @@ public class AccountFragment extends Fragment implements AlipayRequestContract.V
         payThread.start();
     }
 
+    private void WxPay(WxPayRequest wxPayRequest) {
+        SharedPreferences pref = requireContext().getSharedPreferences("WxPay", MODE_PRIVATE);
+        pref.edit()
+                .putString("orderNo", wxPayRequest.getOrderNo())
+                .putFloat("value", value)
+                .putString("sourceID", sourceID)
+                .commit();
+
+        final IWXAPI wxapi = WXAPIFactory.createWXAPI(requireContext(), APP_ID, false);
+        String appId = wxPayRequest.getResponseBody().getAppid();
+        String partnerId = wxPayRequest.getResponseBody().getMch_id();
+        String prepayId = wxPayRequest.getResponseBody().getPrepay_id();
+        String packageValue = "Sign=WXPay";
+        String nonceStr = wxPayRequest.getResponseBody().getNonce_str();
+        String timeStamp = wxPayRequest.getTimeStamp();
+        String sign = wxPayRequest.getResponseBody().getSign();
+        PayReq req = new PayReq();
+        req.appId = appId;
+        req.partnerId = partnerId;
+        req.prepayId = prepayId;
+        req.packageValue = packageValue;
+        req.nonceStr = nonceStr;
+        req.timeStamp = timeStamp;
+        req.sign = sign;
+        wxapi.sendReq(req);
+
+        requireActivity().finish();
+
+//        boolean result = wxapi.sendReq(req);
+//        Toast.makeText(requireContext(), "调起支付结果:" + result, Toast.LENGTH_LONG).show();
+    }
+
     @Override
     public void AlipayRequestSuccess(PayRequest payRequest) {
         mHandler.postDelayed(() -> {
-            orderNo= payRequest.getOrderNo();
+            orderNo = payRequest.getOrderNo();
             pay(payRequest.getBody());
         }, 1);
     }
@@ -237,9 +283,17 @@ public class AccountFragment extends Fragment implements AlipayRequestContract.V
     }
 
     @Override
-    public void WxPayRequestSuccess(PayRequest payRequest) {
+    public void WxPayRequestSuccess(WxPayRequest wxPayRequest) {
         mHandler.postDelayed(() -> {
-            orderNo= payRequest.getOrderNo();
+            orderNo = wxPayRequest.getOrderNo();
+            WxPay(wxPayRequest);
+        }, 1);
+    }
+
+    @Override
+    public void PointSuccess(String s) {
+        mHandler.postDelayed(() -> {
+            BalanceNum.setText(s);
         }, 1);
     }
 

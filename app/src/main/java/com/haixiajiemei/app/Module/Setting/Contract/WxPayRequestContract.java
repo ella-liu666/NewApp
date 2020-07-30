@@ -1,11 +1,11 @@
 package com.haixiajiemei.app.Module.Setting.Contract;
 
-import com.haixiajiemei.app.Module.Setting.Model.PayRequest;
+import com.haixiajiemei.app.Module.Setting.Model.WxPayRequest;
 
 public interface WxPayRequestContract {
 
     interface ViewAction {
-        void WxPayRequestSuccess(PayRequest payRequest);
+        void WxPayRequestSuccess(WxPayRequest wxPayRequest);
 
         void showProgress();
 

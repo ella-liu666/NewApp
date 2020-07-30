@@ -29,12 +29,6 @@
             android:screenOrientation="portrait"></activity>
 
         <activity
-            android:name="com.haixiajiemei.app.wxapi.WXPayActivity"
-            android:exported="true"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"></activity>
-
-        <activity
             android:name="com.haixiajiemei.app.wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop"
