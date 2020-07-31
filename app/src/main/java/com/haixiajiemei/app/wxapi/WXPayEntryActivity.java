@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.widget.Toast;
 
 import com.haixiajiemei.app.Module.Setting.Contract.StoredValueContract;
 import com.haixiajiemei.app.Module.Setting.Present.StoredValuePresenter;
@@ -50,21 +51,26 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler, 
     @Override
     public void onResp(BaseResp resp) {
 //		Log.d(TAG, "onPayFinish, errCode = " + resp.errCode);
-        if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-            switch (resp.errCode) {
-                case 0:
-                    storedValuePresenter = new StoredValuePresenter(this, this, getSharedPreferences("WxPay", MODE_PRIVATE).getString("orderNo", "")
-                            , getSharedPreferences("WxPay", MODE_PRIVATE).getFloat("value", 0), getSharedPreferences("WxPay", MODE_PRIVATE).getString("sourceID", ""));
-                    storedValuePresenter.doStoredValue();
-                    break;
-                case -1:
-                    AlertDialog(R.string.RechargeFailed);
-                    break;
-                case -2:
-                    AlertDialog(R.string.RechargeCancel);
-                    break;
-            }
+        if (resp.errCode == BaseResp.ErrCode.ERR_USER_CANCEL) {
+            Toast.makeText(this, "errCode:" + resp.errCode, Toast.LENGTH_LONG).show();
+        } else if (resp.errCode == BaseResp.ErrCode.ERR_OK) {
+            Toast.makeText(this, "errCode:" + "支付成功", Toast.LENGTH_LONG).show();
         }
+//            switch (resp.errCode) {
+//                case 0:
+//                    storedValuePresenter = new StoredValuePresenter(this, this, getSharedPreferences("WxPay", MODE_PRIVATE).getString("orderNo", "")
+//                            , getSharedPreferences("WxPay", MODE_PRIVATE).getFloat("value", 0), getSharedPreferences("WxPay", MODE_PRIVATE).getString("sourceID", ""));
+//                    storedValuePresenter.doStoredValue();
+//                    break;
+//                case -1:
+//                    AlertDialog(R.string.RechargeFailed);
+//                    Toast.makeText(this, "errCode:" + resp.errCode, Toast.LENGTH_LONG).show();
+//                    break;
+//                case -2:
+//                    AlertDialog(R.string.RechargeCancel);
+//                    Toast.makeText(this, "errCode:" + resp.errCode, Toast.LENGTH_LONG).show();
+//                    break;
+//            }
     }
 
     private void AlertDialog(int Message){
@@ -100,5 +106,12 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler, 
     @Override
     public void errorOccurred(String reason) {
 
+    }
+
+    @Override
+    public void ApierrorOccurred(String Access_token) {
+//        mHandler.postDelayed(() -> {
+//            AlertDialog(R.string.TopUpSuccessfully);
+//        }, 1);
     }
 }

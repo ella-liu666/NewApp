@@ -1,6 +1,5 @@
 package com.haixiajiemei.app.Module.Setting.Adapter;
 
-import android.view.ViewGroup;
 
 import com.haixiajiemei.app.Module.Setting.Fragment.CouponExpiredFragment;
 import com.haixiajiemei.app.Module.Setting.Fragment.CouponUnusedFragment;

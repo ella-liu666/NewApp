@@ -18,20 +18,22 @@ public class CartPresenter implements Cartcontract.PresenterAction{
     private float total;
     private String delType;
     private List<ShoppingCart> cart;
+    private int deliveryID;
 
     public CartPresenter(Cartcontract.ViewAction viewAction, Context context, String storeAccount,
-            float total, String delType, List<ShoppingCart> cart) {
+            float total, String delType, List<ShoppingCart> cart,int deliveryID) {
         this.viewAction = viewAction;
         this.context = context;
         this.storeAccount = storeAccount;
         this.total = total;
         this.delType = delType;
         this.cart = cart;
+        this.deliveryID = deliveryID;
     }
 
     @Override
     public void doCart() {
-        DataLoader.run(new CartTask(context,storeAccount,total,delType,cart){
+        DataLoader.run(new CartTask(context,storeAccount,total,delType,cart,deliveryID){
 
             @Override
             protected void onResult(String s) throws Exception {
@@ -50,7 +52,7 @@ public class CartPresenter implements Cartcontract.PresenterAction{
 
             @Override
             protected void onApiException(ApiException e) {
-                viewAction.errorOccurred(e.getReason());
+                viewAction.ApierrorOccurred(e.getErrorBody().getAccess_token());
             }
 
             @Override

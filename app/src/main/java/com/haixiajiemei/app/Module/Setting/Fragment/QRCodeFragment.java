@@ -132,6 +132,12 @@ public class QRCodeFragment extends Fragment implements QRcodePointContract.View
 
     }
 
+    @Override
+    public void ApierrorOccurred(String Access_token) {
+        mHandler.postDelayed(() -> {
+        }, 1);
+    }
+
     private void CountdownTimer(int finalSeconds) {
         if (QRCountDownTimer != null) {
             QRCountDownTimer.cancel();

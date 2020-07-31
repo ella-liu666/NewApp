@@ -1,6 +1,7 @@
 package com.haixiajiemei.app.Api.Basic;
 
 import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class ErrorBody implements Serializable {
@@ -13,6 +14,13 @@ public class ErrorBody implements Serializable {
     @SerializedName("Message")
     private String message;
 
+    @SerializedName("access_token")
+    private String access_token;
+
+    @SerializedName("loginStatus")
+    private boolean loginStatus;
+
+
     public String getStatusCode() {
         return statusCode;
     }
@@ -23,5 +31,16 @@ public class ErrorBody implements Serializable {
 
     public String getMessage() {
         return message;
+    }
+
+    public String getAccess_token() {
+        if (access_token == null) {
+            access_token="";
+        }
+        return access_token;
+    }
+
+    public boolean getLoginStatus() {
+        return loginStatus;
     }
 }

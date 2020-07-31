@@ -124,12 +124,20 @@ public class AddressFragment extends Fragment implements DeliveryListContract.Vi
     }
 
     @Override
-    public void onAddressItemClicked(String Address, String PhoneName) {
+    public void ApierrorOccurred(String Access_token) {
+        mHandler.postDelayed(() -> {
+            init();
+        }, 1);
+    }
+
+    @Override
+    public void onAddressItemClicked(String Address, String PhoneName, int deliveryID) {
         Intent intent = new Intent(requireActivity(), ToolBarActivity.class);
         intent.putExtra("Type", PAYMENTSCREEN);
         intent.putExtra("title", getString(R.string.PaymentPage));
         intent.putExtra("Address", Address);
         intent.putExtra("PhoneName", PhoneName);
+        intent.putExtra("deliveryID", deliveryID);
         startActivity(intent);
     }
 

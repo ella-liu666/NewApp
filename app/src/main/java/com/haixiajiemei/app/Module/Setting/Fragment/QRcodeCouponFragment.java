@@ -132,6 +132,25 @@ public class QRcodeCouponFragment extends Fragment implements QRcodeCouponContra
 
     }
 
+    @Override
+    public void ApierrorOccurred(String Access_token) {
+        mHandler.postDelayed(() -> {
+            PointPresenter = new PointPresenter(this, requireContext());
+            PointPresenter.doPoint();
+
+            txt_denomination.setText(String.valueOf(getArguments().getFloat("denomination")));
+            txt_storeName.setText(getArguments().getString("storeName"));
+            txt_dueTime.setText(getArguments().getString("dueTime"));
+            txt_name.setText(getArguments().getString("name"));
+
+
+            presenter = new QRcodeCouponPresenter(this, requireContext());
+            presenter.doQRcodeCoupon(requireContext(), getArguments().getInt("accountCouponMapID")
+                    , getArguments().getFloat("denomination"), getArguments().getString("name"),
+                    getArguments().getString("storeName"), getArguments().getString("dueTime"));
+        }, 1);
+    }
+
     private void CountdownTimer(int finalSeconds) {
         if (QRCountDownTimer != null) {
             QRCountDownTimer.cancel();

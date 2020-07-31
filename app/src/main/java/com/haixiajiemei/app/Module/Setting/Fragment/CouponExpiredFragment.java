@@ -70,4 +70,12 @@ public class CouponExpiredFragment extends Fragment implements CouponExpiredCont
     public void errorOccurred(String reason) {
 
     }
+
+    @Override
+    public void ApierrorOccurred(String Access_token) {
+        mHandler.postDelayed(() -> {
+            presenter=new CouponExpiredPresenter(this,requireContext());
+            presenter.doCouponExpired();
+        }, 1);
+    }
 }

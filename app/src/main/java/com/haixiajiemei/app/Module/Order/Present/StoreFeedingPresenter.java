@@ -6,7 +6,6 @@ import com.haixiajiemei.app.Api.Basic.ApiException;
 import com.haixiajiemei.app.Api.DataLoader;
 import com.haixiajiemei.app.Api.Task.Order.StoreFeedingTask;
 import com.haixiajiemei.app.Module.Order.Contract.StoreFeedingContract;
-import com.haixiajiemei.app.Module.Order.Model.IdAndTxt;
 import com.haixiajiemei.app.Module.Order.Model.StoreFeed;
 
 public class StoreFeedingPresenter implements StoreFeedingContract.PresenterAction{
@@ -44,7 +43,7 @@ public class StoreFeedingPresenter implements StoreFeedingContract.PresenterActi
 
             @Override
             protected void onApiException(ApiException e) {
-                viewAction.errorOccurred(e.getReason());
+                viewAction.ApierrorOccurred(e.getErrorBody().getAccess_token());
             }
 
             @Override

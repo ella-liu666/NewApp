@@ -197,6 +197,7 @@ public class ToolBarActivity extends AppCompatActivity {
                     bundle = new Bundle();
                     bundle.putString("Address", intent.getExtras().getString("Address"));
                     bundle.putString("PhoneName", intent.getExtras().getString("PhoneName"));
+                    bundle.putInt("deliveryID", intent.getExtras().getInt("deliveryID"));
                     paymentScreenFragment.setArguments(bundle);
                 }
                 switchFragmentToActivity(R.id.fragment_Introduction, paymentScreenFragment, this);

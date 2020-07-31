@@ -12,6 +12,8 @@ public interface CardDetailContract {
         void hideProgress();
 
         void errorOccurred(String reason);
+
+        void ApierrorOccurred(String Access_token);
     }
 
 

@@ -14,6 +14,8 @@ public interface MonthCardBuyContract {
         void hideProgress();
 
         void errorOccurred(String reason);
+
+        void ApierrorOccurred(String Access_token);
     }
 
 

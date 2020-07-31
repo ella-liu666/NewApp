@@ -12,9 +12,6 @@ public class WxPayRequest implements Serializable {
     @SerializedName("responseBody")
     private WxResponseBody responseBody;
 
-    @SerializedName("timeStamp")
-    private String timeStamp;
-
 
     public String getOrderNo() {
         return orderNo;
@@ -24,7 +21,4 @@ public class WxPayRequest implements Serializable {
         return responseBody;
     }
 
-    public String getTimeStamp() {
-        return timeStamp;
-    }
 }

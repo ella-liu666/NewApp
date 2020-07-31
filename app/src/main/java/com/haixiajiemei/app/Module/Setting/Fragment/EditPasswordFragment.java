@@ -72,4 +72,19 @@ public class EditPasswordFragment extends Fragment implements ProfilePwdContract
     public void errorOccurred(String reason) {
 
     }
+
+    @Override
+    public void ApierrorOccurred(String Access_token) {
+        mHandler.postDelayed(() -> {
+            if ("".equals(edit_old_password.getText().toString()) |
+                    "".equals(edit_password.getText().toString()) | "".equals(edit_second_password.getText().toString())) {
+                CreateAlertDialogTool(requireContext(), R.string.note, R.string.not_complete);
+            } else if (!edit_password.getText().toString().equals(edit_second_password.getText().toString())) {
+                CreateAlertDialogTool(requireContext(), R.string.note, R.string.Passwords_are_inconsistent);
+            }else {
+                profilePwdPresenter=new ProfilePwdPresenter(this,requireContext(),edit_old_password.getText().toString(),edit_password.getText().toString());
+                profilePwdPresenter.doProfilePwd();
+            }
+        }, 1);
+    }
 }

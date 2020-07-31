@@ -11,6 +11,8 @@ public interface SignOutContract {
         void hideProgress();
 
         void errorOccurred(String reason);
+
+        void ApierrorOccurred(String Access_token);
     }
 
     interface PresenterAction {

@@ -45,12 +45,7 @@ public class AddAddressFragment extends Fragment implements InsertDeliveryListCo
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_address, container, false);
         ButterKnife.bind(this, view);
-        init();
         return view;
-    }
-
-    private void init() {
-
     }
 
     @OnClick(R.id.SaveAddress)
@@ -100,5 +95,24 @@ public class AddAddressFragment extends Fragment implements InsertDeliveryListCo
     @Override
     public void errorOccurred(String reason) {
 
+    }
+
+    @Override
+    public void ApierrorOccurred(String Access_token) {
+        mHandler.postDelayed(() -> {
+            if ("".equals(edit_Receiver.getText().toString()) | "".equals(edit_phone_num.getText().toString()) | "".equals(edit_Address.getText().toString())) {
+                CreateAlertDialogTool(requireContext(), R.string.note, R.string.not_complete);
+            } else {
+                if (mister.isChecked()) {
+                    gender = getString(R.string.mister);
+                } else if (madam.isChecked()) {
+                    gender = getString(R.string.madam);
+                }
+                insertDeliveryListPresenter = new InsertDeliveryListPresenter(this, requireContext(),
+                        edit_Receiver.getText().toString(), gender, edit_phone_num.getText().toString(),
+                        edit_Address.getText().toString(), "");
+                insertDeliveryListPresenter.doInsertDeliveryList();
+            }
+        }, 1);
     }
 }

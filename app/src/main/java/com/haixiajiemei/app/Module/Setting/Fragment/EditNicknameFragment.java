@@ -60,4 +60,12 @@ public class EditNicknameFragment extends Fragment implements ProfileNameContrac
     public void errorOccurred(String reason) {
 
     }
+
+    @Override
+    public void ApierrorOccurred(String Access_token) {
+        mHandler.postDelayed(() -> {
+            profileNamePresenter = new ProfileNamePresenter(this, requireContext(), edit_Nickname.getText().toString());
+            profileNamePresenter.doProfileName();
+        }, 1);
+    }
 }

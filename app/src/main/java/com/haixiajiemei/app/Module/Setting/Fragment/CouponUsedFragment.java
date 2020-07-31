@@ -70,4 +70,12 @@ public class CouponUsedFragment extends Fragment implements CouponUsedContract.V
     public void errorOccurred(String reason) {
 
     }
+
+    @Override
+    public void ApierrorOccurred(String Access_token) {
+        mHandler.postDelayed(() -> {
+            presenter = new CouponUsedPresenter(this, requireContext());
+            presenter.doCouponUsed();
+        }, 1);
+    }
 }

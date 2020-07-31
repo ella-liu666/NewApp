@@ -41,7 +41,7 @@ public class DeliveryListPresenter implements DeliveryListContract.PresenterActi
 
             @Override
             protected void onApiException(ApiException e) {
-                viewAction.errorOccurred(e.getReason());
+                viewAction.ApierrorOccurred(e.getErrorBody().getAccess_token());
             }
 
             @Override

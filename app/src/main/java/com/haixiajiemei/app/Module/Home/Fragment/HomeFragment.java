@@ -180,6 +180,31 @@ public class HomeFragment extends Fragment implements HomeStoreImgContract.ViewA
     }
 
     @Override
+    public void ApierrorOccurred(String Access_token) {
+        mHandler.postDelayed(() -> {
+            SharedPreferences pref = requireContext().getSharedPreferences("UserToken", MODE_PRIVATE);
+            pref.edit()
+                    .putString("access_token", Access_token)
+                    .commit();
+
+            Adpresenter = new HomeAdImgPresenter(this, requireContext());
+            Adpresenter.doHomeAdImg();
+            presenter = new HomeStoreImgPresenter(this, requireContext());
+            presenter.doHomeStoreImg();
+
+            if (requireContext().getSharedPreferences("Alert", MODE_PRIVATE).getBoolean("Terms", true)) {
+                AlertDialogTool();
+            }
+
+            if (android.os.Build.VERSION.SDK_INT > 9) {
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                StrictMode.setThreadPolicy(policy);
+            }
+
+        }, 1);
+    }
+
+    @Override
     public void onBrandIntroClicked(int position, int id, String title) {
         Intent intent = new Intent(requireActivity(), ToolBarActivity.class);
         intent.putExtra("id", id);

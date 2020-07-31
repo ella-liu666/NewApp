@@ -141,4 +141,14 @@ public class BuyMembershipCardFragment extends Fragment implements VIPCardContra
     public void errorOccurred(String reason) {
 
     }
+
+    @Override
+    public void ApierrorOccurred(String Access_token) {
+        mHandler.postDelayed(() -> {
+            vipCardPresenter = new VIPCardPresenter(this, requireContext());
+            vipCardPresenter.doVIPCard();
+            monthCardPresenter = new MonthCardPresenter(this, requireContext());
+            monthCardPresenter.doMonthCard();
+        }, 1);
+    }
 }

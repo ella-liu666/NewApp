@@ -2,6 +2,7 @@ package com.haixiajiemei.app.Module.Setting.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,7 @@ import butterknife.OnClick;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +33,7 @@ import com.haixiajiemei.app.Module.Setting.Present.SettingPresenter;
 import com.haixiajiemei.app.R;
 import com.haixiajiemei.app.ToolBarActivity;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.haixiajiemei.app.Util.FunTools.CreateAlertDialogTool;
 import static com.haixiajiemei.app.Util.Proclaim.ACCOUNT;
 import static com.haixiajiemei.app.Util.Proclaim.COUPON;
@@ -77,7 +80,7 @@ public class SettingFragment extends Fragment implements SettingItemCallback, Se
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
         ButterKnife.bind(this, view);
 
@@ -114,7 +117,7 @@ public class SettingFragment extends Fragment implements SettingItemCallback, Se
             case R.id.Balance:
                 Intent intent = new Intent(requireActivity(), ToolBarActivity.class);
                 intent.putExtra("Type", ACCOUNT);
-                intent.putExtra("Balance",Balance);
+                intent.putExtra("Balance", Balance);
                 startActivity(intent);
                 break;
             case R.id.Coupon:
@@ -139,7 +142,7 @@ public class SettingFragment extends Fragment implements SettingItemCallback, Se
                 intent = new Intent(requireActivity(), ToolBarActivity.class);
                 intent.putExtra("Type", QRCODE);
                 intent.putExtra("title", R.string.Payment_QR_code);
-                intent.putExtra("Balance",Balance);
+                intent.putExtra("Balance", Balance);
                 startActivity(intent);
                 break;
         }
@@ -286,8 +289,29 @@ public class SettingFragment extends Fragment implements SettingItemCallback, Se
             });
         }, 1);
     }
+
     @Override
     public void errorOccurred(String reason) {
 
+    }
+
+    @Override
+    public void ApierrorOccurred(String Access_token) {
+        mHandler.postDelayed(() -> {
+            SharedPreferences pref = requireContext().getSharedPreferences("UserToken", MODE_PRIVATE);
+            pref.edit()
+                    .putString("access_token", Access_token)
+                    .commit();
+
+            presenter = new SettingPresenter(this, requireContext());
+            presenter.doSettingMemberInfo();
+
+            GlideApp.with(requireContext())
+                    .load(R.drawable.avatar)
+                    .fitCenter()
+                    .into(user_Avatar);
+
+            setting_item_init();
+        }, 1);
     }
 }

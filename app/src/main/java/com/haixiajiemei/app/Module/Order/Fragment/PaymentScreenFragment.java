@@ -38,7 +38,7 @@ import static com.haixiajiemei.app.Util.FunTools.CreateAlertDialogTool;
 import static com.haixiajiemei.app.Util.Proclaim.ADDRESS;
 import static com.haixiajiemei.app.Util.Proclaim.CARTSUCCESS;
 
-public class PaymentScreenFragment extends Fragment implements PointContract.ViewAction , Cartcontract.ViewAction{
+public class PaymentScreenFragment extends Fragment implements PointContract.ViewAction, Cartcontract.ViewAction {
     @BindView(R.id.StoreName)
     TextView StoreName;
     @BindView(R.id.Total)
@@ -122,8 +122,13 @@ public class PaymentScreenFragment extends Fragment implements PointContract.Vie
                 CreateAlertDialogTool(requireContext(), R.string.note, R.string.PointInsufficient);
             } else {
                 ShoppingCartList sd = GetShoppingCart(requireContext());
-                cartPresenter = new CartPresenter(this, requireContext(), sd.getStoreAccount(), sd.getTotal(), ShoppingCartList.delType, sd.cart);
-                cartPresenter.doCart();
+                if (delivery.isChecked()) {
+                    cartPresenter = new CartPresenter(this, requireContext(), sd.getStoreAccount(), sd.getTotal(), ShoppingCartList.delType, sd.cart, getArguments().getInt("deliveryID"));
+                    cartPresenter.doCart();
+                } else {
+                    cartPresenter = new CartPresenter(this, requireContext(), sd.getStoreAccount(), sd.getTotal(), ShoppingCartList.delType, sd.cart, 0);
+                    cartPresenter.doCart();
+                }
             }
         }, 1);
     }
@@ -146,6 +151,7 @@ public class PaymentScreenFragment extends Fragment implements PointContract.Vie
             dialog.show();
         }, 1);
     }
+
     @Override
     public void showProgress() {
 
@@ -159,5 +165,12 @@ public class PaymentScreenFragment extends Fragment implements PointContract.Vie
     @Override
     public void errorOccurred(String reason) {
 
+    }
+
+    @Override
+    public void ApierrorOccurred(String Access_token) {
+        mHandler.postDelayed(() -> {
+            init();
+        }, 1);
     }
 }

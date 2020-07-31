@@ -6,6 +6,7 @@ android {
         release {
             storeFile file('/Users/Fish/Desktop/NewApp/app/android.jks')
             storePassword 'c8xji@kunchi'
+            keyAlias 'haixiajiemei.memberv3'
             keyPassword 'c8xji@kunchi'
         }
     }
@@ -19,6 +20,16 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "e9d0492fa7701684e9562706", //JPush上註冊的包名對應的appkey.
+                JPUSH_CHANNEL: "developer-default", //使用者渠道統計的渠道名稱
+        ]
     }
 
     compileOptions {
@@ -67,5 +78,9 @@ dependencies {
     implementation 'com.google.zxing:core:3.4.0'
     implementation('com.journeyapps:zxing-android-embedded:3.6.0') { transitive = false }
     implementation(name: 'alipaySdk-15.7.7-20200702160044', ext: 'aar')
-    implementation files('libs/wechat-sdk-android-without-mta-6.6.4.jar')
+//    implementation files('libs/wechat-sdk-android-without-mta-6.6.4.jar')
+//    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:5.4.0'
+    implementation 'cn.jiguang.sdk:jpush:3.0.5'
+    implementation 'cn.jiguang.sdk:jcore:1.1.2'
+    implementation files('libs/wechat-sdk-android-with-mta-5.4.0.jar')
 }

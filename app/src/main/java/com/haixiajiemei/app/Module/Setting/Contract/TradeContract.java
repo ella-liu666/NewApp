@@ -14,6 +14,8 @@ public interface TradeContract {
         void hideProgress();
 
         void errorOccurred(String reason);
+
+        void ApierrorOccurred(String Access_token);
     }
 
 

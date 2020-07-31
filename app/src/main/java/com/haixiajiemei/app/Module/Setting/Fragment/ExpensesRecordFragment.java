@@ -71,4 +71,12 @@ public class ExpensesRecordFragment extends Fragment implements TradeContract.Vi
     public void errorOccurred(String reason) {
 
     }
+
+    @Override
+    public void ApierrorOccurred(String Access_token) {
+        mHandler.postDelayed(() -> {
+            presenter=new TradePresenter(this,requireContext());
+            presenter.doTrade();
+        }, 1);
+    }
 }

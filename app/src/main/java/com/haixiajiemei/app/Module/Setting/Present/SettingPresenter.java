@@ -1,6 +1,7 @@
 package com.haixiajiemei.app.Module.Setting.Present;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.haixiajiemei.app.Api.Basic.ApiException;
 import com.haixiajiemei.app.Api.DataLoader;
@@ -39,7 +40,7 @@ public class SettingPresenter implements SettingContract.PresenterAction {
 
             @Override
             protected void onApiException(ApiException e) {
-                viewAction.errorOccurred(e.getReason());
+                viewAction.ApierrorOccurred(e.getErrorBody().getAccess_token());
             }
 
             @Override

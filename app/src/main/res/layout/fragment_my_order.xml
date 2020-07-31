@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     tools:context=".Module.Setting.Fragment.MyOrderFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="暂无资料"
-        android:textSize="30sp"/>
+        android:id="@+id/tablelayout"
+        android:background="@drawable/my_order_tab"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        app:tabIndicatorFullWidth="false"
+        app:tabIndicator="@drawable/tab_indicator"
+        android:layout_alignParentStart="true"/>
 
-</LinearLayout>
+    <com.haixiajiemei.app.Util.CustomViewPager
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/viewpage"
+        android:layout_below="@+id/tablelayout"
+        android:layout_alignParentStart="true"/>
+</RelativeLayout>

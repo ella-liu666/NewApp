@@ -2,8 +2,11 @@ package com.haixiajiemei.app.Module.Setting.Fragment;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -22,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.haixiajiemei.app.Aipay.util.PayResult;
@@ -162,12 +166,12 @@ public class AccountFragment extends Fragment implements AlipayRequestContract.V
             case R.id.btn_Bonus:
                 if (WeChat.isChecked()) {
                     value = Float.parseFloat(edit_Bonus.getText().toString().replace("元", ""));
-                    sourceID="1";
+                    sourceID = "1";
                     wxPayRequestPresenter = new WxPayRequestPresenter(this, requireContext(), Float.parseFloat(edit_Bonus.getText().toString().replace("元", "")));
                     wxPayRequestPresenter.doWxPayRequest();
                 } else if (Alipay.isChecked()) {
                     value = Float.parseFloat(edit_Bonus.getText().toString().replace("元", ""));
-                    sourceID="2";
+                    sourceID = "2";
                     alipayRequestPresenter = new AlipayRequestPresenter(this, requireContext(), Float.parseFloat(edit_Bonus.getText().toString().replace("元", "")));
                     alipayRequestPresenter.doAlipayRequest();
                 } else {
@@ -190,7 +194,8 @@ public class AccountFragment extends Fragment implements AlipayRequestContract.V
                      */
                     String resultInfo = payResult.getResult();// 同步返回需要验证的信息
                     String resultStatus = payResult.getResultStatus();
-                    Log.e("MainActivity", payResult + "");
+                    Log.e("MainActivity", payResult.getMemo() + "");
+                    Toast.makeText(requireContext(), "调起支付结果:" + payResult.getMemo(), Toast.LENGTH_LONG).show();
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
@@ -208,19 +213,33 @@ public class AccountFragment extends Fragment implements AlipayRequestContract.V
         }
     };
 
+    public static boolean checkAliPayInstalled(Context context) {
+        Uri uri = Uri.parse("alipays://platformapi/startApp");
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        ComponentName componentName = intent.resolveActivity(context.getPackageManager());
+        return componentName != null;
+    }
 
     private void pay(final String orderInfo) {
         final Runnable payRunnable = new Runnable() {
             @Override
             public void run() {
-                PayTask alipay = new PayTask(requireActivity());
-                Map<String, String> result = alipay.payV2(orderInfo, true);//第二个参数设置为true，将会在调用pay接口的时候直接唤起一个loading
-                Log.i("msp", result.toString());
+                mHandler.postDelayed(() -> {
+                    if (checkAliPayInstalled(requireContext())) {
+                        PayTask alipay = new PayTask(requireActivity());
+                        Map<String, String> result = alipay.payV2(orderInfo, true);//第二个参数设置为true，将会在调用pay接口的时候直接唤起一个loading
+                        Log.i("msp", result.toString());
 
-                Message msg = new Message();
-                msg.what = SDK_PAY_FLAG;
-                msg.obj = result;
-                Handler.sendMessage(msg);
+                        Message msg = new Message();
+                        msg.what = SDK_PAY_FLAG;
+                        msg.obj = result;
+                        Handler.sendMessage(msg);
+                    } else {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://cshall.alipay.com/lab/help_detail.htm?help_id=255346"));//支付寶
+                        startActivity(intent);
+                    }
+                }, 1);
+
             }
         };
 
@@ -238,27 +257,47 @@ public class AccountFragment extends Fragment implements AlipayRequestContract.V
                 .commit();
 
         final IWXAPI wxapi = WXAPIFactory.createWXAPI(requireContext(), APP_ID, false);
+        wxapi.registerApp(APP_ID);
+
         String appId = wxPayRequest.getResponseBody().getAppid();
-        String partnerId = wxPayRequest.getResponseBody().getMch_id();
-        String prepayId = wxPayRequest.getResponseBody().getPrepay_id();
+        String partnerId = wxPayRequest.getResponseBody().getPartnerid();
+        String prepayId = wxPayRequest.getResponseBody().getPrepayid();
         String packageValue = "Sign=WXPay";
-        String nonceStr = wxPayRequest.getResponseBody().getNonce_str();
-        String timeStamp = wxPayRequest.getTimeStamp();
+        String nonceStr = wxPayRequest.getResponseBody().getNoncestr();
+        String timeStamp = wxPayRequest.getResponseBody().getTimestamp();
         String sign = wxPayRequest.getResponseBody().getSign();
         PayReq req = new PayReq();
+
         req.appId = appId;
         req.partnerId = partnerId;
         req.prepayId = prepayId;
         req.packageValue = packageValue;
         req.nonceStr = nonceStr;
         req.timeStamp = timeStamp;
+        req.extData = "app data";
         req.sign = sign;
+
+        Log.e("111===","appId ="+appId);
+        Log.e("111===","partnerId ="+partnerId);
+        Log.e("111===","prepayId ="+prepayId);
+        Log.e("111===","packageValue ="+packageValue);
+        Log.e("111===","nonceStr ="+nonceStr);
+        Log.e("111===","timeStamp ="+timeStamp);
+        Log.e("111===","sign ="+sign);
+
+
         wxapi.sendReq(req);
+
+        boolean result = wxapi.sendReq(req);
+        if (!result) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://weixin.qq.com/"));//微信
+            startActivity(intent);
+
+        }
+        Toast.makeText(requireContext(), "调起支付结果:" + result, Toast.LENGTH_LONG).show();
 
         requireActivity().finish();
 
-//        boolean result = wxapi.sendReq(req);
-//        Toast.makeText(requireContext(), "调起支付结果:" + result, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -310,5 +349,16 @@ public class AccountFragment extends Fragment implements AlipayRequestContract.V
     @Override
     public void errorOccurred(String reason) {
 
+    }
+
+    @Override
+    public void ApierrorOccurred(String Access_token) {
+        mHandler.postDelayed(() -> {
+            PointPresenter = new PointPresenter(this, requireContext());
+            PointPresenter.doPoint();
+            edit_Bonus.setText("");
+            Alipay.setChecked(false);
+            WeChat.setChecked(false);
+        }, 1);
     }
 }

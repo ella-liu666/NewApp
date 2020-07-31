@@ -82,4 +82,12 @@ public class IntroductionFragment extends Fragment implements BrandIntroductionI
     public void errorOccurred(String reason) {
 
     }
+
+    @Override
+    public void ApierrorOccurred(String Access_token) {
+        mHandler.postDelayed(() -> {
+            presenter=new BrandIntroductionImgPresenter(this,requireContext(),getArguments().getInt("id"));
+            presenter.doBrandIntroductionImg();
+        }, 1);
+    }
 }

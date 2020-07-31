@@ -2,6 +2,7 @@ package com.haixiajiemei.app.Api.Rtf;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.haixiajiemei.app.Api.Basic.ApiException;
 import com.haixiajiemei.app.Api.Basic.ErrorBody;
@@ -92,7 +93,8 @@ public abstract class BaseRtf<T> {
         if (response.isSuccessful()) {
             return response.body();
         } else {
-            throw new ApiException(response.code(), response.message(), response.body(), ClassParser.toData(response.errorBody().string(), ErrorBody.class));
+            ErrorBody EB=ClassParser.toData(response.errorBody().string(), ErrorBody.class);
+            throw new ApiException(response.code(), response.message(), response.body(), EB);
         }
     }
 

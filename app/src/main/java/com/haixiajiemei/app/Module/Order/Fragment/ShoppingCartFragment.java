@@ -14,20 +14,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.haixiajiemei.app.MainActivity;
 import com.haixiajiemei.app.Module.Order.Adapter.ShoppingCartItemAdapter;
-import com.haixiajiemei.app.Module.Order.Contract.Cartcontract;
 import com.haixiajiemei.app.Module.Order.Contract.ShoppingCartItemCallback;
 import com.haixiajiemei.app.Module.Order.Model.ShoppingCart;
 import com.haixiajiemei.app.Module.Order.Model.ShoppingCartList;
-import com.haixiajiemei.app.Module.Order.Present.CartPresenter;
-import com.haixiajiemei.app.Module.Setting.Contract.PointContract;
-import com.haixiajiemei.app.Module.Setting.Present.PointPresenter;
 import com.haixiajiemei.app.R;
 import com.haixiajiemei.app.SQLite.ShoppingCartDB;
 import com.haixiajiemei.app.ToolBarActivity;
@@ -40,8 +34,6 @@ import butterknife.OnClick;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.haixiajiemei.app.SQLite.ShoppingCartDB.GetShoppingCart;
-import static com.haixiajiemei.app.Util.FunTools.CreateAlertDialogTool;
-import static com.haixiajiemei.app.Util.Proclaim.CARTSUCCESS;
 import static com.haixiajiemei.app.Util.Proclaim.PAYMENTSCREEN;
 import static com.haixiajiemei.app.Util.Proclaim.SHOPPINGCART;
 

@@ -71,4 +71,13 @@ public class RechargeRecordFragment extends Fragment implements RechargeContract
     public void errorOccurred(String reason) {
 
     }
+
+    @Override
+    public void ApierrorOccurred(String Access_token) {
+        mHandler.postDelayed(() -> {
+            presenter = new RechargePresenter(this, requireContext());
+            presenter.doRecharge();
+
+        }, 1);
+    }
 }

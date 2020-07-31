@@ -1,17 +1,19 @@
 package com.haixiajiemei.app.Api.Task;
 
+
 import com.haixiajiemei.app.Api.Basic.ApiException;
 
 import com.orhanobut.logger.Logger;
 
 public abstract class DataTask<T> {
+
     public final void action() {
         try {
             this.onStart();
             String s = this.load();
             this.onResult(parseData(s));
         } catch (ApiException e) {
-            Logger.e(e, e.getMessage());
+//            Logger.e(e, e.getMessage());
             this.onApiException(e);
         } catch (Exception e) {
             Logger.e(e, e.getMessage());

@@ -55,12 +55,13 @@ public class OrderRtf extends BaseRtf<OrderRtf.Service> {
         return this.execute(this.api.StoreFeeding(params.getMap()));
     }
 
-    public String getCart(@NonNull String storeAccount,@NonNull float total,@NonNull String delType,@NonNull List<ShoppingCart> cart) throws Exception {
+    public String getCart(@NonNull String storeAccount,@NonNull float total,@NonNull String delType,@NonNull List<ShoppingCart> cart,@NonNull int deliveryID) throws Exception {
         Params params = new Params();
         params.putRequired("storeAccount", storeAccount);
         params.putRequired("total", total);
         params.putRequired("delType", delType);
         params.putRequired("cart", cart);
+        params.putRequired("deliveryID", deliveryID);
         return this.execute(this.api.Cart(params.getMap()));
     }
 

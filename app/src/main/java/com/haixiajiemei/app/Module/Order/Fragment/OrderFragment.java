@@ -262,6 +262,16 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
     }
 
     @Override
+    public void ApierrorOccurred(String Access_token) {
+        mHandler.postDelayed(() -> {
+            storeListPresenter = new StoreListPresenter(this, requireContext());
+            storeListPresenter.doStoreList();
+
+            shoppingCartList.cart = new ArrayList<>();
+        }, 1);
+    }
+
+    @Override
     public void onSettingItemClicked(int id, String name) {
         storeFeedingPresenter = new StoreFeedingPresenter(this, requireContext(), name, id);
         storeFeedingPresenter.doStoreFeeding();

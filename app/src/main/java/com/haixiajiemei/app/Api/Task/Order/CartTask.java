@@ -16,8 +16,9 @@ public class CartTask  extends DataTask<String> {
     private float total;
     private String delType;
     private List<ShoppingCart> cart;
+    private int deliveryID;
 
-    public CartTask(Context context, String storeAccount, float total, String delType, List<ShoppingCart> cart) {
+    public CartTask(Context context, String storeAccount, float total, String delType, List<ShoppingCart> cart,int deliveryID) {
         api = new OrderRtf(context);
 
         this.context = context;
@@ -25,11 +26,12 @@ public class CartTask  extends DataTask<String> {
         this.total = total;
         this.delType = delType;
         this.cart = cart;
+        this.deliveryID = deliveryID;
     }
 
     @Override
     protected String load() throws Exception {
-        return api.getCart(storeAccount,total,delType,cart);
+        return api.getCart(storeAccount,total,delType,cart,deliveryID);
     }
 
     @Override

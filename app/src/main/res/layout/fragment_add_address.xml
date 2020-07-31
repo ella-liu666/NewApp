@@ -124,7 +124,8 @@
                 android:layout_marginLeft="16dp"
                 android:background="@null"
                 android:hint="@string/HiotphoneNum"
-                android:singleLine="true" />
+                android:inputType="phone"
+                android:singleLine="true"/>
         </LinearLayout>
 
         <LinearLayout

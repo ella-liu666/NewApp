@@ -49,7 +49,7 @@ public class InsertDeliveryListPresenter implements InsertDeliveryListContract.P
 
             @Override
             protected void onApiException(ApiException e) {
-                viewAction.errorOccurred(e.getReason());
+                viewAction.ApierrorOccurred(e.getErrorBody().getAccess_token());
             }
 
             @Override

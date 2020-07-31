@@ -120,6 +120,7 @@
     <string name="SaveAddress">保存新地址</string>
     <string name="TakeawayOrder">外卖订单</string>
     <string name="MyAddress">我的地址</string>
+    <string name="ShippingAddress">收货地址</string>
 
 
     <string name="UnderConstruction">建置中</string>

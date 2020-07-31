@@ -138,4 +138,14 @@ public class MyMembershipCardFragment extends Fragment implements VIPCardBuyCont
     public void errorOccurred(String reason) {
 
     }
+
+    @Override
+    public void ApierrorOccurred(String Access_token) {
+        mHandler.postDelayed(() -> {
+            vipCardBuyPresenter = new VIPCardBuyPresenter(this, requireContext());
+            vipCardBuyPresenter.doVIPCardBuy();
+            monthCardBuyPresenter = new MonthCardBuyPresenter(this, requireContext());
+            monthCardBuyPresenter.doMonthCardBuy();
+        }, 1);
+    }
 }

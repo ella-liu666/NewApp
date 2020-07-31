@@ -1,6 +1,5 @@
 package com.haixiajiemei.app.Module.Setting.Fragment;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -72,6 +71,14 @@ public class CouponUnusedFragment extends Fragment implements CouponUnusedContra
     @Override
     public void errorOccurred(String reason) {
 
+    }
+
+    @Override
+    public void ApierrorOccurred(String Access_token) {
+        mHandler.postDelayed(() -> {
+            presenter = new CouponUnusedPresenter(this, requireContext());
+            presenter.doCouponUnused();
+        }, 1);
     }
 
     @Override

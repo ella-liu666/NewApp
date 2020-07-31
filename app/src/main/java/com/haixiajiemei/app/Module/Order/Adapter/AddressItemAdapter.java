@@ -41,9 +41,9 @@ public class AddressItemAdapter extends RecyclerView.Adapter<AddressItemAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.Address.setText(items.get(position).getAddress());
-        holder.PhoneName.setText(items.get(position).getTelephone() + "" + items.get(position).getName().charAt(0) + items.get(position).getGender());
+        holder.PhoneName.setText(items.get(position).getTelephone() + "  " + items.get(position).getName().charAt(0) + items.get(position).getGender());
         holder.DelAddress.setOnClickListener(view -> callback.onDelAddressItemClicked(items.get(position).getId()));
-        holder.Item.setOnClickListener(view -> callback.onAddressItemClicked(holder.Address.getText().toString(),holder.PhoneName.getText().toString()));
+        holder.Item.setOnClickListener(view -> callback.onAddressItemClicked(holder.Address.getText().toString(),holder.PhoneName.getText().toString(),items.get(position).getId()));
     }
 
     @Override

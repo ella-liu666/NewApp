@@ -80,7 +80,6 @@ public class CardDetailsFragment extends Fragment implements CardDetailContract.
                 break;
             case 2:
             case 3:
-                Log.e("333====","gg ="+ mcardDetail.getCardPrice());
                 AlertDialog(requireContext(), R.string.remind, mcardDetail.getBuyStatus().getMsg(), mcardDetail.getCardID(),
                         mcardDetail.getCardCategoryID(), mcardDetail.getBuyStatus().getType(), mcardDetail.getCardName(), mcardDetail.getCardPrice()
                         , mcardDetail.getUpgradeCardPrice(), mcardDetail.getCardCurrentAmount());
@@ -265,5 +264,18 @@ public class CardDetailsFragment extends Fragment implements CardDetailContract.
     @Override
     public void errorOccurred(String reason) {
 
+    }
+
+    @Override
+    public void ApierrorOccurred(String Access_token) {
+        mHandler.postDelayed(() -> {
+            if (getArguments().getString("Tag").equals("VIP")) {
+                vipDetailPresenter = new VIPDetailPresenter(this, requireContext(), Integer.parseInt(getArguments().getString("cardID")));
+                vipDetailPresenter.doVIPDetail();
+            } else {
+                presenter = new CardDetailPresenter(this, requireContext(), Integer.parseInt(getArguments().getString("cardID")));
+                presenter.doCardDetail();
+            }
+        }, 1);
     }
 }

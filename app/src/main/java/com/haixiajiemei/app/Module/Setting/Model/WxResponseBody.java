@@ -6,70 +6,53 @@ import java.io.Serializable;
 
 public class WxResponseBody implements Serializable {
 
-    @SerializedName("return_code")
-    private String return_code;
-
-    @SerializedName("return_msg")
-    private String return_msg;
-
     @SerializedName("appid")
     private String appid;
 
-    @SerializedName("mch_id")
-    private String mch_id;
+    @SerializedName("partnerid")
+    private String partnerid;
 
-    @SerializedName("nonce_str")
-    private String nonce_str;
+    @SerializedName("prepayid")
+    private String prepayid;
+
+    @SerializedName("package")
+    private String mpackage;
+
+    @SerializedName("noncestr")
+    private String noncestr;
+
+    @SerializedName("timestamp")
+    private String timestamp;
 
     @SerializedName("sign")
     private String sign;
 
-    @SerializedName("result_code")
-    private String result_code;
-
-    @SerializedName("prepay_id")
-    private String prepay_id;
-
-    @SerializedName("trade_type")
-    private String trade_type;
-
-
-
-
-
-    public String getReturn_code() {
-        return return_code;
-    }
-
-    public String getReturn_msg() {
-        return return_msg;
-    }
 
     public String getAppid() {
         return appid;
     }
 
-    public String getMch_id() {
-        return mch_id;
+    public String getPartnerid() {
+        return partnerid;
     }
 
-    public String getNonce_str() {
-        return nonce_str;
+    public String getPrepayid() {
+        return prepayid;
+    }
+
+    public String getMpackage() {
+        return mpackage;
+    }
+
+    public String getNoncestr() {
+        return noncestr;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
     }
 
     public String getSign() {
         return sign;
-    }
-
-    public String getResult_code() {
-        return result_code;
-    }
-
-    public String getPrepay_id() {
-        return prepay_id;
-    }
-
-    public String getTrade_type() {
-        return trade_type;
     }
 }
