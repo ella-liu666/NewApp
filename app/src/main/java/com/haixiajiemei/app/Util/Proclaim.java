@@ -21,5 +21,5 @@ public class Proclaim {
     public static final String PAYMENTSCREEN = "PaymentScreenFragment";
     public static final String ADDRESS = "AddressFragment";
     public static final String ADDADDRESS = "AddAddressFragment";
-
+    public static final String ECPRODUCTLIST = "ECProductListFragment";
 }

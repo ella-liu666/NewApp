@@ -5,14 +5,13 @@ import android.content.Context;
 import com.haixiajiemei.app.Api.Rtf.HomeRtf;
 import com.haixiajiemei.app.Api.Task.DataTask;
 import com.haixiajiemei.app.Module.Home.Model.ImgAndTxt;
+import com.haixiajiemei.app.Parser.ClassParser;
 
-import java.util.List;
 
 import androidx.annotation.NonNull;
 
-import static com.haixiajiemei.app.Util.FunTools.JSONArrayToClass;
 
-public class BrandIntroductionImgTask extends DataTask<List<ImgAndTxt>> {
+public class BrandIntroductionImgTask extends DataTask<ImgAndTxt> {
     private HomeRtf api;
 
     private final Context context;
@@ -30,9 +29,8 @@ public class BrandIntroductionImgTask extends DataTask<List<ImgAndTxt>> {
     }
 
     @Override
-    protected List<ImgAndTxt> parseData(String s) throws Exception {
-//        List<ImgAndTxt> response = JSONArrayToTags(s);
-        List<ImgAndTxt> response = JSONArrayToClass(s,ImgAndTxt.class);
+    protected ImgAndTxt parseData(String s) throws Exception {
+        ImgAndTxt response =  ClassParser.toData(s,ImgAndTxt.class);
         return response;
     }
 }

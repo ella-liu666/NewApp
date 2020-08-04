@@ -89,28 +89,28 @@ public class OrderRtf extends BaseRtf<OrderRtf.Service> {
 
 
     public interface Service {
-        @GET("Order/Order/StoreList")
+        @GET("Order/GetStoreList")
         Call<String> StoreList();
 
-        @POST("Order/Order/StoreFilter")
+        @POST("Order/GetCategoryList")
         Call<String> StoreFilter(@Body Map<String, Object> params);
 
-        @POST("Order/Order/StoreItem")
+        @POST("Order/GetMealsList")
         Call<String> StoreItem(@Body Map<String, Object> params);
 
-        @POST("Order/Order/StoreFeeding")
+        @POST("Order/GetMealsDetail")
         Call<String> StoreFeeding(@Body Map<String, Object> params);
 
-        @POST("Order/Order/Cart")
+        @POST("Order/CheckoutOrder")
         Call<String> Cart(@Body Map<String, Object> params);
 
-        @GET("Wallet/Order/GetDeliveryList")
+        @GET("Member/GetDeliveryList")
         Call<String> GetDeliveryList();
 
-        @POST("Wallet/Order/InsertDeliveryList")
+        @POST("Member/InsertDeliveryList")
         Call<String> InsertDeliveryList(@Body Map<String, Object> params);
 
-        @POST("Wallet/Order/DeleteDeliveryAddress")
+        @POST("Member/DeleteDeliveryAddress")
         Call<String> DeleteDeliveryAddress(@Body Map<String, Object> params);
     }
 }

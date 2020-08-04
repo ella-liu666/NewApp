@@ -277,15 +277,6 @@ public class AccountFragment extends Fragment implements AlipayRequestContract.V
         req.extData = "app data";
         req.sign = sign;
 
-        Log.e("111===","appId ="+appId);
-        Log.e("111===","partnerId ="+partnerId);
-        Log.e("111===","prepayId ="+prepayId);
-        Log.e("111===","packageValue ="+packageValue);
-        Log.e("111===","nonceStr ="+nonceStr);
-        Log.e("111===","timeStamp ="+timeStamp);
-        Log.e("111===","sign ="+sign);
-
-
         wxapi.sendReq(req);
 
         boolean result = wxapi.sendReq(req);

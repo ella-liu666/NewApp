@@ -45,12 +45,12 @@ public class IntroductionFragment extends Fragment implements BrandIntroductionI
     }
 
     @Override
-    public void BrandIntroductionImgContractSuccess(List<ImgAndTxt> imgAndTxt) {
+    public void BrandIntroductionImgContractSuccess(ImgAndTxt imgAndTxt) {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 GlideApp.with(requireContext())
-                        .load(imgAndTxt.get(0).getImg().toString())
+                        .load(imgAndTxt.getImg().toString())
                         .fitCenter()
                         .into(img_infor);
             }

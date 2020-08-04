@@ -25,7 +25,6 @@ public class RechargeTask extends DataTask<List<Recharge>> {
 
     @Override
     protected List<Recharge> parseData(String s) throws Exception {
-//        List<Recharge> response = JSONArrayToRecharge(s);
         List<Recharge> response = JSONArrayToClass(s,Recharge.class);
         return response;
     }

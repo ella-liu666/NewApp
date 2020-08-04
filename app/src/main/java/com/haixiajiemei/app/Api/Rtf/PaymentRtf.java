@@ -39,10 +39,10 @@ public class PaymentRtf extends BaseRtf<PaymentRtf.Service> {
     }
 
     public interface Service {
-        @POST("Payment/Payment/AliPayRequest")
+        @POST("Payment/AliPayment")
         Call<String> AlipayRequest(@Body Map<String, Object> params);
 
-        @POST("Payment/Payment/WxPayRequest")
+        @POST("Payment/WxPayment")
         Call<String> WxPayRequest(@Body Map<String, Object> params);
     }
 }

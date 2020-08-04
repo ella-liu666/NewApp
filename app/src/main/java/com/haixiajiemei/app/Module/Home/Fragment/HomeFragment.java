@@ -49,6 +49,7 @@ import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 import static com.haixiajiemei.app.Util.FunTools.switchFragmentToActivity;
+import static com.haixiajiemei.app.Util.Proclaim.ECPRODUCTLIST;
 import static com.haixiajiemei.app.Util.Proclaim.INTRODUCTION;
 import static com.haixiajiemei.app.Util.Proclaim.QRCODE;
 
@@ -102,15 +103,55 @@ public class HomeFragment extends Fragment implements HomeStoreImgContract.ViewA
 
     }
 
-    @OnClick(R.id.qrcode)
+    @OnClick({R.id.qrcode, R.id.Healthy, R.id.EcologicalAndVegetables, R.id.BeautyAndBeauty, R.id.Real_food, R.id.FarmStay})
     public void onClick(View view) {
-        if (requireActivity().getSharedPreferences("UserToken", MODE_PRIVATE).getBoolean("loginStatus", true)) {
-            PointPresenter = new PointPresenter(this, requireContext());
-            PointPresenter.doPoint();
-        } else {
-            LoginFragment loginFragment = new LoginFragment();
-            switchFragmentToActivity(R.id.fragment_container, loginFragment, requireActivity());
+        switch (view.getId()) {
+            case R.id.qrcode:
+                if (requireActivity().getSharedPreferences("UserToken", MODE_PRIVATE).getBoolean("loginStatus", true)) {
+                    PointPresenter = new PointPresenter(this, requireContext());
+                    PointPresenter.doPoint();
+                } else {
+                    LoginFragment loginFragment = new LoginFragment();
+                    switchFragmentToActivity(R.id.fragment_container, loginFragment, requireActivity());
+                }
+                break;
+            case R.id.Healthy:
+                Intent intent = new Intent(requireActivity(), ToolBarActivity.class);
+                intent.putExtra("key",1);
+                intent.putExtra("title", getString(R.string.ProductList));
+                intent.putExtra("Type", ECPRODUCTLIST);
+                startActivity(intent);
+                break;
+            case R.id.EcologicalAndVegetables:
+                intent = new Intent(requireActivity(), ToolBarActivity.class);
+                intent.putExtra("key", 2);
+                intent.putExtra("title", getString(R.string.ProductList));
+                intent.putExtra("Type", ECPRODUCTLIST);
+                startActivity(intent);
+                break;
+            case R.id.BeautyAndBeauty:
+                intent = new Intent(requireActivity(), ToolBarActivity.class);
+                intent.putExtra("key",3);
+                intent.putExtra("title", getString(R.string.ProductList));
+                intent.putExtra("Type", ECPRODUCTLIST);
+                startActivity(intent);
+                break;
+            case R.id.Real_food:
+                intent = new Intent(requireActivity(), ToolBarActivity.class);
+                intent.putExtra("key",4);
+                intent.putExtra("title", R.string.ProductList);
+                intent.putExtra("Type", ECPRODUCTLIST);
+                startActivity(intent);
+                break;
+            case R.id.FarmStay:
+                intent = new Intent(requireActivity(), ToolBarActivity.class);
+                intent.putExtra("key",5);
+                intent.putExtra("title", R.string.ProductList);
+                intent.putExtra("Type", ECPRODUCTLIST);
+                startActivity(intent);
+                break;
         }
+
     }
 
     @Override

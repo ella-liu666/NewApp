@@ -75,10 +75,6 @@ public class SettingRtf extends BaseRtf<SettingRtf.Service>{
         return this.execute(this.api.ProfilePwd(params.getMap()));
     }
 
-    public String getsign_out() throws Exception {
-        return this.execute(this.api.sign_out());
-    }
-
     public String getTrade() throws Exception {
         return this.execute(this.api.Trade());
     }
@@ -145,67 +141,66 @@ public class SettingRtf extends BaseRtf<SettingRtf.Service>{
     }
 
     public interface Service {
-        @GET("Wallet/Recharge")
+        @GET("Wallet/GetRechargeList")
         Call<String> Recharge();
 
-        @GET("Wallet/Trade")
+        @GET("Wallet/GetTradeList")
         Call<String> Trade();
 
-        @GET("Wallet/MemberInfo")
+        @GET("Wallet/GetHome")
         Call<String> MemberInfo();
 
-        @GET("Wallet/QRcodePoint")
+        @GET("Wallet/GetQRcodePoint")
         Call<String> QRcodePoint();
 
-        @POST("Wallet/QRcodeCoupon")
+        @POST("Wallet/GetQRcodeCoupon")
         Call<String> QRcodeCoupon(@Body Map<String, Object> params);
 
         @POST("Wallet/BuyCard")
         Call<String> BuyCard(@Body Map<String, Object> params);
 
-        @GET("Wallet/Point")
+        @GET("Wallet/GetPoint")
         Call<String> Point();
 
-        @GET("Wallet/VIPCard")
+        @GET("Wallet/GetCardListVIP")
         Call<String> VIPCard();
 
-        @GET("Wallet/MonthCard")
+        @GET("Wallet/GetCardListMonth")
         Call<String> MonthCard();
 
-        @GET("Wallet/VIPCardBuy")
+        @GET("Wallet/BuyCardListVIP")
         Call<String> VIPCardBuy();
 
-        @GET("Wallet/MonthCardBuy")
+        @GET("Wallet/BuyCardListMonth")
         Call<String> MonthCardBuy();
 
-        @POST("Wallet/VIPDetail")
+        @POST("Wallet/GetCardDetailVIP")
         Call<String> VIPDetail(@Body Map<String, Object> params);
 
-        @POST("Wallet/CardDetail")
+        @POST("Wallet/GetCardDetailMonth")
         Call<String> CardDetail(@Body Map<String, Object> params);
 
-        @GET("Wallet/CouponUnused")
+        @GET("Wallet/GetCouponListUnused")
         Call<String> CouponUnused();
 
-        @GET("Wallet/CouponUsed")
+        @GET("Wallet/GetCouponListUsed")
         Call<String> CouponUsed();
 
-        @GET("Wallet/CouponExpired")
+        @GET("Wallet/GetCouponListExpired")
         Call<String> CouponExpired();
 
-        @GET("Wallet/Member/Profile")
+        @GET("Member/GetProfile")
         Call<String> Profile();
 
-        @POST("Wallet/Member/ProfilePwd")
+        @POST("Member/UpdatePwd")
         Call<String> ProfilePwd(@Body Map<String, Object> params);
 
-        @POST("Wallet/Member/ProfileName")
+        @POST("Member/UpdateName")
         Call<String> ProfileName(@Body Map<String, Object> params);
 
-        @GET("Wallet/Member/LogOut")
-        Call<String> sign_out();
 
-        @POST("Wallet/Recharge")
+
+        @POST("Wallet/RechargePoint")
         Call<String> StoredValue(@Body Map<String, Object> params);
     }
 

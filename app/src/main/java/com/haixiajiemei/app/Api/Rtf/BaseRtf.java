@@ -94,12 +94,12 @@ public abstract class BaseRtf<T> {
         if (response.isSuccessful()) {
             return response.body();
         } else {
-//            if (response.code() == 449) {
+            if (response.code() == 449) {
                 ErrorBody EB = ClassParser.toData(response.errorBody().string(), ErrorBody.class);
                 throw new ApiException(response.code(), response.message(), response.body(), EB);
-//            }else {
-//                throw new ApiException(response.code(), response.message(), response.body(), ClassParser.toData(response.errorBody().string(), ErrorBody.class));
-//            }
+            } else {
+                throw new ApiException(response.code(), response.message(), response.body(), ClassParser.toData(response.errorBody().string(), ErrorBody.class));
+            }
 
         }
     }

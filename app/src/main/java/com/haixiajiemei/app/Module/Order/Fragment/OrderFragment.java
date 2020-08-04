@@ -32,6 +32,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.haixiajiemei.app.Helper.GlideApp;
 import com.haixiajiemei.app.Module.Order.Adapter.StoreItemAdapter;
+import com.haixiajiemei.app.Module.Order.Contract.OrderCallback;
 import com.haixiajiemei.app.Module.Order.Contract.StoreFeedingContract;
 import com.haixiajiemei.app.Module.Order.Contract.StoreFilterContract;
 import com.haixiajiemei.app.Module.Order.Contract.StoreItemCallback;
@@ -90,6 +91,7 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
     private List<StoreListModel> list;
     private List<RadioButton> radioButtonlist;
     private ShoppingCartList shoppingCartList = new ShoppingCartList();
+    private OrderCallback callback;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -421,10 +423,8 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
                 shoppingCartList.cart.add(SC);
                 ShoppingCartDB.UpdateData(getContext(), gson.toJson(shoppingCartList));
             }
-//            ShoppingCartDB.DelData(getContext(), gson.toJson(shoppingCartList));
-//            sd = GetShoppingCart(requireContext());
-
-
+            callback = (OrderCallback) requireContext();
+            callback.onOrderCallback();
             alertDialog.dismiss();
         });
 

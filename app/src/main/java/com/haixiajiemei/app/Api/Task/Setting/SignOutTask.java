@@ -3,6 +3,7 @@ package com.haixiajiemei.app.Api.Task.Setting;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.haixiajiemei.app.Api.Rtf.AuthRtf;
 import com.haixiajiemei.app.Api.Rtf.SettingRtf;
 import com.haixiajiemei.app.Api.Task.DataTask;
 import com.haixiajiemei.app.Module.Account.Model.SignIn;
@@ -13,12 +14,12 @@ import androidx.annotation.NonNull;
 import static android.content.Context.MODE_PRIVATE;
 
 public class SignOutTask extends DataTask<SignIn> {
-    private SettingRtf api;
+    private AuthRtf api;
 
     private Context context;
 
     public SignOutTask(@NonNull Context context) {
-        api = new SettingRtf(context);
+        api = new AuthRtf(context);
 
         this.context = context;
     }

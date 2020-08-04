@@ -9,6 +9,7 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public class AuthRtf extends BaseRtf<AuthRtf.Service> {
@@ -40,6 +41,12 @@ public class AuthRtf extends BaseRtf<AuthRtf.Service> {
         return this.execute(this.api.login(params.getMap()));
     }
 
+
+    public String getsign_out() throws Exception {
+        return this.execute(this.api.sign_out());
+    }
+
+
     public String Forget(@NonNull String userName, @NonNull String telephone, @NonNull String password) throws Exception {
         Params params = new Params();
         params.putRequired("userName", userName);
@@ -57,16 +64,19 @@ public class AuthRtf extends BaseRtf<AuthRtf.Service> {
     }
 
     public interface Service {
-        @POST("Wallet/Member/Visitors")
+        @POST("Token/Visitors")
         Call<String> Visitors(@Body Map<String, Object> params);
 
-        @POST("Wallet/Member/SignUp")
+        @POST("Member/SignUp")
         Call<String> signUp(@Body Map<String, Object> params);
 
-        @POST("Wallet/Member")
+        @POST("Token/Members")
         Call<String> login(@Body Map<String, Object> params);
 
-        @POST("Wallet/Member/PassWord")
+        @GET("Token/Logout")
+        Call<String> sign_out();
+
+        @POST("Member/UpdateForgetPwd")
         Call<String> Forget(@Body Map<String, Object> params);
     }
 }

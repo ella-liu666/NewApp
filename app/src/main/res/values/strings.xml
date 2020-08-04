@@ -121,7 +121,11 @@
     <string name="TakeawayOrder">外卖订单</string>
     <string name="MyAddress">我的地址</string>
     <string name="ShippingAddress">收货地址</string>
-
+    <string name="complex">综合</string>
+    <string name="Sales">销量</string>
+    <string name="NewProduct">新品</string>
+    <string name="price">价格</string>
+    <string name="ProductList">商品列表</string>
 
     <string name="UnderConstruction">建置中</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -158,6 +162,14 @@
         <item>可使用</item>
         <item>已使用</item>
         <item>已失效</item>
+    </string-array>
+
+    <string-array name="category_list">
+        <item>保健食品</item>
+        <item>生态果蔬</item>
+        <item>美颜美妆</item>
+        <item>真食物</item>
+        <item>FarmStay</item>
     </string-array>
 
     <string-array name="tab_myorder">

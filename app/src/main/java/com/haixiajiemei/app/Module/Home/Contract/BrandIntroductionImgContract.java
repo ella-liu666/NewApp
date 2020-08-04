@@ -7,7 +7,7 @@ import java.util.List;
 public interface BrandIntroductionImgContract {
 
     interface ViewAction {
-        void BrandIntroductionImgContractSuccess(List<ImgAndTxt> imgAndTxt);
+        void BrandIntroductionImgContractSuccess(ImgAndTxt imgAndTxt);
 
         void showProgress();
 

@@ -1,50 +1,65 @@
 package com.haixiajiemei.app;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.jpush.android.api.JPushInterface;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.haixiajiemei.app.JPush.ExampleUtil;
+import com.google.android.material.badge.BadgeDrawable;
 import com.haixiajiemei.app.Module.Account.Fragment.LoginFragment;
 import com.haixiajiemei.app.Module.Home.Fragment.HomeFragment;
+import com.haixiajiemei.app.Module.Order.Contract.OrderCallback;
 import com.haixiajiemei.app.Module.Order.Fragment.OrderFragment;
 import com.haixiajiemei.app.Module.Order.Fragment.ShoppingCartFragment;
+import com.haixiajiemei.app.Module.Order.Model.ShoppingCartList;
 import com.haixiajiemei.app.Module.Setting.Fragment.SettingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import static com.haixiajiemei.app.SQLite.ShoppingCartDB.GetShoppingCart;
 import static com.haixiajiemei.app.Util.FunTools.switchFragmentToActivity;
 import static com.haixiajiemei.app.Util.Proclaim.CARTSUCCESS;
 import static com.haixiajiemei.app.Util.Proclaim.SHOPPINGCART;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OrderCallback {
 
 
     @BindView(R.id.bottom_nav_view)
     BottomNavigationView bottom_navigation_view;
 
     private HomeFragment homeFragment = new HomeFragment();
-    public static boolean isForeground = false;
+    private ShoppingCartList sd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        JPushInterface.setDebugMode(true);
-        JPushInterface.init(this);
-        String regist = JPushInterface.getRegistrationID(this);
-        Log.e("regist_person", regist);
-        registerMessageReceiver();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        init();
+    }
+
+    @Override
+    public void onAttachFragment(@NonNull Fragment fragment) {
+        super.onAttachFragment(fragment);
+        sd = GetShoppingCart(this);
+        if (sd!=null) {
+            bottom_navigation_view.getBadge(R.id.navigation_shopping);
+            bottom_navigation_view.getOrCreateBadge(R.id.navigation_shopping).setMaxCharacterCount(3);
+            bottom_navigation_view.getOrCreateBadge(R.id.navigation_shopping).setNumber(sd.cart.size());
+            bottom_navigation_view.getOrCreateBadge(R.id.navigation_shopping).setBadgeGravity(BadgeDrawable.TOP_END);
+        }
+    }
+
+    private void init() {
         Intent intent = getIntent();
 
         if (intent.getExtras() != null) {
@@ -98,50 +113,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        isForeground = true;
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        isForeground = false;
-        super.onPause();
-    }
-
-    @Override
-    protected void onDestroy() {
-        unregisterReceiver(mMessageReceiver);
-        super.onDestroy();
-    }
-
-    private MessageReceiver mMessageReceiver;
-    public static final String MESSAGE_RECEIVED_ACTION = "com.example.jpushdemo.MESSAGE_RECEIVED_ACTION";
-    public static final String KEY_TITLE = "title";
-    public static final String KEY_MESSAGE = "message";
-    public static final String KEY_EXTRAS = "extras";
-
-    public void registerMessageReceiver() {
-        mMessageReceiver = new MessageReceiver();
-        IntentFilter filter = new IntentFilter();
-        filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
-        filter.addAction(MESSAGE_RECEIVED_ACTION);
-        registerReceiver(mMessageReceiver, filter);
-    }
-
-    public class MessageReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
-                String messge = intent.getStringExtra(KEY_MESSAGE);
-                String extras = intent.getStringExtra(KEY_EXTRAS);
-                StringBuilder showMsg = new StringBuilder();
-                showMsg.append(KEY_MESSAGE+" : "+messge+"\n");
-                if (!ExampleUtil.isEmpty(extras)) {
-                    showMsg.append(KEY_EXTRAS+" : "+extras+"\n");
-                }
-//                Constant.showToast(MainActivity.this, showMsg.toString());
-            }
+    public void onOrderCallback() {
+        sd = GetShoppingCart(this);
+        if (sd!=null) {
+            bottom_navigation_view.getBadge(R.id.navigation_shopping);
+            bottom_navigation_view.getOrCreateBadge(R.id.navigation_shopping).setMaxCharacterCount(3);
+            bottom_navigation_view.getOrCreateBadge(R.id.navigation_shopping).setNumber(sd.cart.size());
+            bottom_navigation_view.getOrCreateBadge(R.id.navigation_shopping).setBadgeGravity(BadgeDrawable.TOP_END);
         }
     }
 }

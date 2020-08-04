@@ -27,7 +27,7 @@ public class BrandIntroductionImgPresenter implements BrandIntroductionImgContra
         DataLoader.run(new BrandIntroductionImgTask(mcontext, Id) {
 
             @Override
-            protected void onResult(List<ImgAndTxt> imgAndTxt) throws Exception {
+            protected void onResult(ImgAndTxt imgAndTxt) throws Exception {
                 viewAction.BrandIntroductionImgContractSuccess(imgAndTxt);
             }
 

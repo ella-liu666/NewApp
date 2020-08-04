@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.haixiajiemei.app.Module.Home.Fragment.ECProductListFragment;
 import com.haixiajiemei.app.Module.Home.Fragment.IntroductionFragment;
 import com.haixiajiemei.app.Module.Order.Fragment.AddAddressFragment;
 import com.haixiajiemei.app.Module.Order.Fragment.AddressFragment;
@@ -38,6 +39,7 @@ import static com.haixiajiemei.app.Util.Proclaim.ADDRESS;
 import static com.haixiajiemei.app.Util.Proclaim.CARDDETAILS;
 import static com.haixiajiemei.app.Util.Proclaim.COUPON;
 import static com.haixiajiemei.app.Util.Proclaim.DISTRIBUTION;
+import static com.haixiajiemei.app.Util.Proclaim.ECPRODUCTLIST;
 import static com.haixiajiemei.app.Util.Proclaim.EXPENSESRECORD;
 import static com.haixiajiemei.app.Util.Proclaim.INTRODUCTION;
 import static com.haixiajiemei.app.Util.Proclaim.MEMBERSHIPCARDUPGRADE;
@@ -214,6 +216,16 @@ public class ToolBarActivity extends AppCompatActivity {
                 AddAddressFragment addAddressFragment = new AddAddressFragment();
                 switchFragmentToActivity(R.id.fragment_Introduction, addAddressFragment, this);
                 break;
+            case ECPRODUCTLIST:
+                toolbar_title.setText(intent.getExtras().getString("title"));
+                toolbar_title.setTextSize(18);
+                ECProductListFragment ecProductListFragment=new ECProductListFragment();
+                bundle = new Bundle();
+                bundle.putInt("key", intent.getExtras().getInt("key"));
+                ecProductListFragment.setArguments(bundle);
+                switchFragmentToActivity(R.id.fragment_Introduction, ecProductListFragment, this);
+                break;
+
         }
     }
 
@@ -222,8 +234,4 @@ public class ToolBarActivity extends AppCompatActivity {
         onBackPressed();
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
 }
