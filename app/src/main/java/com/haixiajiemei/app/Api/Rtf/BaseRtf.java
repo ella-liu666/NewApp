@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import androidx.annotation.Nullable;
+
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -93,8 +94,13 @@ public abstract class BaseRtf<T> {
         if (response.isSuccessful()) {
             return response.body();
         } else {
-            ErrorBody EB=ClassParser.toData(response.errorBody().string(), ErrorBody.class);
-            throw new ApiException(response.code(), response.message(), response.body(), EB);
+//            if (response.code() == 449) {
+                ErrorBody EB = ClassParser.toData(response.errorBody().string(), ErrorBody.class);
+                throw new ApiException(response.code(), response.message(), response.body(), EB);
+//            }else {
+//                throw new ApiException(response.code(), response.message(), response.body(), ClassParser.toData(response.errorBody().string(), ErrorBody.class));
+//            }
+
         }
     }
 

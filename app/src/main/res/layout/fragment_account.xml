@@ -123,7 +123,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="@dimen/activity_vertical_margin"
                 android:background="@drawable/custom_layout"
                 android:text="@string/recharge_centre"
                 android:textColor="@color/txt_color"
@@ -133,8 +133,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="@dimen/activity_vertical_margin"
+            android:layout_marginEnd="@dimen/activity_vertical_margin"
             android:orientation="vertical">
 
             <LinearLayout
@@ -146,7 +146,7 @@
                     android:id="@+id/three_hundred"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:layout_weight="1"
                     android:background="@drawable/balance_layout"
                     android:gravity="center">
@@ -155,8 +155,8 @@
                         android:id="@+id/txt_three_hundred"
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/three_hundred"
@@ -168,7 +168,7 @@
                     android:id="@+id/five_hundred"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:layout_weight="1"
                     android:background="@drawable/balance_layout"
                     android:gravity="center">
@@ -177,8 +177,8 @@
                         android:id="@+id/txt_five_hundred"
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/five_hundred"
@@ -199,8 +199,8 @@
                         android:id="@+id/txt_one_thousand"
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/one_thousand"
@@ -212,14 +212,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:id="@+id/two_thousand"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:layout_weight="1"
                     android:background="@drawable/balance_layout"
                     android:gravity="center">
@@ -228,8 +228,8 @@
                         android:id="@+id/txt_two_thousand"
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/two_thousand"
@@ -241,7 +241,7 @@
                     android:id="@+id/Five_thousand"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:layout_weight="1"
                     android:background="@drawable/balance_layout"
                     android:gravity="center">
@@ -250,8 +250,8 @@
                         android:id="@+id/txt_Five_thousand"
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/Five_thousand"
@@ -269,8 +269,8 @@
                     <TextView
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:textSize="22sp" />
@@ -281,7 +281,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="@dimen/activity_vertical_margin">
 
                 <RadioGroup
                     android:id="@+id/payment_method"

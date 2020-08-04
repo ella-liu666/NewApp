@@ -41,25 +41,6 @@
             </intent-filter>
         </activity>
 
-        <receiver
-            android:name="com.haixiajiemei.app.JPush.MyReceiver"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
-                <!--Required 使用者註冊SDK的intent-->
-                <action android:name="cn.jpush.android.intent.REGISTRATION" />
-                <!--Required 使用者接收SDK訊息的intent-->
-                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
-                <!--Required 使用者接收SDK通知欄資訊的intent-->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
-                <!--Required 使用者開啟自定義通知欄的intent-->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
-                <!-- 接收網路變化 連線/斷開 since 1.6.3 -->
-                <action android:name="cn.jpush.android.intent.CONNECTION" />
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_CLICK_ACTION" />
-                <category android:name="com.haixiajiemei.app" />
-            </intent-filter>
-        </receiver>
     </application>
 
 

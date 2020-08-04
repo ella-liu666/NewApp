@@ -8,19 +8,17 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:id="@+id/homeTop"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:layout_marginBottom="16dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:background="@color/PureWhite"
                 android:orientation="vertical">
 
@@ -28,7 +26,7 @@
                     android:id="@+id/logobar"
                     android:layout_width="match_parent"
                     android:layout_height="0dip"
-                    android:layout_margin="16dp"
+                    android:layout_margin="@dimen/activity_vertical_margin"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
@@ -74,14 +72,14 @@
                     android:id="@+id/classification"
                     android:layout_width="match_parent"
                     android:layout_height="0dip"
-                    android:layout_margin="16dp"
+                    android:layout_margin="@dimen/activity_vertical_margin"
                     android:layout_weight="3.5"
                     android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
+                        android:layout_marginRight="@dimen/activity_vertical_margin"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
@@ -107,7 +105,7 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
+                        android:layout_marginRight="@dimen/activity_vertical_margin"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
@@ -133,7 +131,7 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
+                        android:layout_marginRight="@dimen/activity_vertical_margin"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
@@ -159,7 +157,7 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
+                        android:layout_marginRight="@dimen/activity_vertical_margin"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
@@ -212,9 +210,9 @@
             <LinearLayout
                 android:id="@+id/homeIntermediate"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:layout_marginBottom="16dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_below="@+id/homeTop"
                 android:background="@color/PureWhite"
                 android:orientation="vertical">
 
@@ -222,8 +220,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="0.2"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="@dimen/activity_vertical_margin"
+                    android:layout_marginEnd="@dimen/activity_vertical_margin"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:gravity="center_vertical"
@@ -237,12 +235,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginBottom="16dp"/>
+                    android:layout_marginEnd="@dimen/activity_vertical_margin"
+                    android:layout_marginStart="@dimen/activity_vertical_margin"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"/>
 
             </LinearLayout>
-        </LinearLayout>
+        </RelativeLayout>
 
         <ProgressBar
             android:id="@+id/progressBar"

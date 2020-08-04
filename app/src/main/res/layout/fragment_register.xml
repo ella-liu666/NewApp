@@ -26,7 +26,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/activity_vertical_margin"
             android:background="@drawable/edit_logo_background"
             android:orientation="vertical">
 
@@ -38,7 +38,7 @@
                     android:id="@+id/edit_account"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="16dp"
+                    android:layout_margin="@dimen/activity_vertical_margin"
                     android:background="@null"
                     android:hint="@string/Email"
                     android:singleLine="true" />
@@ -47,8 +47,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp">
+                android:layout_marginEnd="@dimen/activity_vertical_margin"
+                android:layout_marginStart="@dimen/activity_vertical_margin">
 
                 <View
                     android:layout_width="match_parent"
@@ -65,7 +65,7 @@
                     android:id="@+id/edit_password"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="16dp"
+                    android:layout_margin="@dimen/activity_vertical_margin"
                     android:background="@null"
                     android:hint="@string/logo_password"
                     android:inputType="textPassword"
@@ -76,8 +76,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp">
+                android:layout_marginEnd="@dimen/activity_vertical_margin"
+                android:layout_marginStart="@dimen/activity_vertical_margin">
 
                 <View
                     android:layout_width="match_parent"
@@ -94,7 +94,7 @@
                     android:id="@+id/edit_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="16dp"
+                    android:layout_margin="@dimen/activity_vertical_margin"
                     android:background="@null"
                     android:hint="@string/name"
                     android:singleLine="true"/>

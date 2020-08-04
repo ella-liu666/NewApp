@@ -1,6 +1,5 @@
 package com.haixiajiemei.app.Module.Order.Fragment;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -8,8 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,9 +50,7 @@ public class ShoppingCartFragment extends Fragment implements ShoppingCartItemCa
     LinearLayout information;
 
     private ShoppingCartItemAdapter adapter;
-    private Handler mHandler = new Handler(Looper.getMainLooper());
     private float total = 0;
-    private Gson gson = new Gson();
     private ShoppingCartList shoppingCartList;
 
     @Override
