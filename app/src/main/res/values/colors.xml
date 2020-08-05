@@ -21,4 +21,5 @@
     <color name="red">#ff0000</color>
     <color name="Checkout_btn">#ef5821</color>
     <color name="TabIndicator_bg">#fb7157</color>
+    <color name="transparent">#00000000</color>
 </resources>

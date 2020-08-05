@@ -36,6 +36,7 @@ import com.haixiajiemei.app.Module.Home.Contract.HomeStoreImgContract;
 import com.haixiajiemei.app.Module.Home.Model.ImgAndTxt;
 import com.haixiajiemei.app.Module.Home.Present.HomeAdImgPresenter;
 import com.haixiajiemei.app.Module.Home.Present.HomeStoreImgPresenter;
+import com.haixiajiemei.app.Module.Order.Model.ShoppingCartList;
 import com.haixiajiemei.app.Module.Setting.Contract.PointContract;
 import com.haixiajiemei.app.Module.Setting.Present.PointPresenter;
 import com.haixiajiemei.app.R;
@@ -48,6 +49,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.haixiajiemei.app.SQLite.ShoppingCartDB.GetShoppingCart;
+import static com.haixiajiemei.app.Util.FunTools.CreateAlertDialogTool;
 import static com.haixiajiemei.app.Util.FunTools.switchFragmentToActivity;
 import static com.haixiajiemei.app.Util.Proclaim.ECPRODUCTLIST;
 import static com.haixiajiemei.app.Util.Proclaim.INTRODUCTION;
@@ -116,39 +119,19 @@ public class HomeFragment extends Fragment implements HomeStoreImgContract.ViewA
                 }
                 break;
             case R.id.Healthy:
-                Intent intent = new Intent(requireActivity(), ToolBarActivity.class);
-                intent.putExtra("key",1);
-                intent.putExtra("title", getString(R.string.ProductList));
-                intent.putExtra("Type", ECPRODUCTLIST);
-                startActivity(intent);
+                ToEC(6);
                 break;
             case R.id.EcologicalAndVegetables:
-                intent = new Intent(requireActivity(), ToolBarActivity.class);
-                intent.putExtra("key", 2);
-                intent.putExtra("title", getString(R.string.ProductList));
-                intent.putExtra("Type", ECPRODUCTLIST);
-                startActivity(intent);
+                ToEC(7);
                 break;
             case R.id.BeautyAndBeauty:
-                intent = new Intent(requireActivity(), ToolBarActivity.class);
-                intent.putExtra("key",3);
-                intent.putExtra("title", getString(R.string.ProductList));
-                intent.putExtra("Type", ECPRODUCTLIST);
-                startActivity(intent);
+                ToEC(8);
                 break;
             case R.id.Real_food:
-                intent = new Intent(requireActivity(), ToolBarActivity.class);
-                intent.putExtra("key",4);
-                intent.putExtra("title", R.string.ProductList);
-                intent.putExtra("Type", ECPRODUCTLIST);
-                startActivity(intent);
+                ToEC(9);
                 break;
             case R.id.FarmStay:
-                intent = new Intent(requireActivity(), ToolBarActivity.class);
-                intent.putExtra("key",5);
-                intent.putExtra("title", R.string.ProductList);
-                intent.putExtra("Type", ECPRODUCTLIST);
-                startActivity(intent);
+                ToEC(10);
                 break;
         }
 
@@ -252,6 +235,19 @@ public class HomeFragment extends Fragment implements HomeStoreImgContract.ViewA
         intent.putExtra("title", title);
         intent.putExtra("Type", INTRODUCTION);
         startActivity(intent);
+    }
+
+    private void ToEC(int key) {
+        ShoppingCartList sd = GetShoppingCart(requireContext());
+        if (sd == null) {
+            Intent intent = new Intent(requireActivity(), ToolBarActivity.class);
+            intent.putExtra("key", key);
+            intent.putExtra("title", getString(R.string.ProductList));
+            intent.putExtra("Type", ECPRODUCTLIST);
+            startActivity(intent);
+        }else {
+            CreateAlertDialogTool(requireContext(), R.string.note, R.string.clear_shopping_cart);
+        }
     }
 
     private void AlertDialogTool() {

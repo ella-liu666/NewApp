@@ -20,8 +20,12 @@ public class StoreFeed implements Serializable {
     @SerializedName("name")
     private String name;
 
+    @SerializedName("delType")
+    private int delType;
+
     @SerializedName("detail")
     private String detail;
+
 
     @SerializedName("price")
     private float price;
@@ -45,6 +49,10 @@ public class StoreFeed implements Serializable {
 
     public String getName() {
         return name;
+    }
+
+    public int getDelType() {
+        return delType;
     }
 
     public String getDetail() {

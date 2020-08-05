@@ -45,18 +45,13 @@ public class MainActivity extends AppCompatActivity implements OrderCallback {
     protected void onResume() {
         super.onResume();
         init();
+        UpdataNavigation();
     }
 
     @Override
     public void onAttachFragment(@NonNull Fragment fragment) {
         super.onAttachFragment(fragment);
-        sd = GetShoppingCart(this);
-        if (sd!=null) {
-            bottom_navigation_view.getBadge(R.id.navigation_shopping);
-            bottom_navigation_view.getOrCreateBadge(R.id.navigation_shopping).setMaxCharacterCount(3);
-            bottom_navigation_view.getOrCreateBadge(R.id.navigation_shopping).setNumber(sd.cart.size());
-            bottom_navigation_view.getOrCreateBadge(R.id.navigation_shopping).setBadgeGravity(BadgeDrawable.TOP_END);
-        }
+        UpdataNavigation();
     }
 
     private void init() {
@@ -112,15 +107,22 @@ public class MainActivity extends AppCompatActivity implements OrderCallback {
         });
     }
 
-    @Override
-    public void onOrderCallback() {
+    private void UpdataNavigation() {
         sd = GetShoppingCart(this);
-        if (sd!=null) {
+        if (sd == null) {
+            bottom_navigation_view.getOrCreateBadge(R.id.navigation_shopping).setVisible(false);
+        } else {
             bottom_navigation_view.getBadge(R.id.navigation_shopping);
+            bottom_navigation_view.getOrCreateBadge(R.id.navigation_shopping).setVisible(true);
             bottom_navigation_view.getOrCreateBadge(R.id.navigation_shopping).setMaxCharacterCount(3);
             bottom_navigation_view.getOrCreateBadge(R.id.navigation_shopping).setNumber(sd.cart.size());
             bottom_navigation_view.getOrCreateBadge(R.id.navigation_shopping).setBadgeGravity(BadgeDrawable.TOP_END);
         }
+    }
+
+    @Override
+    public void onOrderCallback() {
+        UpdataNavigation();
     }
 }
 

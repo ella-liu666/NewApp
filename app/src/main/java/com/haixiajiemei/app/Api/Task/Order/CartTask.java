@@ -8,7 +8,7 @@ import com.haixiajiemei.app.Module.Order.Model.ShoppingCart;
 
 import java.util.List;
 
-public class CartTask  extends DataTask<String> {
+public class CartTask extends DataTask<String> {
     private OrderRtf api;
 
     private Context context;
@@ -18,7 +18,7 @@ public class CartTask  extends DataTask<String> {
     private List<ShoppingCart> cart;
     private int deliveryID;
 
-    public CartTask(Context context, String storeAccount, float total, String delType, List<ShoppingCart> cart,int deliveryID) {
+    public CartTask(Context context, String storeAccount, float total, String delType, List<ShoppingCart> cart, int deliveryID) {
         api = new OrderRtf(context);
 
         this.context = context;
@@ -31,12 +31,12 @@ public class CartTask  extends DataTask<String> {
 
     @Override
     protected String load() throws Exception {
-        return api.getCart(storeAccount,total,delType,cart,deliveryID);
+        return api.getCart(storeAccount, total, delType, cart, deliveryID);
     }
 
     @Override
     protected String parseData(String s) throws Exception {
-        String point=s.replace("\"", "");
+        String point = s.replace("\"", "");
         return point;
     }
 

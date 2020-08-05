@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class SQLiteHelper extends SQLiteOpenHelper {
-    public static final String DataBaseName = "ShoppingCart.db";
+    public static final String DataBaseName = "Shopping.db";
 
     private static SQLiteDatabase DB;
 
@@ -17,11 +17,13 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(ShoppingCartDB.CREATE_TABLE);
+        sqLiteDatabase.execSQL(ECShoppingDB.CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ShoppingCartDB.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ECShoppingDB.TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
 

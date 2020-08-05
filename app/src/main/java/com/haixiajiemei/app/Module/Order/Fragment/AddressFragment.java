@@ -32,7 +32,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.haixiajiemei.app.Util.FunTools.CreateAlertDialogTool;
 import static com.haixiajiemei.app.Util.Proclaim.ADDADDRESS;
 import static com.haixiajiemei.app.Util.Proclaim.PAYMENTSCREEN;
 

@@ -99,7 +99,10 @@ public class ShoppingCartFragment extends Fragment implements ShoppingCartItemCa
 
     private void init() {
         ShoppingCartList sd = GetShoppingCart(requireContext());
-        if (sd != null) {
+        if (sd == null) {
+            information.setVisibility(View.GONE);
+            NoData.setVisibility(View.VISIBLE);
+        } else {
             information.setVisibility(View.VISIBLE);
             NoData.setVisibility(View.GONE);
             store_infor.setText(sd.getcName());
@@ -116,12 +119,7 @@ public class ShoppingCartFragment extends Fragment implements ShoppingCartItemCa
                 total = total + sum;
             }
             Sum.setText(getString(R.string.Total, String.valueOf(total)));
-        } else {
-            information.setVisibility(View.GONE);
-            NoData.setVisibility(View.VISIBLE);
         }
-
-
     }
 
     @Override
@@ -129,26 +127,32 @@ public class ShoppingCartFragment extends Fragment implements ShoppingCartItemCa
         Gson gson = new Gson();
         ShoppingCartList sd = GetShoppingCart(requireContext());
         float total = 0;
-        information.setVisibility(View.VISIBLE);
-        NoData.setVisibility(View.GONE);
-        store_infor.setText(sd.getcName());
-        distance.setText(sd.getAddress());
-        adapter = new ShoppingCartItemAdapter(cart, requireContext(), this, "ShoppingCart");
-        ShoppingCart.setLayoutManager(new LinearLayoutManager(requireContext()));
-        ShoppingCart.setAdapter(adapter);
-        for (int i = 0; i < cart.size(); i++) {
-            float sum = 0;
-            for (int j = 0; j < cart.get(i).feeding.size(); j++) {
-                sum = (cart.get(i).price +
-                        cart.get(i).feeding.get(j).price) * cart.get(i).amount;
+        if (cart.size() == 0) {
+            ShoppingCartDB.DelData(getContext(), gson.toJson(sd));
+            information.setVisibility(View.GONE);
+            NoData.setVisibility(View.VISIBLE);
+        } else {
+            information.setVisibility(View.VISIBLE);
+            NoData.setVisibility(View.GONE);
+            store_infor.setText(sd.getcName());
+            distance.setText(sd.getAddress());
+            adapter = new ShoppingCartItemAdapter(cart, requireContext(), this, "ShoppingCart");
+            ShoppingCart.setLayoutManager(new LinearLayoutManager(requireContext()));
+            ShoppingCart.setAdapter(adapter);
+            for (int i = 0; i < cart.size(); i++) {
+                float sum = 0;
+                for (int j = 0; j < cart.get(i).feeding.size(); j++) {
+                    sum = (cart.get(i).price +
+                            cart.get(i).feeding.get(j).price) * cart.get(i).amount;
+                }
+                total = total + sum;
             }
-            total = total + sum;
+            Sum.setText(getString(R.string.Total, String.valueOf(total)));
+
+            shoppingCartList = sd;
+            sd.cart = cart;
+
+            ShoppingCartDB.UpdateData(getContext(), gson.toJson(shoppingCartList));
         }
-        Sum.setText(getString(R.string.Total, String.valueOf(total)));
-
-        shoppingCartList = sd;
-        sd.cart = cart;
-
-        ShoppingCartDB.UpdateData(getContext(), gson.toJson(shoppingCartList));
     }
 }

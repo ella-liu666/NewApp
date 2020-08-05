@@ -41,7 +41,6 @@ android {
         debug {
             debuggable true
             buildConfigField "String", "API_URL", "\"http://apidemo.haixiajiemei.com/api/\""
-//            buildConfigField "String", "API_URL", "\"https://api.haixiajiemei.com/api/\""
         }
 
         release {

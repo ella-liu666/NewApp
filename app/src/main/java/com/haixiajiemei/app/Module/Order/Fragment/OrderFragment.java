@@ -38,6 +38,7 @@ import com.haixiajiemei.app.Module.Order.Contract.StoreFilterContract;
 import com.haixiajiemei.app.Module.Order.Contract.StoreItemCallback;
 import com.haixiajiemei.app.Module.Order.Contract.StoreItemContract;
 import com.haixiajiemei.app.Module.Order.Contract.StoreListContract;
+import com.haixiajiemei.app.Module.Order.Model.ECShopping;
 import com.haixiajiemei.app.Module.Order.Model.Feeding;
 import com.haixiajiemei.app.Module.Order.Model.IdAndTxt;
 import com.haixiajiemei.app.Module.Order.Model.ShoppingCart;
@@ -56,6 +57,7 @@ import com.haixiajiemei.app.SQLite.ShoppingCartDB;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.haixiajiemei.app.SQLite.ECShoppingDB.GetECShopping;
 import static com.haixiajiemei.app.SQLite.ShoppingCartDB.GetShoppingCart;
 import static com.haixiajiemei.app.Util.FunTools.CreateAlertDialogTool;
 
@@ -114,6 +116,7 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
     @Override
     public void StoreListSuccess(List<StoreList> storeListList) {
         mHandler.postDelayed(() -> {
+            ECShopping EC = GetECShopping(requireContext());
             ShoppingCartList sd = GetShoppingCart(requireContext());
             storeNameItemContainer.removeAllViews();
             for (int i = 0; i < storeListList.size(); i++) {
@@ -135,20 +138,23 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
                 imageView.setOnClickListener(view -> {
                     shoppingCartList.setDbid(view.getId());
 
-                    if (sd != null && sd.getDbid() != view.getId()) {
-                        CreateAlertDialogTool(requireContext(), R.string.note, R.string.clear_shopping_cart);
-                    } else {
-                        for (StoreList storeList : storeListList) {
-                            if (storeList.getDbid() == getCenterItem(view)) {
-                                store_infor.setText(storeList.getStoreInfo().getcName());
-                                distance.setText(storeList.getStoreInfo().getAddress());
-                                shoppingCartList.setStoreAccount(storeList.getDbName());
-                                storeFilterPresenter = new StoreFilterPresenter(this,
-                                        requireContext(), getCenterItem(view), storeList.getDbName());
-                                storeFilterPresenter.doStoreFilter();
+                    if (EC == null) {
+                        if (sd != null && sd.getDbid() != view.getId()) {
+                            CreateAlertDialogTool(requireContext(), R.string.note, R.string.clear_shopping_cart);
+                        } else {
+                            for (StoreList storeList : storeListList) {
+                                if (storeList.getDbid() == getCenterItem(view)) {
+                                    store_infor.setText(storeList.getStoreInfo().getcName());
+                                    distance.setText(storeList.getStoreInfo().getAddress());
+                                    shoppingCartList.setStoreAccount(storeList.getDbName());
+                                    storeFilterPresenter = new StoreFilterPresenter(this,
+                                            requireContext(), getCenterItem(view), storeList.getDbName());
+                                    storeFilterPresenter.doStoreFilter();
+                                }
                             }
                         }
                     }
+
 
                 });
 
@@ -399,7 +405,7 @@ public class OrderFragment extends Fragment implements StoreListContract.ViewAct
                 shoppingCartList.cart.add(SC);
                 ShoppingCartDB.InsertData(getContext(), gson.toJson(shoppingCartList));
             } else {
-                shoppingCartList=sd;
+                shoppingCartList = sd;
                 ShoppingCart SC = new ShoppingCart();
                 SC.mealID = String.valueOf(storeFeed.getMealsID());
                 SC.mealName = storeFeed.getName();

@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.haixiajiemei.app.Helper.GlideApp;
+import com.haixiajiemei.app.Module.Order.Contract.OrderCallback;
 import com.haixiajiemei.app.Module.Order.Contract.ShoppingCartItemCallback;
 import com.haixiajiemei.app.Module.Order.Model.ShoppingCart;
 import com.haixiajiemei.app.R;
@@ -29,6 +30,7 @@ public class ShoppingCartItemAdapter extends RecyclerView.Adapter<ShoppingCartIt
     public List<ShoppingCart> cart;
     private Context context;
     private ShoppingCartItemCallback callback;
+    private OrderCallback orderCallback;
     private int Num;
     private List<String> name;
     private String Type;
@@ -106,6 +108,8 @@ public class ShoppingCartItemAdapter extends RecyclerView.Adapter<ShoppingCartIt
                 cart.removeAll(toRemove);
                 notifyDataSetChanged();
                 callback.onRecyclerViewUpData(cart);
+                orderCallback = (OrderCallback) context;
+                orderCallback.onOrderCallback();
             });
             builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());
             AlertDialog dialog = builder.create();
